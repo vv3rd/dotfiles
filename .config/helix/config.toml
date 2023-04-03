@@ -1,0 +1,25 @@
+theme = "fleet_dark"
+
+[editor]
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+
+[keys.normal]
+"}"   = "goto_next_paragraph"
+"{"   = "goto_prev_paragraph"
+"d"   = "delete_selection_noyank"
+"A-d" = "no_op"
+"c"   = "change_selection_noyank"
+"A-c" = "no_op"
+
+[keys.select]
+"}"   = "goto_next_paragraph"
+"{"   = "goto_prev_paragraph"
+
+[editor.whitespace.render]
+newline = "all"
+
+[editor.whitespace.characters]
+newline = "⌄"
