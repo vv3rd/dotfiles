@@ -1,7 +1,15 @@
 theme = "fleet_dark"
 
 [editor]
-line-number = "relative"
+line-number  = "relative"
+true-color   = true
+auto-pairs   = true
+auto-save    = true
+idle-timeout = 50
+
+[editor.indent-guides]
+render    = true
+character = "╎"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -13,6 +21,7 @@ insert = "bar"
 "A-d" = "no_op"
 "c"   = "change_selection_noyank"
 "A-c" = "no_op"
+"ret" = ["open_below", "normal_mode"]
 
 [keys.select]
 "}"   = "goto_next_paragraph"
