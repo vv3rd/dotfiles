@@ -14,6 +14,11 @@ character = "╎"
 [editor.cursor-shape]
 insert = "bar"
 
+[editor.file-picker] 
+hidden     = false
+git-ignore = false
+ignore     = true
+
 [keys.normal]
 "}"   = "goto_next_paragraph"
 "{"   = "goto_prev_paragraph"

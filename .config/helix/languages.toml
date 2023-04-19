@@ -11,6 +11,7 @@ command = "clippy"
 
 [[language]]
 name = "typescript"
+indent = { tab-width = 4, unit = " " }
 
 [language.language-server]
 command = "npx"
@@ -18,7 +19,9 @@ args = ["typescript-language-server", "--stdio"]
 
 [[language]]
 name = "tsx"
+indent = { tab-width = 4, unit = " " }
 
 [language.language-server]
 command = "npx"
 args = ["typescript-language-server", "--stdio"]
+
