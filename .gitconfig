@@ -1,0 +1,44 @@
+
+[alias]
+    go = switch
+    hidden = ! git ls-files -v | grep '^h' | cut -c3-
+    skipped = ! git ls-files -v | grep '^S' | cut -c3-
+
+[init]
+    defaultBranch = main
+
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+
+[core]
+	editor = helix
+    excludesFile = ~/.gitignore
+    pager  = delta
+
+[includeIf "gitdir:~/Work/"]
+    path = ~/Work/.gitconfig
+
+# delta is a git diff pager https://dandavison.github.io/delta/
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    features = decorations
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ol
+    commit-style = raw
+    file-style = omit
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax
+[user]
+	email = lyudskoy@gmail.com
+	name = ljoxloyd
