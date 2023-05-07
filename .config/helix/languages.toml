@@ -8,20 +8,15 @@ args = ["run", "stable", "rust-analyzer"]
 [language.config.check]
 command = "clippy"
 
+[[language]]
+name = "javascript"
+indent = { tab-width = 4, unit = " " }
 
 [[language]]
 name = "typescript"
 indent = { tab-width = 4, unit = " " }
 
-[language.language-server]
-command = "npx"
-args = ["typescript-language-server", "--stdio"]
-
 [[language]]
 name = "tsx"
 indent = { tab-width = 4, unit = " " }
-
-[language.language-server]
-command = "npx"
-args = ["typescript-language-server", "--stdio"]
 
