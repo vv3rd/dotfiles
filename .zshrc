@@ -40,7 +40,16 @@ alias hx=helix
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
 alias dotfile="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+
+# git aliases
 alias gitlazy='git add . && git commit -m "$(date +"%d.%m %k:%M")" && git push'
+alias gch='git switch'
+alias gsl='git stash list'
+alias gsp='git stash pop'
+alias gsa='git stash --include-untracked'
+alias glg='git graph'
+alias gac='git add . && git commit'
+
 
 eval $(thefuck --alias)
 
