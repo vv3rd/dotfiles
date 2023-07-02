@@ -1,0 +1,10 @@
+set icons true
+set hidden true
+set ignorecase true
+
+cmd open ${{
+	case $(file --mime-type "$f" -bL) in
+		text/*|application/json) $EDITOR "$f";;
+		*) xdg-open "$f";;
+	esac
+}}
