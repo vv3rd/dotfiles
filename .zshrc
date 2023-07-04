@@ -1,4 +1,5 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -36,21 +37,53 @@ case ":$PATH:" in
 esac
 # pnpm
 
-alias hx=helix
-alias setclip="xclip -selection c"
-alias getclip="xclip -selection c -o"
-alias dotfile="/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME"
+# Golang
+export PATH="$PATH:$HOME/go/bin"
+# 
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export EDITOR="helix"
+
+eval $(thefuck --alias)
+
+
+alias fj=$EDITOR
+alias clipset="xclip -selection c"
+alias clipget="xclip -selection c -o"
+alias dotfile="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 # git aliases
 alias gitlazy='git add . && git commit -m "$(date +"%d.%m %k:%M")" && git push'
-alias gch='git switch'
+alias gsw='git switch'
 alias gsl='git stash list'
 alias gsp='git stash pop'
 alias gsa='git stash --include-untracked'
 alias glg='git graph'
 alias gac='git add . && git commit'
+alias gin='git status'
+alias gswg="git branch --format='%(refname:short)' | gum filter | xargs git switch"
+
+# Miscellaneous apps
+alias lzd='lazydocker'
+alias here='dolphin --new-window . &!'
+alias tsfm='prettier --parser=typescript'
 
 
-eval $(thefuck --alias)
+# Opens lf file manager and cd-s to chosen directory on close
+lfcd () {
+    tmp="$(mktemp)"
+    # `command` is needed in case `lfcd` is aliased to `lf`
+    command lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
 
-
+# opam configuration
+[[ ! -r /home/odmin/.opam/opam-init/init.zsh ]] || source /home/odmin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
