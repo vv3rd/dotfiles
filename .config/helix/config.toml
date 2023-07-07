@@ -5,32 +5,38 @@ true-color   = true
 auto-pairs   = true
 auto-save    = true
 idle-timeout = 50
+bufferline   = "always"
 
 [editor.indent-guides]
-render    = true
-character = "╎"
-skip-levels = 1
+render       = true
+character    = "╎"
+skip-levels  = 1
 
 [editor.cursor-shape]
-insert = "bar"
+insert       = "bar"
 
 [editor.file-picker] 
-hidden     = false
-git-ignore = true
-ignore     = true
+hidden       = false
+git-ignore   = true
+ignore       = true
+
 
 [keys.normal]
-"}"   = "goto_next_paragraph"
-"{"   = "goto_prev_paragraph"
-"d"   = "delete_selection_noyank"
-"A-d" = "delete_selection"
-"c"   = "change_selection_noyank"
-"A-c" = "change_selection"
-"ret" = ["open_below", "normal_mode"]
+"}"     = "goto_next_paragraph"
+"{"     = "goto_prev_paragraph"
+"d"     = "delete_selection_noyank"
+"A-d"   = "delete_selection"
+"c"     = "change_selection_noyank"
+"A-c"   = "change_selection"
+"ret"   = ["open_below", "normal_mode"]
+
+[keys.normal."space"]
+"f"     = "file_picker_in_current_directory"
+"F"     = "file_picker"
 
 [keys.select]
-"}"   = "goto_next_paragraph"
-"{"   = "goto_prev_paragraph"
+"}"     = "goto_next_paragraph"
+"{"     = "goto_prev_paragraph"
 
 [editor.whitespace.render]
 newline = "all"

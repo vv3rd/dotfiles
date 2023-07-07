@@ -61,7 +61,8 @@ alias gsa='git stash --include-untracked'
 alias glg='git graph'
 alias gac='git add . && git commit'
 alias gin='git status'
-alias gswg="git branch --format='%(refname:short)' | gum filter | xargs git switch"
+alias gswg="git branch -a --format='%(refname:short)' | fzf | xargs git switch"
+alias lzg="lazygit"
 
 # Miscellaneous apps
 alias lzd='lazydocker'
@@ -87,3 +88,4 @@ lfcd () {
 
 # opam configuration
 [[ ! -r /home/odmin/.opam/opam-init/init.zsh ]] || source /home/odmin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
