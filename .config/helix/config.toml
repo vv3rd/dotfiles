@@ -22,6 +22,7 @@ ignore       = true
 
 
 [keys.normal]
+"esc"   = ["collapse_selection", "keep_primary_selection"]
 "}"     = "goto_next_paragraph"
 "{"     = "goto_prev_paragraph"
 "d"     = "delete_selection_noyank"

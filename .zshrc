@@ -29,7 +29,7 @@ export NVM_DIR="$HOME/.nvm"
 # nvm
 
 
-# pnpm setup
+# pnpm
 export PNPM_HOME="/home/odmin/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
@@ -37,9 +37,18 @@ case ":$PATH:" in
 esac
 # pnpm
 
-# Golang
+# golang
 export PATH="$PATH:$HOME/go/bin"
-# 
+# golang
+
+# opam
+[[ ! -r /home/odmin/.opam/opam-init/init.zsh ]] || source /home/odmin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# opam
+
+# deno
+export DENO_INSTALL="/home/odmin/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+# deno
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export EDITOR="helix"
@@ -85,7 +94,4 @@ lfcd () {
         fi
     fi
 }
-
-# opam configuration
-[[ ! -r /home/odmin/.opam/opam-init/init.zsh ]] || source /home/odmin/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
