@@ -71,12 +71,11 @@ alias glg='git graph'
 alias gac='git add . && git commit'
 alias gin='git status'
 alias gswg="git branch -a --format='%(refname:short)' | fzf | xargs git switch"
-alias lzg="lazygit"
 
 # Miscellaneous apps
 alias lzd='lazydocker'
+alias lzg="lazygit"
 alias here='dolphin --new-window . &!'
-alias tsfm='prettier --parser=typescript'
 
 
 # Opens lf file manager and cd-s to chosen directory on close
