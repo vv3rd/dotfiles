@@ -96,6 +96,7 @@ configuration = { config, pkgs, lib, ... }: {
     	userEmail = "lyudskoy@gmail.com";
     	userName = "alek";
       aliases = {
+        search  = "log --patch --grep"
         hidden  = "! git ls-files -v | grep '^h' | cut -c3-";
         skipped = "! git ls-files -v | grep '^S' | cut -c3-";
         gr      = "log --graph --abbrev-commit --all --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
