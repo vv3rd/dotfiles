@@ -11,9 +11,12 @@ configuration = { config, pkgs, lib, ... }: {
       module_user
       module_audio
       module_desktop-Plasma
+      # module_desktop-Hyprland
       module_browser-Firefox
       module_locale-Almaty
     ];
+
+  programs.openvpn3.enable = true;
 
   home-manager.users.odmin = { pkgs, ... }: {
     programs.home-manager.enable = true;
@@ -51,6 +54,7 @@ configuration = { config, pkgs, lib, ... }: {
       pkgs.mpc-qt
       pkgs.neofetch
       pkgs.nil
+      pkgs.nixpkgs-fmt
       pkgs.ripgrep
       pkgs.signal-desktop
       pkgs.telegram-desktop
@@ -80,6 +84,9 @@ configuration = { config, pkgs, lib, ... }: {
         font.size = 8;
         font.normal.family = "NotoMono Nerd Font";
       };
+      settings.key_bindings = [
+        { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
+      ];
     };
 
     programs.direnv = {
@@ -154,7 +161,7 @@ configuration = { config, pkgs, lib, ... }: {
       ];
       history = {
         path = "$ZDOTDIR/.zsh_history";
-        ignorePatterns = [ "rm *" ];
+        ignorePatterns = [ "rm *" "EOF" ];
       };
     };
 
@@ -183,7 +190,7 @@ configuration = { config, pkgs, lib, ... }: {
           true-color   = true;
           auto-pairs   = true;
           auto-save    = true;
-          idle-timeout = 50;
+          idle-timeout = 150;
           bufferline   = "always";
         };
         editor.indent-guides = {
@@ -219,15 +226,15 @@ configuration = { config, pkgs, lib, ... }: {
           args = [ "--stdio" ];
         };    
 
-        mkJSDialect = name: {
+        mkJSDialect = { name, moreLSPs ? [] }: {
           formatter = { command = "${pkgs.nodePackages.prettier}/bin/prettier"; args = ["--parser" "typescript"]; };
-          language-servers = ["ts"];
+          language-servers = ["ts"] ++ moreLSPs;
           name = name;
         };
 
-        mkWebLanguage= { lsp, name ? lsp }: {
+        mkWebLanguage= { lsp, name ? lsp, moreLSPs ? [] }: {
             name = name;
-            language-servers = [ lsp ];
+            language-servers = [ lsp ] ++ moreLSPs;
             formatter = { command = "${pkgs.nodePackages.prettier}/bin/prettier"; args = ["--parser" lsp]; };
         };
 
@@ -241,16 +248,18 @@ configuration = { config, pkgs, lib, ... }: {
           html = mkVSCodeLSP "html";
           json = mkVSCodeLSP "json";
           css = mkVSCodeLSP "css";
+          emmet = { command = "${pkgs.emmet-ls}/bin/emmet-ls"; args = ["--stdio"]; };
         };
 
         language = [
-          (mkJSDialect "javascript")
-          (mkJSDialect "typescript")
-          (mkJSDialect "tsx")
-          (mkWebLanguage { lsp = "html"; })
+          (mkJSDialect { name = "javascript"; })
+          (mkJSDialect { name = "typescript"; })
+          (mkJSDialect { name = "tsx"; })
+          (mkWebLanguage { lsp = "html"; moreLSPs = ["emmet"]; })
           (mkWebLanguage { lsp = "json"; })
           (mkWebLanguage { lsp = "css"; })
           (mkWebLanguage { lsp = "css"; name = "scss"; })
+          { name = "nix"; formatter = { command = "nixpkgs-fmt"; }; }
         ];
       };
     };
@@ -329,6 +338,33 @@ module_desktop-Plasma = { pkgs, ... }: {
     # Disable drag release delay
     libinput.touchpad.tappingDragLock = false;
   };
+};
+
+module_desktop-Hyprland = { pkgs, ... }: {
+  programs.hyprland = {
+    enable = true;
+    # nvidiaPatches = true;
+    # xwayland.enable = true;
+  };
+
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+  environment.systemPackages = [
+    pkgs.waybar
+  ];
+
+  environment.sessionVariables = {
+    # uncomment if cursor becomes invisible
+    # WLR_NO_HARDWARE_CURSORS = "1";
+    # hint electron apps to use wayland
+    NIXOS_OZONE_WL = "1";
+  };
+
+  # hardware = {
+  #   opengl.enable = true;
+  #   nvidia.modesetting.enable = true;
+  # };
 };
 
 module_browser-Firefox = { ... }: {
