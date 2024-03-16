@@ -19,6 +19,10 @@ let
 
     programs.openvpn3.enable = true;
 
+    environment.systemPackages = [
+      pkgs.fusuma
+    ];
+
     home-manager.users.odmin = { pkgs, ... }: {
       programs.home-manager.enable = true;
 
@@ -333,10 +337,6 @@ let
       (pkgs.nerdfonts.override { fonts = [ "Noto" ]; })
     ];
 
-    # TODO: check is enabling this helps with FUSIMA touchpad gestures
-    # Enable touchpad support (enabled default in most desktopManager).
-    # services.xserver.libinput.enable = true;
-
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;
@@ -348,6 +348,10 @@ let
       # Configure keymap in X11
       layout = "us";
       xkbVariant = "";
+
+      # TODO: check is enabling this helps with FUSUMA touchpad gestures
+      # Enable touchpad support (enabled default in most desktopManager).
+      # libinput.enable = true;
 
       # Disable drag release delay
       libinput.touchpad.tappingDragLock = false;
