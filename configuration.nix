@@ -14,39 +14,13 @@ let
         # module_desktop-Hyprland
         module_browser-Firefox
         module_locale-Almaty
+        module_containerization
       ];
-
-    # services.tlp = {
-    #   enable = true;
-    #   settings = {
-    #     CPU_SCALING_GOVERNOR_ON_AC = "performance";
-    #     CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-    #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-    #     CPU_MIN_PERF_ON_AC = 0;
-    #     CPU_MAX_PERF_ON_AC = 100;
-    #     CPU_MIN_PERF_ON_BAT = 0;
-    #     CPU_MAX_PERF_ON_BAT = 20;
-
-    #     #Optional helps save long term battery health
-    #     START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-    #     STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-    #   };
-    # };
 
     programs.openvpn3.enable = true;
 
     home-manager.users.odmin = { pkgs, ... }: {
       programs.home-manager.enable = true;
-
-      # this fixes build, can ocassionally try to remove it to check if it's fixed upstream
-      manual = {
-        html.enable = false;
-        json.enable = false;
-        manpages.enable = false;
-      };
 
       home.sessionVariables = {
         EDITOR = "hx";
@@ -82,6 +56,8 @@ let
         pkgs.vscode
         pkgs.xclip
         pkgs.yt-dlp
+        pkgs.rm-improved
+        pkgs.fd
 
         # required to create video screen capture
         pkgs.ffmpeg_6-full
@@ -95,6 +71,18 @@ let
 
       programs.bat = {
         enable = true;
+      };
+
+      programs.atuin = {
+        enable = true;
+        enableZshIntegration = true;
+        settings = {
+          update_check = false;
+          style = "compact";
+        };
+        flags = [
+          "--disable-up-arrow"
+        ];
       };
 
       programs.alacritty = {
@@ -433,6 +421,14 @@ let
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+    };
+  };
+
+  module_containerization = inputs: {
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
 in
