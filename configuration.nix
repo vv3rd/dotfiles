@@ -19,6 +19,12 @@ let
 
     programs.openvpn3.enable = true;
 
+    documentation.dev.enable = true;
+    documentation.man = {
+      man-db.enable = true;
+      mandoc.enable = true;
+    };
+
     environment.systemPackages = [
       pkgs.fusuma
     ];
@@ -68,13 +74,22 @@ let
         pkgs.slop
       ];
 
-
       programs.nix-index = {
         enable = true;
       };
 
       programs.bat = {
         enable = true;
+      };
+
+      programs.mpv = {
+        enable = true;
+        consfig = {
+          save-position-on-quit = true;
+          autofit-larger="100%x100%";
+          sub-scale=0.4;
+          sub-scale-by-window="no";
+        };
       };
 
       programs.atuin = {
@@ -147,8 +162,11 @@ let
           "glg" = "git graph";
           "gac" = "git add . && git commit";
           "gin" = "git status";
+          "gdi" = "git diff";
+          "gbr" = "git br";
+          "gbl" = "git bl";
           "gswr" = "git br | fzf | xargs git switch";
-          "gswl" = "git bl | fzf | xalgs git switch";
+          "gswl" = "git bl | fzf | xargs git switch";
           "fj" = "$EDITOR";
           "l" = "exa -a1 --group-directories-first --icons";
           "ls" = "exa --group-directories-first --icons";
@@ -193,93 +211,9 @@ let
       programs.zellij = {
         enable = true;
         settings = {
-          pane_frames = true;
+          pane_frames = false;
           default_layout = "compact";
         };
-      };
-
-      programs.helix = {
-        enable = true;
-        settings = {
-          theme = "fleet_dark";
-          editor = {
-            true-color = true;
-            auto-pairs = true;
-            auto-save = true;
-            idle-timeout = 150;
-            bufferline = "always";
-          };
-          editor.indent-guides = {
-            render = true;
-            character = "╎";
-            skip-levels = 1;
-          };
-          editor.cursor-shape = {
-            insert = "bar";
-          };
-          editor.file-picker = {
-            hidden = false;
-            git-ignore = true;
-            ignore = true;
-          };
-          editor.whitespace.render.newline = "all";
-          editor.whitespace.characters.newline = "⌄";
-
-          keys.normal = {
-            "esc" = [ "collapse_selection" "keep_primary_selection" ];
-            "ret" = [ "open_below" "normal_mode" ];
-            "}" = "goto_next_paragraph";
-            "{" = "goto_prev_paragraph";
-          };
-          keys.select = {
-            "}" = "goto_next_paragraph";
-            "{" = "goto_prev_paragraph";
-          };
-        };
-        languages =
-          let
-            mkVSCodeLSP = name: {
-              command = "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-${name}-language-server";
-              args = [ "--stdio" ];
-            };
-
-            mkJSDialect = { name, moreLSPs ? [ ] }: {
-              formatter = { command = "${pkgs.nodePackages.prettier}/bin/prettier"; args = [ "--parser" "typescript" ]; };
-              language-servers = [ "ts" ] ++ moreLSPs;
-              name = name;
-            };
-
-            mkWebLanguage = { lsp, name ? lsp, moreLSPs ? [ ] }: {
-              name = name;
-              language-servers = [ lsp ] ++ moreLSPs;
-              formatter = { command = "${pkgs.nodePackages.prettier}/bin/prettier"; args = [ "--parser" lsp ]; };
-            };
-
-            typescriptLSP = pkgName: {
-              command = "${pkgs.nodePackages.${pkgName}}/bin/${pkgName}";
-              args = [ "--stdio" ];
-            };
-          in
-          {
-            language-server = {
-              ts = typescriptLSP "typescript-language-server";
-              html = mkVSCodeLSP "html";
-              json = mkVSCodeLSP "json";
-              css = mkVSCodeLSP "css";
-              emmet = { command = "${pkgs.emmet-ls}/bin/emmet-ls"; args = [ "--stdio" ]; };
-            };
-
-            language = [
-              (mkJSDialect { name = "javascript"; })
-              (mkJSDialect { name = "typescript"; })
-              (mkJSDialect { name = "tsx"; })
-              (mkWebLanguage { lsp = "html"; moreLSPs = [ "emmet" ]; })
-              (mkWebLanguage { lsp = "json"; })
-              (mkWebLanguage { lsp = "css"; })
-              (mkWebLanguage { lsp = "css"; name = "scss"; })
-              { name = "nix"; formatter = { command = "nixpkgs-fmt"; }; }
-            ];
-          };
       };
 
       home.stateVersion = "23.05";
@@ -334,7 +268,7 @@ let
 
   module_desktop-Plasma = { pkgs, ... }: {
     fonts.packages = [
-      (pkgs.nerdfonts.override { fonts = [ "Noto" ]; })
+      (pkgs.nerdfonts.override { fonts = [ "Noto" "ComicShanns" ]; })
     ];
 
     services.xserver = {
@@ -349,40 +283,9 @@ let
       layout = "us";
       xkbVariant = "";
 
-      # TODO: check is enabling this helps with FUSUMA touchpad gestures
-      # Enable touchpad support (enabled default in most desktopManager).
-      # libinput.enable = true;
-
       # Disable drag release delay
       libinput.touchpad.tappingDragLock = false;
     };
-  };
-
-  module_desktop-Hyprland = { pkgs, ... }: {
-    programs.hyprland = {
-      enable = true;
-      # nvidiaPatches = true;
-      # xwayland.enable = true;
-    };
-
-    xdg.portal.enable = true;
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-    environment.systemPackages = [
-      pkgs.waybar
-    ];
-
-    environment.sessionVariables = {
-      # uncomment if cursor becomes invisible
-      # WLR_NO_HARDWARE_CURSORS = "1";
-      # hint electron apps to use wayland
-      NIXOS_OZONE_WL = "1";
-    };
-
-    # hardware = {
-    #   opengl.enable = true;
-    #   nvidia.modesetting.enable = true;
-    # };
   };
 
   module_browser-Firefox = { ... }: {
@@ -435,5 +338,26 @@ let
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  # doesn't work; cannot access dev/* because of permissions TODO: find a way to give it permission
+  # home_module_fusuma = inputs: {
+  #   services.fusuma = {
+  #     enable = true;
+  #     settings = {
+  #       threshold = { swipe = 0.1; };
+  #       interval = { swipe = 0.7; };
+  #       swipe = {
+  #         "4" = {
+  #           up = {
+  #             command = "qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'increase_volume'";
+  #           };
+  #           down = {
+  #             command = "qdbus org.kde.kglobalaccel /component/kmix invokeShortcut 'decrease_volume'";
+  #           };
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 in
 configuration
