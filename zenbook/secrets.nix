@@ -1,6 +1,0 @@
-{
-  email = "";
-  name = "";
-  workDir = "";
-  timeZone = "";
-}
