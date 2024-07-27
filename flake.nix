@@ -17,7 +17,7 @@
           specialArgs = { inherit system; };
 
           modules = [
-            ./zenbook/configuration.nix
+            ./modules/zenbook/configuration.nix
             home-manager.nixosModules.default
           ];
         };

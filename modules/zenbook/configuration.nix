@@ -22,10 +22,11 @@ let
 
     documentation.dev.enable = true;
 
-    environment.systemPackages = [
-      pkgs.nh
-      pkgs.dig.dnsutils
-      pkgs.wget
+    environment.systemPackages = with pkgs; [
+      dig.dnsutils
+      nh
+      stow
+      wget
     ];
 
     home-manager.users.${user} = { pkgs, ... }: {
@@ -46,31 +47,31 @@ let
         ];
       };
 
-      home.packages = [
-        pkgs.brave
-        pkgs.btop
-        pkgs.discord
-        pkgs.eza
-        pkgs.fzf
-        pkgs.jq
-        pkgs.just
-        pkgs.mpc-qt
-        pkgs.neofetch
-        pkgs.nil
-        pkgs.nixpkgs-fmt
-        pkgs.ripgrep
-        pkgs.signal-desktop
-        pkgs.telegram-desktop
-        pkgs.transmission-qt
-        pkgs.vscode
-        pkgs.xclip
-        pkgs.yt-dlp
-        pkgs.rm-improved
-        pkgs.fd
+      home.packages = with pkgs; [
+        brave
+        btop
+        discord
+        eza
+        fzf
+        jq
+        just
+        mpc-qt
+        neofetch
+        nil
+        nixfmt
+        ripgrep
+        signal-desktop
+        telegram-desktop
+        transmission-qt
+        vscode
+        xclip
+        yt-dlp
+        rm-improved
+        fd
 
         # required to create video screen capture
-        pkgs.ffmpeg_6-full
-        pkgs.slop
+        ffmpeg_6-full
+        slop
       ];
 
       programs.nix-index = {
@@ -173,7 +174,7 @@ let
           "fj" = "$EDITOR";
           "l" = "exa -a1 --group-directories-first --icons";
           "ls" = "exa --group-directories-first --icons";
-          "lg" = "l --git-ignore -T -L=2";
+          "lt" = "l --git-ignore -T -L=2";
           "o" = "bat --plain";
           "j" = "just";
           "clipSet" = "xclip -i -selection c";
@@ -207,8 +208,9 @@ let
         enableZshIntegration = true;
       };
 
-      programs.lf = {
+      programs.yazi = {
         enable = true;
+        enableZshIntegration = true;
       };
 
       programs.zellij = {
