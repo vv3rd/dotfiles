@@ -5,26 +5,26 @@ let
   secret = import ./secrets.nix;
 
   configuration = { config, pkgs, lib, ... }: {
-    imports =
-      [
-        ./hardware-configuration.nix
+    imports = [
+      ./hardware-configuration.nix
 
-        module_essentials
-        module_user
-        module_audio
-        module_desktop-Plasma
-        module_browser-Firefox
-        module_locale
-        module_containerization
-      ];
+      module_essentials
+      module_user
+      module_audio
+      module_desktop-Plasma
+      module_browser-Firefox
+      module_locale
+      module_containerization
+    ];
 
     programs.openvpn3.enable = true;
 
     documentation.dev.enable = true;
 
     environment.systemPackages = with pkgs; [
-      dig.dnsutils
+      #
       nh
+      dig.dnsutils
       stow
       wget
     ];
@@ -34,17 +34,16 @@ let
 
       home.sessionVariables = {
         EDITOR = "hx";
-        MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
+        # without this man with bat pager outputs escape codes
+        MANROFFOPT = "-c";
         MANPAGER = "sh -c 'col -bx | bat -l man -p'";
         WORDCHARS = "*?_.[]~=&;!#$%^(){}<>";
         DIRENV_LOG_FORMAT = ""; # silences direnv logs
       };
 
       nixpkgs = {
-        config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-          "discord"
-          "vscode"
-        ];
+        config.allowUnfreePredicate = pkg:
+          builtins.elem (lib.getName pkg) [ "discord" "vscode" ];
       };
 
       home.packages = with pkgs; [
@@ -74,13 +73,9 @@ let
         slop
       ];
 
-      programs.nix-index = {
-        enable = true;
-      };
+      programs.nix-index = { enable = true; };
 
-      programs.bat = {
-        enable = true;
-      };
+      programs.bat = { enable = true; };
 
       programs.mpv = {
         enable = true;
@@ -100,9 +95,7 @@ let
           update_check = false;
           style = "compact";
         };
-        flags = [
-          "--disable-up-arrow"
-        ];
+        flags = [ "--disable-up-arrow" ];
       };
 
       programs.alacritty = {
@@ -112,18 +105,18 @@ let
           font.size = 8;
           font.normal.family = "NotoMono Nerd Font";
         };
-        settings.keyboard.bindings = [
-          { key = "N"; mods = "Control|Shift"; action = "SpawnNewInstance"; }
-        ];
+        settings.keyboard.bindings = [{
+          key = "N";
+          mods = "Control|Shift";
+          action = "SpawnNewInstance";
+        }];
       };
 
       programs.direnv = {
         enable = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
-        config = {
-          load_dotenv = true;
-        };
+        config = { load_dotenv = true; };
       };
 
       programs.git = {
@@ -134,24 +127,18 @@ let
           search = "log --patch --grep";
           hidden = "! git ls-files -v | grep '^h' | cut -c3-";
           skipped = "! git ls-files -v | grep '^S' | cut -c3-";
-          gr = "log --graph --abbrev-commit --all --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
-          grd = "log --graph --abbrev-commit --all --decorate --date=format:'%D %R' --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)%ad%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+          gr = "log --graph --abbrev-commit --all --decorate"
+            + "--format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
           graph = "gr";
           bl = "branch --format='%(refname:short)'";
           br = "branch -r --format='%(refname:lstrip=3)'";
         };
-        extraConfig = {
-          init.defaultBranch = "main";
-        };
-        includes = [
-          {
-            condition = "gitdir:${secret.workDir}";
-            path = "${secret.workDir}/.gitconfig";
-          }
-        ];
-        delta = {
-          enable = true;
-        };
+        extraConfig = { init.defaultBranch = "main"; };
+        includes = [{
+          condition = "gitdir:${secret.workDir}";
+          path = "${secret.workDir}/.gitconfig";
+        }];
+        delta = { enable = true; };
       };
 
       programs.zsh = {
@@ -177,26 +164,24 @@ let
           "lt" = "l --git-ignore -T -L=2";
           "o" = "bat --plain";
           "j" = "just";
-          "clipSet" = "xclip -i -selection c";
-          "clipGet" = "xclip -o -selection c";
+          "clip" = "xclip -i -selection c";
+          "clip-out" = "xclip -o -selection c";
         };
         initExtra = ''
           bindkey "^[[1;5C" forward-word
           bindkey "^[[1;5D" backward-word
           [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
         '';
-        plugins = [
-          {
-            name = "powerlevel10k";
-            file = "powerlevel10k.zsh-theme";
-            src = pkgs.fetchFromGitHub {
-              owner = "romkatv";
-              repo = "powerlevel10k";
-              rev = "master";
-              sha256 = "sha256-GHHoV9RfokusOKUjQ7yaxwENdM82l1qHiebs1AboMfY=";
-            };
-          }
-        ];
+        plugins = [{
+          name = "powerlevel10k";
+          file = "powerlevel10k.zsh-theme";
+          src = pkgs.fetchFromGitHub {
+            owner = "romkatv";
+            repo = "powerlevel10k";
+            rev = "master";
+            sha256 = "sha256-GHHoV9RfokusOKUjQ7yaxwENdM82l1qHiebs1AboMfY=";
+          };
+        }];
         history = {
           path = "$ZDOTDIR/.zsh_history";
           ignorePatterns = [ "rm *" "EOF" ];
@@ -267,15 +252,15 @@ let
 
     # settings ZSH as default
     users.users.odmin.shell = pkgs.zsh;
-    environment.shells = [ pkgs.zsh ]; # Many programs look at /etc/shells to determine if a user is a "normal" user and not a "system" user.
+    environment.shells = [ pkgs.zsh ];
+    # Many programs look at /etc/shells to determine if a user is a "normal" user and not a "system" user.
     programs.zsh.enable = true;
   };
 
   module_desktop-Plasma = { pkgs, ... }: {
-    fonts.packages = [
-      (pkgs.nerdfonts.override { fonts = [ "Noto" ]; })
-    ];
+    fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "Noto" ]; }) ];
 
+    # Disable drag release delay
     services.libinput.touchpad.tappingDragLock = false;
 
     services.displayManager.sddm.enable = true;
@@ -290,16 +275,12 @@ let
       # Configure keymap in X11
       xkb.layout = "us";
       xkb.variant = "";
-
-      # Disable drag release delay
     };
   };
 
   module_browser-Firefox = { ... }: {
     programs.firefox.enable = true;
-    environment.sessionVariables = {
-      MOZ_USE_XINPUT2 = "1";
-    };
+    environment.sessionVariables = { MOZ_USE_XINPUT2 = "1"; };
   };
 
   module_locale = { ... }: {
@@ -345,5 +326,4 @@ let
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-in
-configuration
+in configuration

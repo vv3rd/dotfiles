@@ -43,7 +43,7 @@ formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
 [[language]]
 name = "nix"
 auto-format = true
-formatter = { command = "nixpkgs-fmt" }
+formatter = { command = "nixfmt" }
 
 [language-server]
 [language-server.tailwind]
