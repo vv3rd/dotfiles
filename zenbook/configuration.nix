@@ -12,6 +12,7 @@ let
       module_user
       module_audio
       module_desktop-Plasma
+      module_keyboard
       module_browser-Firefox
       module_locale
       module_containerization
@@ -127,7 +128,7 @@ let
           search = "log --patch --grep";
           hidden = "! git ls-files -v | grep '^h' | cut -c3-";
           skipped = "! git ls-files -v | grep '^S' | cut -c3-";
-          gr = "log --graph --abbrev-commit --all --decorate"
+          gr = "log --graph --abbrev-commit --all --decorate "
             + "--format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
           graph = "gr";
           bl = "branch --format='%(refname:short)'";
@@ -146,6 +147,7 @@ let
         autosuggestion.enable = true;
         dotDir = ".config/zsh";
         shellAliases = {
+          "gdf" = "git diff";
           "gsw" = "git switch";
           "gsl" = "git stash list";
           "gsp" = "git stash pop";
@@ -168,6 +170,10 @@ let
           "clip-out" = "xclip -o -selection c";
         };
         initExtra = ''
+          autoload -U edit-command-line
+          zle -N edit-command-line
+          bindkey "^E" edit-command-line
+
           bindkey "^[[1;5C" forward-word
           bindkey "^[[1;5D" backward-word
           [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
@@ -185,6 +191,7 @@ let
         history = {
           path = "$ZDOTDIR/.zsh_history";
           ignorePatterns = [ "rm *" "EOF" ];
+          ignoreAllDups = true;
         };
       };
 
@@ -216,6 +223,20 @@ let
     # Before changing this value read the documentation for this option
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.05"; # Did you read the comment?
+  };
+
+  module_keyboard = { ... }: {
+    services.kanata.enable = true;
+    services.kanata.keyboards.default.config = ''
+      (defsrc
+        caps
+      )
+      (defalias
+        escctrl (tap-hold 150 150 esc lctl)
+      )
+      (deflayer base
+        @escctrl
+      )'';
   };
 
   module_essentials = { ... }: {

@@ -6,6 +6,12 @@ formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
 
 [[language]]
 language-servers = ["ts"]
+name = "jsx"
+auto-format = true
+formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
+
+[[language]]
+language-servers = ["ts"]
 name = "typescript"
 auto-format = true
 formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
