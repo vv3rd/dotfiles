@@ -4,7 +4,7 @@ let
   user = "odmin";
   secret = import ./secrets.nix;
 
-  configuration = { config, pkgs, lib, ... }: {
+  configuration = { config, pkgs, lib, colors, ... }: {
     imports = [
       ./hardware-configuration.nix
 
@@ -30,7 +30,10 @@ let
       wget
     ];
 
-    home-manager.extraSpecialArgs = { secrets = import ./secrets.nix; };
+    home-manager.extraSpecialArgs = {
+      inherit colors;
+      secrets = import ./secrets.nix;
+    };
     home-manager.users.${user} = { pkgs, ... }: {
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;

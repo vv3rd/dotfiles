@@ -1,4 +1,8 @@
-{ lib, pkgs, secrets, ... }: {
+{ lib, pkgs, secrets, colors, ... }: {
+
+  imports = [ colors.homeManagerModules.default ];
+
+  colorScheme = colors.colorSchemes.gruvbox-dark-medium;
 
   home.sessionVariables = {
     EDITOR = "hx";
@@ -140,15 +144,16 @@
       "clip" = "xclip -i -selection c";
       "clip-out" = "xclip -o -selection c";
     };
-    initExtra = ''
-      autoload -U edit-command-line
-      zle -N edit-command-line
-      bindkey "^E" edit-command-line
+    initExtra = # sh
+      ''
+        autoload -U edit-command-line
+        zle -N edit-command-line
+        bindkey "^E" edit-command-line
 
-      bindkey "^[[1;5C" forward-word
-      bindkey "^[[1;5D" backward-word
-      [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
-    '';
+        bindkey "^[[1;5C" forward-word
+        bindkey "^[[1;5D" backward-word
+        [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
+      '';
     plugins = [{
       name = "powerlevel10k";
       file = "powerlevel10k.zsh-theme";
