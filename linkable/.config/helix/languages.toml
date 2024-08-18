@@ -17,7 +17,7 @@ auto-format = true
 formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
 
 [[language]]
-language-servers = ["ts"]
+language-servers = ["ts", "tailwind"]
 name = "tsx"
 auto-format = true
 formatter = { command = "prettierd", args = ["--stdin-filepath", "{}"] }
