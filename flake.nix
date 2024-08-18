@@ -9,17 +9,15 @@
 
   outputs = { self, nixpkgs, home-manager }:
     let
+      lib = nixpkgs.lib;
       system = "x86_64-linux";
-    in
-    {
+      zenbookConfig = ./hosts/zenbook/configuration.nix;
+    in {
       nixosConfigurations = {
-        zenbook = nixpkgs.lib.nixosSystem {
+        zenbook = lib.nixosSystem {
           specialArgs = { inherit system; };
 
-          modules = [
-            ./zenbook/configuration.nix
-            home-manager.nixosModules.default
-          ];
+          modules = [ zenbookConfig home-manager.nixosModules.default ];
         };
       };
     };

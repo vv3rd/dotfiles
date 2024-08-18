@@ -30,6 +30,7 @@ let
       wget
     ];
 
+    home-manager.extraSpecialArgs = { secrets = import ./secrets.nix; };
     home-manager.users.${user} = { pkgs, ... }: {
       home.stateVersion = "23.05";
       programs.home-manager.enable = true;
