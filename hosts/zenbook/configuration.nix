@@ -158,8 +158,9 @@ let
     };
   };
 
-  module_containers = { pkgs, ... }: {
-    virtualisation.docker = { enable = true; };
-    environment.systemPackages = with pkgs; [ lazydocker ];
-  };
+  module_containers = { pkgs, ... }:
+    {
+      # virtualisation.docker = { enable = true; };
+      # environment.systemPackages = with pkgs; [ lazydocker ];
+    };
 in configuration

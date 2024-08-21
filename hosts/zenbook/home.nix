@@ -112,7 +112,8 @@
       condition = "gitdir:${secrets.workDir}";
       path = "${secrets.workDir}/.gitconfig";
     }];
-    delta = { enable = true; };
+    difftastic = { enable = true; };
+    # delta = { enable = true; };
   };
 
   programs.zsh = {
@@ -120,6 +121,7 @@
     autosuggestion.enable = true;
     dotDir = ".config/zsh";
     shellAliases = {
+      "ghi" = "git -c diff.external=difft log -p --ext-diff";
       "gdf" = "git diff";
       "gsw" = "git switch";
       "gsl" = "git stash list";
