@@ -8,18 +8,22 @@
     colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { self, nixpkgs, home-manager, colors }:
-    let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      zenbookConfig = ./hosts/zenbook/configuration.nix;
-    in {
-      nixosConfigurations = {
-        zenbook = lib.nixosSystem {
-          specialArgs = { inherit system colors; };
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    colors,
+  }: let
+    lib = nixpkgs.lib;
+    system = "x86_64-linux";
+    zenbookConfig = ./hosts/zenbook/configuration.nix;
+  in {
+    nixosConfigurations = {
+      zenbook = lib.nixosSystem {
+        specialArgs = {inherit system colors;};
 
-          modules = [ zenbookConfig home-manager.nixosModules.default ];
-        };
+        modules = [zenbookConfig home-manager.nixosModules.default];
       };
     };
+  };
 }
