@@ -36,14 +36,8 @@
       editor.whitespace.characters.newline = "⌄";
 
       keys.normal = {
-        "esc" = [
-          "collapse_selection"
-          "keep_primary_selection"
-        ];
-        "ret" = [
-          "open_below"
-          "normal_mode"
-        ];
+        "esc" = ["collapse_selection" "keep_primary_selection"];
+        "ret" = ["open_below" "normal_mode"];
         "}" = "goto_next_paragraph";
         "{" = "goto_prev_paragraph";
       };
@@ -57,10 +51,7 @@
       vscode = lang: "${pkgs.vscode-langservers-extracted}/bin/vscode-${lang}-language-server";
       prettierd = {
         command = lib.getExe pkgs.prettierd;
-        args = [
-          "--stdin-filepath"
-          "{}"
-        ];
+        args = ["--stdin-filepath" "{}"];
       };
     in {
       language-server = {
@@ -88,65 +79,63 @@
           command = "${pkgs.emmet-ls}/bin/emmet-ls";
           args = ["--stdio"];
         };
+        nil = {
+          command = lib.getExe pkgs.nil;
+        };
       };
 
       language = [
         {
           name = "nix";
+          language-servers = ["nil"];
           auto-format = true;
           formatter.command = lib.getExe pkgs.alejandra;
         }
         {
-          language-servers = ["ts"];
           name = "javascript";
+          language-servers = ["ts"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = ["ts"];
           name = "jsx";
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
           language-servers = ["ts"];
+          auto-format = true;
+          formatter = prettierd;
+        }
+        {
           name = "typescript";
+          language-servers = ["ts"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = [
-            "ts"
-            "tailwind"
-          ];
           name = "tsx";
+          language-servers = ["ts" "tailwind"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = [
-            "html"
-            "emmet"
-          ];
           name = "html";
+          language-servers = ["html" "emmet"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = ["json"];
           name = "json";
+          language-servers = ["json"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = ["css"];
           name = "css";
+          language-servers = ["css"];
           auto-format = true;
           formatter = prettierd;
         }
         {
-          language-servers = ["css"];
           name = "scss";
+          language-servers = ["css"];
           auto-format = true;
           formatter = prettierd;
         }
