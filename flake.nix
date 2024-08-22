@@ -25,5 +25,16 @@
         modules = [zenbookConfig home-manager.nixosModules.default];
       };
     };
+
+    homeConfigurations."alexey" = let
+      system = "aarch64-darwin";
+      pkgs = import nixpkgs {
+        inherit system;
+      };
+    in
+      home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [./hosts/macbook/home.nix];
+      };
   };
 }
