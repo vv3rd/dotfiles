@@ -115,6 +115,27 @@
       };
     };
 
+    programs.git = {
+      enable = true;
+      userEmail = secrets.email;
+      userName = secrets.name;
+      aliases = {
+        search = "log --patch --grep";
+        hidden = "! git ls-files -v | grep '^h' | cut -c3-";
+        skipped = "! git ls-files -v | grep '^S' | cut -c3-";
+        bl = "branch --format='%(refname:short)'";
+        br = "branch -r --format='%(refname:lstrip=3)'";
+      };
+      extraConfig = {init.defaultBranch = "main";};
+      includes = [
+        {
+          condition = "gitdir:${secrets.workDir}";
+          path = "${secrets.workDir}/.gitconfig";
+        }
+      ];
+      difftastic = {enable = true;};
+      # delta = { enable = true; };
+    };
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -185,27 +206,5 @@ in {
         action = "SpawnNewInstance";
       }
     ];
-  };
-
-  programs.git = {
-    enable = true;
-    userEmail = secrets.email;
-    userName = secrets.name;
-    aliases = {
-      search = "log --patch --grep";
-      hidden = "! git ls-files -v | grep '^h' | cut -c3-";
-      skipped = "! git ls-files -v | grep '^S' | cut -c3-";
-      bl = "branch --format='%(refname:short)'";
-      br = "branch -r --format='%(refname:lstrip=3)'";
-    };
-    extraConfig = {init.defaultBranch = "main";};
-    includes = [
-      {
-        condition = "gitdir:${secrets.workDir}";
-        path = "${secrets.workDir}/.gitconfig";
-      }
-    ];
-    difftastic = {enable = true;};
-    # delta = { enable = true; };
   };
 }

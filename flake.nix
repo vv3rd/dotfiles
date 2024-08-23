@@ -31,9 +31,15 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      person = {
+        email = "a.lyudskoy@raison.finance";
+        name = "Alexey Lyudskoy";
+        timeZone = "Asia/Almaty";
+      };
     in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
+        extraSpecialArgs = {inherit person;};
         modules = [./hosts/macbook/home.nix];
       };
   };

@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  person,
+  ...
+}: let
   onMac = true;
 in {
   home.packages = with pkgs; [
@@ -110,6 +114,22 @@ in {
       ignorePatterns = ["rm *" "EOF"];
       ignoreAllDups = true;
     };
+  };
+
+  programs.git = {
+    enable = true;
+    userEmail = person.email;
+    userName = person.name;
+    aliases = {
+      search = "log --patch --grep";
+      hidden = "! git ls-files -v | grep '^h' | cut -c3-";
+      skipped = "! git ls-files -v | grep '^S' | cut -c3-";
+      bl = "branch --format='%(refname:short)'";
+      br = "branch -r --format='%(refname:lstrip=3)'";
+    };
+    extraConfig = {init.defaultBranch = "main";};
+    difftastic = {enable = true;};
+    # delta = { enable = true; };
   };
 
   programs.zoxide = {
