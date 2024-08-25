@@ -1,10 +1,15 @@
 {
   pkgs,
   lib,
+  helix,
+  system,
   ...
 }: {
   programs.helix = {
     enable = true;
+
+    package = helix.packages.${system}.helix;
+
     settings = {
       theme = "fleet_dark";
       editor = {
@@ -29,9 +34,9 @@
         render = true;
         skip-levels = 1;
       };
-      # editor.inline-diagnostics = {
-      #     cursor-line = "warning";
-      # };
+      editor.inline-diagnostics = {
+        cursor-line = "warning";
+      };
       editor.whitespace.render.newline = "all";
       editor.whitespace.characters.newline = "⌄";
 

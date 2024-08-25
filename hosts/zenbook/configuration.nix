@@ -2,9 +2,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 let
   user = "odmin";
-  secret = import ./secrets.nix;
 
-  configuration = { config, pkgs, lib, colors, system, ... }: {
+  configuration = { config, pkgs, lib, colors, system, helix, ... }: {
     imports = [
       ./hardware-configuration.nix
 
@@ -31,8 +30,7 @@ let
     ];
 
     home-manager.extraSpecialArgs = {
-      inherit colors system;
-      secrets = import ./secrets.nix;
+      inherit colors system helix;
     };
     home-manager.users.${user} = { pkgs, ... }: {
       home.stateVersion = "23.05";

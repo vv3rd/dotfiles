@@ -1,5 +1,5 @@
 { lib, pkgs, colors, ... }: {
-  imports = [ colors.homeManagerModules.default ../../modules/terminal.nix ];
+  imports = [ colors.homeManagerModules.default ../../modules/terminal.nix ../../modules/helix.nix ];
 
   colorScheme = colors.colorSchemes.gruvbox-dark-medium;
 
