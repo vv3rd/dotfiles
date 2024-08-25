@@ -9,27 +9,40 @@
     helix.url = "github:vv3rd/helix/vv3rd-mods";
   };
 
-  outputs = { self, nixpkgs, home-manager, helix, colors, }: 
-   {
-      nixosConfigurations.zenbook = let
-        system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit system colors helix; };
-        modules = [ 
-          ./hosts/zenbook/configuration.nix 
-          home-manager.nixosModules.default 
-        ];
-      };
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      helix,
+      colors,
+    }:
+    {
+      nixosConfigurations.zenbook =
+        let
+          system = "x86_64-linux";
+        in
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit system colors helix;
+          };
+          modules = [
+            ./hosts/zenbook/configuration.nix
+            home-manager.nixosModules.default
+          ];
+        };
 
-      homeConfigurations."alexey" = let
-        system = "aarch64-darwin";
-        pkgs = import nixpkgs { inherit system; };
-      in home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit system helix; };
-        modules = [ 
-          ./hosts/macbook/home.nix 
-        ];
-      };
+      homeConfigurations."alexey" =
+        let
+          system = "aarch64-darwin";
+          pkgs = import nixpkgs { inherit system; };
+        in
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit system colors helix;
+          };
+          modules = [ ./hosts/macbook/home.nix ];
+        };
     };
 }

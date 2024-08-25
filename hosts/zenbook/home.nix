@@ -1,11 +1,25 @@
-{ lib, pkgs, colors, ... }: {
-  imports = [ colors.homeManagerModules.default ../../modules/terminal.nix ../../modules/helix.nix ];
+{
+  lib,
+  pkgs,
+  colors,
+  ...
+}:
+{
+  imports = [
+    colors.homeManagerModules.default
+    ../../modules/terminal.nix
+    ../../modules/helix.nix
+  ];
 
   colorScheme = colors.colorSchemes.gruvbox-dark-medium;
 
   nixpkgs = {
-    config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [ "discord" "vscode" ];
+    config.allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "discord"
+        "vscode"
+      ];
   };
 
   home.packages = with pkgs; [
@@ -23,7 +37,9 @@
     slop
   ];
 
-  programs.nix-index = { enable = true; };
+  programs.nix-index = {
+    enable = true;
+  };
 
   programs.mpv = {
     enable = true;
@@ -43,10 +59,12 @@
       font.size = 8;
       font.normal.family = "NotoMono Nerd Font";
     };
-    settings.keyboard.bindings = [{
-      key = "N";
-      mods = "Control|Shift";
-      action = "SpawnNewInstance";
-    }];
+    settings.keyboard.bindings = [
+      {
+        key = "N";
+        mods = "Control|Shift";
+        action = "SpawnNewInstance";
+      }
+    ];
   };
 }

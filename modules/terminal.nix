@@ -1,7 +1,8 @@
 { pkgs, system, ... }:
-let onMac = system == "aarch64-darwin";
-
-in {
+let
+  onMac = system == "aarch64-darwin";
+in
+{
   home.packages = with pkgs; [
     ripgrep
     btop
@@ -27,7 +28,9 @@ in {
     DIRENV_LOG_FORMAT = ""; # silences direnv logs
   };
 
-  programs.bat = { enable = true; };
+  programs.bat = {
+    enable = true;
+  };
 
   programs.atuin = {
     enable = true;
@@ -43,7 +46,9 @@ in {
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
-    config = { load_dotenv = true; };
+    config = {
+      load_dotenv = true;
+    };
   };
 
   programs.zsh = {
@@ -57,7 +62,8 @@ in {
       "gsl" = "git stash list";
       "gsp" = "git stash pop";
       "gsa" = "git stash --include-untracked";
-      "glg" = "git log" # //
+      "glg" =
+        "git log" # //
         + " --branches --remotes --graph --abbrev-commit --decorate"
         + " --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
       "gac" = "git add . && git commit";
@@ -82,24 +88,28 @@ in {
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey "^E" edit-command-line
-
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
         [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
       '';
-    plugins = [{
-      name = "powerlevel10k";
-      file = "powerlevel10k.zsh-theme";
-      src = pkgs.fetchFromGitHub {
-        owner = "romkatv";
-        repo = "powerlevel10k";
-        rev = "master";
-        sha256 = "sha256-H7DYDLNANFnws3pCANnMJAQIMDXCf9S+ggUOGUy1oO0=";
-      };
-    }];
+    plugins = [
+      {
+        name = "powerlevel10k";
+        file = "powerlevel10k.zsh-theme";
+        src = pkgs.fetchFromGitHub {
+          owner = "romkatv";
+          repo = "powerlevel10k";
+          rev = "master";
+          sha256 = "sha256-H7DYDLNANFnws3pCANnMJAQIMDXCf9S+ggUOGUy1oO0=";
+        };
+      }
+    ];
     history = {
       path = "$ZDOTDIR/.zsh_history";
-      ignorePatterns = [ "rm *" "EOF" ];
+      ignorePatterns = [
+        "rm *"
+        "EOF"
+      ];
       ignoreAllDups = true;
     };
   };
@@ -113,9 +123,13 @@ in {
       bl = "branch --format='%(refname:short)'";
       br = "branch -r --format='%(refname:lstrip=3)'";
     };
-    includes = [{ path = "~/.gituser.inc"; }];
-    extraConfig = { init.defaultBranch = "main"; };
-    difftastic = { enable = true; };
+    includes = [ { path = "~/.gituser.inc"; } ];
+    extraConfig = {
+      init.defaultBranch = "main";
+    };
+    difftastic = {
+      enable = true;
+    };
   };
 
   programs.zoxide = {
@@ -127,15 +141,6 @@ in {
     enable = true;
     enableZshIntegration = true;
   };
-
-  # file.".config/yazi/init.lua" = ''
-  #   function Status:render() return {} end
-
-  #   local old_manager_render = Manager.render
-  #   function Manager:render(area)
-  #   	return old_manager_render(self, ui.Rect { x = area.x, y = area.y, w = area.w, h = area.h + 1 })
-  #   end
-  # '';
 
   programs.zellij = {
     enable = true;

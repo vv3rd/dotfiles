@@ -4,7 +4,8 @@
   helix,
   system,
   ...
-}: {
+}:
+{
   programs.helix = {
     enable = true;
 
@@ -41,8 +42,14 @@
       editor.whitespace.characters.newline = "⌄";
 
       keys.normal = {
-        "esc" = ["collapse_selection" "keep_primary_selection"];
-        "ret" = ["open_below" "normal_mode"];
+        "esc" = [
+          "collapse_selection"
+          "keep_primary_selection"
+        ];
+        "ret" = [
+          "open_below"
+          "normal_mode"
+        ];
         "}" = "goto_next_paragraph";
         "{" = "goto_prev_paragraph";
       };
@@ -52,99 +59,110 @@
       };
     };
 
-    languages = let
-      vscode = lang: "${pkgs.vscode-langservers-extracted}/bin/vscode-${lang}-language-server";
-      prettierd = {
-        command = lib.getExe pkgs.prettierd;
-        args = ["--stdin-filepath" "{}"];
-      };
-    in {
-      language-server = {
-        ts = with pkgs.nodePackages; {
-          command = "${typescript-language-server}/bin/typescript-language-server";
-          args = ["--stdio"];
+    languages =
+      let
+        vscode = lang: "${pkgs.vscode-langservers-extracted}/bin/vscode-${lang}-language-server";
+        prettierd = {
+          command = lib.getExe pkgs.prettierd;
+          args = [
+            "--stdin-filepath"
+            "{}"
+          ];
         };
-        css = {
-          command = vscode "css";
-          args = ["--stdio"];
+      in
+      {
+        language-server = {
+          ts = with pkgs.nodePackages; {
+            command = "${typescript-language-server}/bin/typescript-language-server";
+            args = [ "--stdio" ];
+          };
+          css = {
+            command = vscode "css";
+            args = [ "--stdio" ];
+          };
+          json = {
+            command = vscode "json";
+            args = [ "--stdio" ];
+          };
+          html = {
+            command = vscode "html";
+            args = [ "--stdio" ];
+          };
+          tailwind = {
+            command = "tailwind-language-server";
+            args = [ "--stdio" ];
+          };
+          emmet = {
+            command = "${pkgs.emmet-ls}/bin/emmet-ls";
+            args = [ "--stdio" ];
+          };
+          nil = {
+            command = "${pkgs.nil}/bin/nil";
+          };
         };
-        json = {
-          command = vscode "json";
-          args = ["--stdio"];
-        };
-        html = {
-          command = vscode "html";
-          args = ["--stdio"];
-        };
-        tailwind = {
-          command = "tailwind-language-server";
-          args = ["--stdio"];
-        };
-        emmet = {
-          command = "${pkgs.emmet-ls}/bin/emmet-ls";
-          args = ["--stdio"];
-        };
-        nil = {
-          command = lib.getExe pkgs.nil;
-        };
-      };
 
-      language = [
-        {
-          name = "nix";
-          language-servers = ["nil"];
-          auto-format = true;
-          formatter.command = lib.getExe pkgs.alejandra;
-        }
-        {
-          name = "javascript";
-          language-servers = ["ts"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "jsx";
-          language-servers = ["ts"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "typescript";
-          language-servers = ["ts"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "tsx";
-          language-servers = ["ts" "tailwind"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "html";
-          language-servers = ["html" "emmet"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "json";
-          language-servers = ["json"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "css";
-          language-servers = ["css"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-        {
-          name = "scss";
-          language-servers = ["css"];
-          auto-format = true;
-          formatter = prettierd;
-        }
-      ];
-    };
+        language = [
+          {
+            name = "nix";
+            language-servers = [ "nil" ];
+            auto-format = true;
+            formatter.command = lib.getExe pkgs.nixfmt-rfc-style;
+          }
+          {
+            name = "javascript";
+            language-servers = [ "ts" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "jsx";
+            language-servers = [ "ts" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "typescript";
+            language-servers = [ "ts" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "tsx";
+            language-servers = [
+              "ts"
+              "tailwind"
+            ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "html";
+            language-servers = [
+              "html"
+              "emmet"
+            ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "json";
+            language-servers = [ "json" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "css";
+            language-servers = [ "css" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+          {
+            name = "scss";
+            language-servers = [ "css" ];
+            auto-format = true;
+            formatter = prettierd;
+          }
+        ];
+      };
   };
 }

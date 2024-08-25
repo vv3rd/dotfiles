@@ -1,8 +1,5 @@
+{ pkgs, config, ... }:
 {
-  pkgs,
-  config,
-  ...
-}: {
   home.username = "alexey";
   home.homeDirectory = "/Users/alexey";
 
@@ -31,11 +28,13 @@
       font.normal.family = "NotoMono Nerd Font";
     };
     settings.window.options_as_alt = "Both";
-    settings.keyboard.bindings = [{
-      key = "N";
-      mods = "Control|Shift";
-      action = "SpawnNewInstance";
-    }];
+    settings.keyboard.bindings = [
+      {
+        key = "N";
+        mods = "Control|Shift";
+        action = "SpawnNewInstance";
+      }
+    ];
   };
 
   home.sessionVariables = {
