@@ -8,39 +8,26 @@
     colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    colors,
-  }: let
-    lib = nixpkgs.lib;
-    system = "x86_64-linux";
-    zenbookConfig = ./hosts/zenbook/configuration.nix;
-  in {
-    nixosConfigurations = {
-      zenbook = lib.nixosSystem {
-        specialArgs = {inherit system colors;};
+  outputs = { self, nixpkgs, home-manager, colors, }: {
+      nixosConfigurations.zenbook = let
+        system = "x86_64-linux";
+      in nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit system colors; };
+        modules = [ 
+          ./hosts/zenbook/configuration.nix 
+          home-manager.nixosModules.default 
+        ];
+      };
 
-        modules = [zenbookConfig home-manager.nixosModules.default];
+      homeConfigurations."alexey" = let
+        system = "aarch64-darwin";
+        pkgs = import nixpkgs { inherit system; };
+      in home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit system; };
+        modules = [ 
+          ./hosts/macbook/home.nix 
+        ];
       };
     };
-
-    homeConfigurations."alexey" = let
-      system = "aarch64-darwin";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      person = {
-        email = "a.lyudskoy@raison.finance";
-        name = "Alexey Lyudskoy";
-        timeZone = "Asia/Almaty";
-      };
-    in
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = {inherit person;};
-        modules = [./hosts/macbook/home.nix];
-      };
-  };
 }

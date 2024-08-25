@@ -4,7 +4,7 @@ let
   user = "odmin";
   secret = import ./secrets.nix;
 
-  configuration = { config, pkgs, lib, colors, ... }: {
+  configuration = { config, pkgs, lib, colors, system, ... }: {
     imports = [
       ./hardware-configuration.nix
 
@@ -31,7 +31,7 @@ let
     ];
 
     home-manager.extraSpecialArgs = {
-      inherit colors;
+      inherit colors system;
       secrets = import ./secrets.nix;
     };
     home-manager.users.${user} = { pkgs, ... }: {
@@ -124,7 +124,7 @@ let
 
   module_locale = { ... }: {
     # Set your time zone.
-    time.timeZone = secret.timeZone;
+    time.timeZone = "Asia/Almaty";
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
