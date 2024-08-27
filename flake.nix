@@ -17,6 +17,9 @@
       helix,
       colors,
     }:
+    let
+      helix-overlay = (f: p: { helix = helix.packages.${f.system}.helix; });
+    in
     {
       nixosConfigurations.zenbook =
         let
@@ -24,7 +27,7 @@
         in
         nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit system colors helix;
+            inherit system colors helix-overlay;
           };
           modules = [
             ./hosts/zenbook/configuration.nix

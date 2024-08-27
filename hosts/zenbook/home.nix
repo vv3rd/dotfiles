@@ -13,6 +13,11 @@
 
   colorScheme = colors.colorSchemes.gruvbox-dark-medium;
 
+  # remove once helix build on mac
+  programs.helix.settings.editor.inline-diagnostics = {
+    cursor-line = "warning";
+  };
+
   nixpkgs = {
     config.allowUnfreePredicate =
       pkg:
