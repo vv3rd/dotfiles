@@ -8,9 +8,7 @@ let
       config,
       pkgs,
       lib,
-      colors,
       system,
-      overlay,
       inputs,
       ...
     }:
@@ -22,7 +20,6 @@ let
         module_user
         module_audio
         module_desktop-Plasma
-        # module_keyboard
         module_browser-Firefox
         module_locale
         module_containers
@@ -36,17 +33,18 @@ let
         #
         nh
         dig.dnsutils
-        stow
         wget
       ];
 
       home-manager.extraSpecialArgs = {
-        inherit colors system inputs;
+        inherit system inputs;
       };
+
+      home-manager.useGlobalPkgs = true;
+
       home-manager.users.${user} =
         { pkgs, ... }:
         {
-          nixpkgs.overlays = [ overlay ];
           home.stateVersion = "23.05";
           programs.home-manager.enable = true;
           imports = [ ./home.nix ];
@@ -59,16 +57,6 @@ let
       # Before changing this value read the documentation for this option
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
       system.stateVersion = "23.05"; # Did you read the comment?
-    };
-
-  module_keyboard =
-    { ... }:
-    {
-      services.kanata.enable = true;
-      services.kanata.keyboards.default.config = ''
-        (defsrc caps )
-        (defalias escctrl (tap-hold 100 100 esc lctl) )
-        (deflayer base @escctrl )'';
     };
 
   module_essentials =

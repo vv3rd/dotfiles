@@ -32,20 +32,23 @@
       nixosConfigurations.zenbook =
         let
           system = "x86_64-linux";
+          lib = nixpkgs.lib;
+          unfreePkgs = [
+            "discord"
+            "vscode"
+          ];
         in
-        nixpkgs.lib.nixosSystem {
+        lib.nixosSystem {
           specialArgs = {
-            inherit
-              system
-              colors
-              inputs
-              overlay
-              ;
+            inherit system inputs;
           };
           modules = [
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
-            { nixpkgs.overlays = [ overlay ]; }
+            {
+              nixpkgs.overlays = [ overlay ];
+              nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) unfreePkgs;
+            }
           ];
         };
 
