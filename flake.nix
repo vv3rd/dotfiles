@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,12 +14,19 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       helix,
       colors,
-    }:
+      ...
+    }@inputs:
     let
-      helix-overlay = (f: p: { helix = helix.packages.${f.system}.helix; });
+      overlay = (
+        final: prev: {
+          helix = helix.packages.${final.system}.helix;
+          telegram-desktop = nixpkgs-unstable.legacyPackages.${final.system}.telegram-desktop;
+        }
+      );
     in
     {
       nixosConfigurations.zenbook =
@@ -27,11 +35,17 @@
         in
         nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit system colors helix-overlay;
+            inherit
+              system
+              colors
+              inputs
+              overlay
+              ;
           };
           modules = [
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
+            { nixpkgs.overlays = [ overlay ]; }
           ];
         };
 

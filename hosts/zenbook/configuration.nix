@@ -10,7 +10,8 @@ let
       lib,
       colors,
       system,
-      helix-overlay,
+      overlay,
+      inputs,
       ...
     }:
     {
@@ -40,12 +41,12 @@ let
       ];
 
       home-manager.extraSpecialArgs = {
-        inherit colors system;
+        inherit colors system inputs;
       };
       home-manager.users.${user} =
         { pkgs, ... }:
         {
-          nixpkgs.overlays = [ helix-overlay ];
+          nixpkgs.overlays = [ overlay ];
           home.stateVersion = "23.05";
           programs.home-manager.enable = true;
           imports = [ ./home.nix ];
