@@ -61,7 +61,7 @@
     enable = true;
     settings = {
       window.opacity = 0.9;
-      font.size = 8;
+      font.size = 12;
       font.normal.family = "NotoMono Nerd Font";
     };
     settings.keyboard.bindings = [

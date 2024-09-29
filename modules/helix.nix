@@ -78,7 +78,7 @@
             args = [ "--stdio" ];
           };
           tailwind = {
-            command = "tailwind-language-server";
+            command = "tailwindcss-language-server";
             args = [ "--stdio" ];
           };
           emmet = {

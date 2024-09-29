@@ -118,13 +118,12 @@ let
       services.libinput.touchpad.tappingDragLock = false;
 
       services.displayManager.sddm.enable = true;
+      # Enable the KDE Plasma Desktop Environment.
+      services.desktopManager.plasma6.enable = true;
 
       services.xserver = {
         # Enable the X11 windowing system.
         enable = true;
-
-        # Enable the KDE Plasma Desktop Environment.
-        desktopManager.plasma5.enable = true;
 
         # Configure keymap in X11
         xkb.layout = "us";
@@ -184,7 +183,13 @@ let
   module_containers =
     { pkgs, ... }:
     {
-      # virtualisation.docker = { enable = true; };
+      virtualisation.containers.enable = true;
+      virtualisation.podman = {
+        enable = true;
+        dockerCompat = true;
+        defaultNetwork.settings.dns_enabled = true;
+      };
+
       # environment.systemPackages = with pkgs; [ lazydocker ];
     };
 in

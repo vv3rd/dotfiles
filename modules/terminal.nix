@@ -1,4 +1,5 @@
 { pkgs, system, ... }:
+
 let
   onMac = system == "aarch64-darwin";
 in
@@ -74,6 +75,7 @@ in
       "gswr" = "git br | fzf | xargs git switch";
       "gswl" = "git bl | fzf | xargs git switch";
       "fj" = "$EDITOR";
+      "fji" = "$EDITOR $(git diff --name-only --relative)";
       "l" = "exa -a1 --group-directories-first --icons";
       "ls" = "exa --group-directories-first --icons";
       "lt" = "l --git-ignore -T -L=2";
