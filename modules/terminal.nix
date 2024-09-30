@@ -14,6 +14,7 @@ in
     rm-improved
     xclip
     fd
+    diskonaut
 
     kubectl
     kubectx
