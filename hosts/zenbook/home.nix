@@ -60,9 +60,9 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      window.opacity = 0.9;
+      window.opacity = 1;
       font.size = 12;
-      font.normal.family = "NotoMono Nerd Font";
+      font.normal.family = "GeistMono Nerd Font";
     };
     settings.keyboard.bindings = [
       {

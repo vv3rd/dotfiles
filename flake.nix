@@ -36,6 +36,9 @@
           unfreePkgs = [
             "discord"
             "vscode"
+            "steam"
+            "steam-original"
+            "steam-run"
           ];
         in
         lib.nixosSystem {

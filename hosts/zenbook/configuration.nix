@@ -20,12 +20,16 @@ let
         module_user
         module_audio
         module_desktop-Plasma
+        module_gaming
         module_browser-Firefox
         module_locale
         module_containers
       ];
 
       programs.openvpn3.enable = true;
+      services.tailscale = {
+        enable = true;
+      };
 
       documentation.dev.enable = true;
 
@@ -112,23 +116,33 @@ let
   module_desktop-Plasma =
     { pkgs, ... }:
     {
-      fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "Noto" ]; }) ];
+      fonts.packages = [
+        (pkgs.nerdfonts.override {
+          fonts = [
+            "Noto"
+            "GeistMono"
+            "Hack"
+            "Gohu"
+          ];
+        })
+      ];
 
       # Disable drag release delay
       services.libinput.touchpad.tappingDragLock = false;
 
       services.displayManager.sddm.enable = true;
+      services.displayManager.sddm.wayland.enable = true;
       # Enable the KDE Plasma Desktop Environment.
       services.desktopManager.plasma6.enable = true;
 
-      services.xserver = {
-        # Enable the X11 windowing system.
-        enable = true;
+      # services.xserver = {
+      #   # Enable the X11 windowing system.
+      #   enable = true;
 
-        # Configure keymap in X11
-        xkb.layout = "us";
-        xkb.variant = "";
-      };
+      #   # Configure keymap in X11
+      #   xkb.layout = "us";
+      #   xkb.variant = "";
+      # };
     };
 
   module_browser-Firefox =
@@ -137,6 +151,17 @@ let
       programs.firefox.enable = true;
       environment.sessionVariables = {
         MOZ_USE_XINPUT2 = "1";
+      };
+    };
+
+  module_gaming =
+    { lib, ... }:
+    {
+      programs.steam = {
+        enable = true;
+        # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+        # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+        # localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
       };
     };
 

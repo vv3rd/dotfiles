@@ -1,7 +1,7 @@
-{ pkgs, system, ... }:
+{ pkgs, ... }:
 
 let
-  onMac = system == "aarch64-darwin";
+  session = "wayland";
 in
 {
   home.packages = with pkgs; [
@@ -12,7 +12,6 @@ in
     jq
     just
     rm-improved
-    xclip
     fd
     diskonaut
 
@@ -57,37 +56,52 @@ in
     enable = true;
     autosuggestion.enable = true;
     dotDir = ".config/zsh";
-    shellAliases = {
-      "ghi" = "git -c diff.external=difft log -p --ext-diff";
-      "gdf" = "git diff";
-      "gsw" = "git switch";
-      "gsl" = "git stash list";
-      "gsp" = "git stash pop";
-      "gsa" = "git stash --include-untracked";
-      "glg" =
-        "git log" # //
-        + " --branches --remotes --graph --abbrev-commit --decorate"
-        + " --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
-      "gac" = "git add . && git commit";
-      "gin" = "git status";
-      "gdi" = "git diff";
-      "gbr" = "git br";
-      "gbl" = "git bl";
-      "gswr" = "git br | fzf | xargs git switch";
-      "gswl" = "git bl | fzf | xargs git switch";
-      "fj" = "$EDITOR";
-      "fji" = "$EDITOR $(git diff --name-only --relative)";
-      "l" = "exa -a1 --group-directories-first --icons";
-      "ls" = "exa --group-directories-first --icons";
-      "lt" = "l --git-ignore -T -L=2";
-      "o" = "bat --plain";
-      "j" = "just";
-      "clip" = if onMac then "pbcopy" else "xclip -i -selection c";
-      "clip-out" = if onMac then "pbpaste" else "xclip -o -selection c";
-    };
+    shellAliases =
+      {
+        "ghi" = "git -c diff.external=difft log -p --ext-diff";
+        "gdf" = "git diff";
+        "gsw" = "git switch";
+        "gsl" = "git stash list";
+        "gsp" = "git stash pop";
+        "gsa" = "git stash --include-untracked";
+        "glg" =
+          "git log" # //
+          + " --branches --remotes --graph --abbrev-commit --decorate"
+          + " --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+        "gac" = "git add . && git commit";
+        "gin" = "git status";
+        "gdi" = "git diff";
+        "gbr" = "git br";
+        "gbl" = "git bl";
+        "gswr" = "git br | fzf | xargs git switch";
+        "gswl" = "git bl | fzf | xargs git switch";
+        "fj" = "$EDITOR";
+        "fji" = "$EDITOR $(git diff --staged --diff-filter=MR --name-only --relative)";
+        "l" = "exa -a1 --group-directories-first --icons";
+        "ls" = "exa --group-directories-first --icons";
+        "lt" = "l --git-ignore -T -L=2";
+        "o" = "bat --plain";
+        "j" = "just";
+      }
+      // ({
+        mac = {
+          "clip" = "pbcopy";
+          "clip-out" = "pbpaste";
+        };
+        xorg = {
+          "clip" = "${pkgs.xclip} -i -selection c";
+          "clip-out" = "${pkgs.xlip} -o -selection c";
+        };
+        wayland = {
+          "clip" = "${pkgs.wl-clipboard}/bin/wl-copy";
+          "clip-out" = "${pkgs.wl-clipboard}/bin/wl-paste";
+        };
+      }).${session};
+
     initExtra =
       # sh
       ''
+        source ~/.zuser
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey "^E" edit-command-line
