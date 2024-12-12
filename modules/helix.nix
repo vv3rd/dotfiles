@@ -13,6 +13,7 @@
         line-number = "relative";
         auto-pairs = true;
         auto-save = true;
+        auto-format = false;
         bufferline = "always";
         completion-timeout = 90;
         true-color = true;
@@ -134,19 +135,16 @@
               "html"
               "emmet"
             ];
-            auto-format = true;
             formatter = prettierd;
           }
           {
             name = "json";
             language-servers = [ "json" ];
-            auto-format = true;
             formatter = prettierd;
           }
           {
             name = "css";
             language-servers = [ "css" ];
-            auto-format = true;
             formatter = prettierd;
           }
           {

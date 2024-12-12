@@ -134,6 +134,7 @@ in
   programs.git = {
     enable = true;
     aliases = {
+      unstage = "restore --staged";
       search = "log --patch --grep";
       hidden = "! git ls-files -v | grep '^h' | cut -c3-";
       skipped = "! git ls-files -v | grep '^S' | cut -c3-";
