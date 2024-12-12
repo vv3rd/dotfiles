@@ -20,7 +20,6 @@ let
         module_user
         module_audio
         module_desktop-Plasma
-        module_gaming
         module_browser-Firefox
         module_locale
         module_containers
@@ -154,17 +153,6 @@ let
       };
     };
 
-  module_gaming =
-    { lib, ... }:
-    {
-      programs.steam = {
-        enable = true;
-        # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-        # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-        # localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-      };
-    };
-
   module_locale =
     { ... }:
     {
@@ -190,8 +178,6 @@ let
   module_audio =
     { ... }:
     {
-      # Enable sound with pipewire.
-      sound.enable = true;
       hardware.pulseaudio.enable = false;
 
       # Enable the RealtimeKit system service, which hands out realtime scheduling priority to user processes on demand.
