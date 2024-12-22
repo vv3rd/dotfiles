@@ -39,6 +39,17 @@ let
         wget
       ];
 
+      fonts.packages = [
+        (pkgs.nerdfonts.override {
+          fonts = [
+            "Noto"
+            "GeistMono"
+            "Hack"
+            "Gohu"
+          ];
+        })
+      ];
+
       home-manager.extraSpecialArgs = {
         inherit system inputs;
       };
@@ -115,33 +126,23 @@ let
   module_desktop-Plasma =
     { pkgs, ... }:
     {
-      fonts.packages = [
-        (pkgs.nerdfonts.override {
-          fonts = [
-            "Noto"
-            "GeistMono"
-            "Hack"
-            "Gohu"
-          ];
-        })
-      ];
-
       # Disable drag release delay
       services.libinput.touchpad.tappingDragLock = false;
 
       services.displayManager.sddm.enable = true;
       services.displayManager.sddm.wayland.enable = true;
-      # Enable the KDE Plasma Desktop Environment.
       services.desktopManager.plasma6.enable = true;
+    };
 
-      # services.xserver = {
-      #   # Enable the X11 windowing system.
-      #   enable = true;
+  module_desktop-Gnome =
+    { pkgs, ... }:
+    {
+      # Disable drag release delay
+      services.libinput.touchpad.tappingDragLock = false;
 
-      #   # Configure keymap in X11
-      #   xkb.layout = "us";
-      #   xkb.variant = "";
-      # };
+      services.xserver.enable = true;
+      services.xserver.displayManager.gdm.enable = true;
+      services.xserver.desktopManager.gnome.enable = true;
     };
 
   module_browser-Firefox =
