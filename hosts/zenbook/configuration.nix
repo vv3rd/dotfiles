@@ -19,7 +19,9 @@ let
         module_essentials
         module_user
         module_audio
-        module_desktop-Plasma
+        # module_desktop-Plasma
+        module_desktop-Gnome
+        module_keyboard
         module_browser-Firefox
         module_locale
         module_containers
@@ -92,6 +94,21 @@ let
       ];
     };
 
+  module_keyboard = inputs: {
+    services.xremap.config.modmap = [
+      {
+        name = "Global";
+        remap = {
+          "CapsLock" = {
+            held = "Ctrl_R";
+            alone = "Esc";
+            alone_timeout = 200;
+          };
+        };
+      }
+    ];
+  };
+
   module_user =
     { pkgs, ... }:
     {
@@ -137,12 +154,32 @@ let
   module_desktop-Gnome =
     { pkgs, ... }:
     {
+      home-manager.users.${user}.xdg.desktopEntries = {
+        alacritty = {
+          name = "Alacritty";
+          genericName = "Terminal";
+          exec = "alacritty";
+          terminal = false;
+          icon = "Alacritty";
+          categories = [
+            "System"
+            "TerminalEmulator"
+          ];
+        };
+      };
+
+      services.xremap.withGnome = true;
+
+      environment.systemPackages = [
+        pkgs.gnomeExtensions.battery-health-charging
+      ];
       # Disable drag release delay
       services.libinput.touchpad.tappingDragLock = false;
 
       services.xserver.enable = true;
       services.xserver.displayManager.gdm.enable = true;
       services.xserver.desktopManager.gnome.enable = true;
+
     };
 
   module_browser-Firefox =

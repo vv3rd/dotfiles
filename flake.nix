@@ -7,6 +7,7 @@
     };
     colors.url = "github:misterio77/nix-colors";
     helix.url = "github:vv3rd/helix/vv3rd-mods";
+    xremap.url = "github:xremap/nix-flake";
   };
 
   outputs =
@@ -16,6 +17,7 @@
       home-manager,
       helix,
       colors,
+      xremap,
       ...
     }@inputs:
     let
@@ -38,6 +40,7 @@
           modules = [
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
+            xremap.nixosModules.default
             {
               nixpkgs.overlays = [ overlay ];
               nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) unfreePkgs;
