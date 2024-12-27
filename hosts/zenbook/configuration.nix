@@ -19,8 +19,8 @@ let
         module_essentials
         module_user
         module_audio
-        # module_desktop-Plasma
-        module_desktop-Gnome
+        module_desktop-Plasma
+        # module_desktop-Gnome
         module_keyboard
         module_browser-Firefox
         module_locale
@@ -95,6 +95,7 @@ let
     };
 
   module_keyboard = inputs: {
+    services.xremap.watch = true;
     services.xremap.config.modmap = [
       {
         name = "Global";
@@ -143,6 +144,7 @@ let
   module_desktop-Plasma =
     { pkgs, ... }:
     {
+
       # Disable drag release delay
       services.libinput.touchpad.tappingDragLock = false;
 

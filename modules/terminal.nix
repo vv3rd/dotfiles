@@ -2,10 +2,12 @@
 
 let
   session = "wayland";
+  # session = "xorg";
 in
 {
   home.packages = with pkgs; [
     ripgrep
+    repgrep
     btop
     eza
     fzf
@@ -90,7 +92,7 @@ in
         };
         xorg = {
           "clip" = "${pkgs.xclip} -i -selection c";
-          "clip-out" = "${pkgs.xlip} -o -selection c";
+          "clip-out" = "${pkgs.xclip} -o -selection c";
         };
         wayland = {
           "clip" = "${pkgs.wl-clipboard}/bin/wl-copy";

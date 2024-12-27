@@ -18,10 +18,15 @@
       helix,
       colors,
       xremap,
+      ghostty,
       ...
     }@inputs:
     let
-      overlay = (final: prev: { helix = helix.packages.${final.system}.helix; });
+      overlay = (
+        final: prev: {
+          helix = helix.packages.${final.system}.helix;
+        }
+      );
     in
     {
       nixosConfigurations.zenbook =
