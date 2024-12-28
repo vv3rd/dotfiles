@@ -18,7 +18,6 @@
       helix,
       colors,
       xremap,
-      ghostty,
       ...
     }@inputs:
     let

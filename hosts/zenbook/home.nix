@@ -70,6 +70,11 @@
         mods = "Control|Shift";
         action = "SpawnNewInstance";
       }
+      {
+        key = "J";
+        mods = "Control|Shift";
+        action = "ToggleViMode";
+      }
     ];
   };
 }
