@@ -28,10 +28,7 @@
   };
 
   home.packages = with pkgs; [
-    brave
     discord
-    mpc-qt
-    signal-desktop
     telegram-desktop
     transmission-qt
     vscode

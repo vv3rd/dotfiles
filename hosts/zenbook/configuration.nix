@@ -19,8 +19,8 @@ let
         module_essentials
         module_user
         module_audio
-        module_desktop-Plasma
-        # module_desktop-Gnome
+        # module_desktop-Plasma
+        module_desktop-Niri
         module_keyboard
         module_browser-Firefox
         module_locale
@@ -141,47 +141,53 @@ let
       programs.zsh.enable = true;
     };
 
-  module_desktop-Plasma =
-    { pkgs, ... }:
+  # module_desktop-Plasma =
+  #   { pkgs, ... }:
+  #   {
+
+  #     # Disable drag release delay
+  #     services.libinput.touchpad.tappingDragLock = false;
+
+  #     services.displayManager.sddm.enable = true;
+  #     services.displayManager.sddm.wayland.enable = true;
+  #     services.desktopManager.plasma6.enable = true;
+  #   };
+
+  module_desktop-Niri =
     {
-
-      # Disable drag release delay
-      services.libinput.touchpad.tappingDragLock = false;
-
-      services.displayManager.sddm.enable = true;
-      services.displayManager.sddm.wayland.enable = true;
-      services.desktopManager.plasma6.enable = true;
-    };
-
-  module_desktop-Gnome =
-    { pkgs, ... }:
+      inputs,
+      pkgs,
+      system,
+      ...
+    }:
     {
-      home-manager.users.${user}.xdg.desktopEntries = {
-        alacritty = {
-          name = "Alacritty";
-          genericName = "Terminal";
-          exec = "alacritty";
-          terminal = false;
-          icon = "Alacritty";
-          categories = [
-            "System"
-            "TerminalEmulator"
+      services.displayManager.ly.enable = true;
+      home-manager.users.${user} = {
+        programs.rofi = {
+          enable = true;
+          package = pkgs.rofi-wayland;
+          # terminal = "${pkgs.alacritty}/bin/alacritty"; # rofi-sensible-terminal will be used
+          plugins = [
+            pkgs.rofi-emoji-wayland
+            pkgs.rofi-calc
           ];
         };
+        home.packages = [
+          pkgs.rofi-bluetooth
+        ];
       };
-
-      services.xremap.withGnome = true;
-
-      environment.systemPackages = [
-        pkgs.gnomeExtensions.battery-health-charging
-      ];
-      # Disable drag release delay
-      services.libinput.touchpad.tappingDragLock = false;
-
-      services.xserver.enable = true;
-      services.xserver.displayManager.gdm.enable = true;
-      services.xserver.desktopManager.gnome.enable = true;
-
+      programs.xwayland.enable = true;
+      # TODO:
+      # - Applets: wifi, battery, vpn, bluetooth
+      # - Feedback: volume/brightness change
+      # - Wallpapers
+      # - Apps: viewers for images,pdfs
+      # - Notifications, status popups
+      # 
+      programs.niri = {
+        enable = true;
+        package = inputs.niri.packages.${system}.niri;
+      };
     };
 
   module_browser-Firefox =
@@ -234,6 +240,7 @@ let
   module_containers =
     { pkgs, ... }:
     {
+
       virtualisation.containers.enable = true;
       virtualisation.podman = {
         enable = true;
@@ -241,7 +248,10 @@ let
         defaultNetwork.settings.dns_enabled = true;
       };
 
-      # environment.systemPackages = with pkgs; [ lazydocker ];
+      environment.systemPackages = with pkgs; [
+        lazydocker
+        docker-compose
+      ];
     };
 in
 configuration

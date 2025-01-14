@@ -8,6 +8,7 @@
     colors.url = "github:misterio77/nix-colors";
     helix.url = "github:vv3rd/helix/vv3rd-mods";
     xremap.url = "github:xremap/nix-flake";
+    niri.url = "github:YaLTeR/niri";
   };
 
   outputs =
