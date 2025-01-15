@@ -178,12 +178,17 @@ let
       };
       programs.xwayland.enable = true;
       # TODO:
-      # - Applets: wifi, battery, vpn, bluetooth
+      # - Menus: wifi, vpn, bluetooth
       # - Feedback: volume/brightness change
       # - Wallpapers
       # - Apps: viewers for images,pdfs
       # - Notifications, status popups
-      # 
+      # - Battery health, profiles switching applet
+      # - NetworkManager persistance (bug)
+      # - Rofi managed via home-manager
+      # - Clipboard history manager (cliphist)
+      # - Alacritty clipboard shortcuts
+      # - File manager icons
       programs.niri = {
         enable = true;
         package = inputs.niri.packages.${system}.niri;
