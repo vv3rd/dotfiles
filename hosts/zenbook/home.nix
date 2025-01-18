@@ -9,6 +9,7 @@
     inputs.colors.homeManagerModules.default
     ../../modules/terminal.nix
     ../../modules/helix.nix
+    ./waybar.nix
   ];
 
   colorScheme = inputs.colors.colorSchemes.gruvbox-dark-medium;
@@ -28,10 +29,9 @@
   };
 
   home.packages = with pkgs; [
-    discord
     telegram-desktop
     transmission-qt
-    vscode
+    vscodium
     yt-dlp
 
     # required to create video screen capture

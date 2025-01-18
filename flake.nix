@@ -33,10 +33,6 @@
         let
           system = "x86_64-linux";
           lib = nixpkgs.lib;
-          unfreePkgs = [
-            "discord"
-            "vscode"
-          ];
         in
         lib.nixosSystem {
           specialArgs = {
@@ -46,10 +42,7 @@
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
             xremap.nixosModules.default
-            {
-              nixpkgs.overlays = [ overlay ];
-              nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) unfreePkgs;
-            }
+            { nixpkgs.overlays = [ overlay ]; }
           ];
         };
 

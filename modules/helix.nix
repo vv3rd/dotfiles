@@ -8,7 +8,7 @@
     enable = true;
 
     settings = {
-      theme = "gruber-darker";
+      theme = "everforest_dark";
       editor = {
         line-number = "relative";
         auto-pairs = true;

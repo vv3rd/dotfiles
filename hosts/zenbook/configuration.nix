@@ -16,23 +16,16 @@ let
       imports = [
         ./hardware-configuration.nix
 
-        module_essentials
-        module_user
-        module_audio
+        module-essentials
+        module-user
+        module-audio
         # module_desktop-Plasma
-        module_desktop-Niri
-        module_keyboard
-        module_browser-Firefox
-        module_locale
-        module_containers
+        module-desktop-Niri
+        module-keyboard
+        module-browser-Firefox
+        module-locale
+        module-containers
       ];
-
-      programs.openvpn3.enable = true;
-      services.tailscale = {
-        enable = true;
-      };
-
-      documentation.dev.enable = true;
 
       environment.systemPackages = with pkgs; [
         #
@@ -52,12 +45,8 @@ let
         })
       ];
 
-      home-manager.extraSpecialArgs = {
-        inherit system inputs;
-      };
-
+      home-manager.extraSpecialArgs = { inherit system inputs; };
       home-manager.useGlobalPkgs = true;
-
       home-manager.users.${user} =
         { pkgs, ... }:
         {
@@ -75,9 +64,10 @@ let
       system.stateVersion = "23.05"; # Did you read the comment?
     };
 
-  module_essentials =
+  module-essentials =
     { ... }:
     {
+
       boot.loader = {
         systemd-boot.enable = true;
         efi.canTouchEfiVariables = true;
@@ -85,6 +75,7 @@ let
 
       networking.hostName = "zenbook"; # Define your hostname.
       networking.networkmanager.enable = true; # Enable networking
+      programs.openvpn3.enable = true;
       services.printing.enable = true; # Enable CUPS to print documents.
       hardware.bluetooth.enable = true; # enables support for Bluetooth
 
@@ -92,9 +83,10 @@ let
         "nix-command"
         "flakes"
       ];
+      documentation.dev.enable = true;
     };
 
-  module_keyboard = inputs: {
+  module-keyboard = inputs: {
     services.xremap.watch = true;
     services.xremap.config.modmap = [
       {
@@ -110,7 +102,7 @@ let
     ];
   };
 
-  module_user =
+  module-user =
     { pkgs, ... }:
     {
       environment.sessionVariables = {
@@ -153,7 +145,7 @@ let
   #     services.desktopManager.plasma6.enable = true;
   #   };
 
-  module_desktop-Niri =
+  module-desktop-Niri =
     {
       inputs,
       pkgs,
@@ -166,7 +158,6 @@ let
         programs.rofi = {
           enable = true;
           package = pkgs.rofi-wayland;
-          # terminal = "${pkgs.alacritty}/bin/alacritty"; # rofi-sensible-terminal will be used
           plugins = [
             pkgs.rofi-emoji-wayland
             pkgs.rofi-calc
@@ -176,17 +167,19 @@ let
           pkgs.rofi-bluetooth
         ];
       };
-      programs.xwayland.enable = true;
+      environment.systemPackages = [
+        pkgs.xwayland-satellite
+      ];
       # TODO:
-      # - Menus: wifi, vpn, bluetooth
-      # - Feedback: volume/brightness change
+      # - 1. Setup AGS to start creating widgets
+      #    - Menus: wifi, vpn, bluetooth (ags)
+      #    - Feedback: volume/brightness change (ags)
+      #    - Notifications, status popups (ags)
+      # - 2. Rofi managed via home-manager
+      #    - Battery health, profiles switching applet (rofi|ags)
+      #    - Clipboard history manager (cliphist + rofi|ags)
       # - Wallpapers
-      # - Apps: viewers for images,pdfs
-      # - Notifications, status popups
-      # - Battery health, profiles switching applet
-      # - NetworkManager persistance (bug)
-      # - Rofi managed via home-manager
-      # - Clipboard history manager (cliphist)
+      # - Apps: viewers for images
       # - Alacritty clipboard shortcuts
       # - File manager icons
       programs.niri = {
@@ -195,7 +188,7 @@ let
       };
     };
 
-  module_browser-Firefox =
+  module-browser-Firefox =
     { ... }:
     {
       programs.firefox.enable = true;
@@ -204,7 +197,7 @@ let
       };
     };
 
-  module_locale =
+  module-locale =
     { ... }:
     {
       # Set your time zone.
@@ -226,7 +219,7 @@ let
       };
     };
 
-  module_audio =
+  module-audio =
     { ... }:
     {
       hardware.pulseaudio.enable = false;
@@ -242,7 +235,7 @@ let
       };
     };
 
-  module_containers =
+  module-containers =
     { pkgs, ... }:
     {
 
