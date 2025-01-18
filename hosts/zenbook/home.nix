@@ -9,7 +9,6 @@
     inputs.colors.homeManagerModules.default
     ../../modules/terminal.nix
     ../../modules/helix.nix
-    ./waybar.nix
   ];
 
   colorScheme = inputs.colors.colorSchemes.gruvbox-dark-medium;
@@ -30,7 +29,7 @@
 
   home.packages = with pkgs; [
     telegram-desktop
-    transmission-qt
+    transmission_3-qt
     vscodium
     yt-dlp
 
@@ -60,6 +59,9 @@
       window.opacity = 1;
       font.size = 12;
       font.normal.family = "GeistMono Nerd Font";
+      general.import = [
+        "~/.config/alacritty/themes/everforest-dark.toml"
+      ];
     };
     settings.keyboard.bindings = [
       {

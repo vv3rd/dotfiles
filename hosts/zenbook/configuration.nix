@@ -39,8 +39,8 @@ let
           fonts = [
             "Noto"
             "GeistMono"
+            "JetBrainsMono"
             "Hack"
-            "Gohu"
           ];
         })
       ];
@@ -153,8 +153,16 @@ let
       ...
     }:
     {
+      nixpkgs.overlays = [
+        (final: prev: {
+          rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+        })
+      ];
       services.displayManager.ly.enable = true;
       home-manager.users.${user} = {
+        imports = [
+          ./waybar.nix
+        ];
         programs.rofi = {
           enable = true;
           package = pkgs.rofi-wayland;
@@ -163,9 +171,6 @@ let
             pkgs.rofi-calc
           ];
         };
-        home.packages = [
-          pkgs.rofi-bluetooth
-        ];
       };
       environment.systemPackages = [
         pkgs.xwayland-satellite
