@@ -177,6 +177,7 @@ let
       ];
       # TODO:
       # - Applets: wifi, vpn, bluetooth, clipboard (cliphist), power profiles
+      # - Rofi combi mode apps + useful commands like "wpaperd next-wallpaper"
       # - Brightness change
       # - Notifications popups
       # - gotmpl alacritty theme, rofi theme etc
