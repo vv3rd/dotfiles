@@ -162,16 +162,19 @@ let
       home-manager.users.${user} = {
         imports = [
           ./waybar.nix
+          ./rofi.nix
         ];
-        programs.rofi = {
+
+        programs.wpaperd = {
           enable = true;
-          package = pkgs.rofi-wayland;
-          plugins = [
-            pkgs.rofi-emoji-wayland
-            pkgs.rofi-calc
-          ];
+          settings = {
+            eDP-1 = {
+              path = "~/Pictures/Wallpapers";
+            };
+          };
         };
       };
+
       environment.systemPackages = [
         pkgs.xwayland-satellite
       ];
@@ -183,7 +186,6 @@ let
       # - 2. Rofi managed via home-manager
       #    - Battery health, profiles switching applet (rofi|ags)
       #    - Clipboard history manager (cliphist + rofi|ags)
-      # - Wallpapers
       # - Apps: viewers for images
       # - Alacritty clipboard shortcuts
       # - File manager icons
