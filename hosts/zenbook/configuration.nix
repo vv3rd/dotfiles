@@ -153,16 +153,13 @@ let
       ...
     }:
     {
-      nixpkgs.overlays = [
-        (final: prev: {
-          rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
-        })
+      imports = [
+        (import ./rofi.nix { inherit user; })
       ];
       services.displayManager.ly.enable = true;
       home-manager.users.${user} = {
         imports = [
           ./waybar.nix
-          ./rofi.nix
         ];
 
         programs.wpaperd = {
@@ -179,16 +176,13 @@ let
         pkgs.xwayland-satellite
       ];
       # TODO:
-      # - 1. Setup AGS to start creating widgets
-      #    - Menus: wifi, vpn, bluetooth (ags)
-      #    - Feedback: volume/brightness change (ags)
-      #    - Notifications, status popups (ags)
-      # - 2. Rofi managed via home-manager
-      #    - Battery health, profiles switching applet (rofi|ags)
-      #    - Clipboard history manager (cliphist + rofi|ags)
+      # - Applets: wifi, vpn, bluetooth, clipboard (cliphist), power profiles
+      # - Brightness change
+      # - Notifications popups
+      # - gotmpl alacritty theme, rofi theme etc
       # - Apps: viewers for images
       # - Alacritty clipboard shortcuts
-      # - File manager icons
+      # - File manager icons / GTK theming
       programs.niri = {
         enable = true;
         package = inputs.niri.packages.${system}.niri;

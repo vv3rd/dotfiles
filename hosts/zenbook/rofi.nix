@@ -1,18 +1,23 @@
+{ user }:
 { pkgs, ... }:
 {
-  home.file.".config/rofi/config.rasi" = {
-    source = ./.config-rofi-config.rasi;
-  };
-  home.packages =
-    let
-      rofi-with-plugins = pkgs.rofi-wayland.override (old: {
+  nixpkgs.overlays = [
+    (final: prev: {
+      rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+    })
+  ];
+
+  home-manager.users.${user} = {
+    home.file.".config/rofi/config.rasi" = {
+      source = ./dotconfig-rofi-config.rasi;
+    };
+    home.packages = [
+      (pkgs.rofi-wayland.override (old: {
         plugins = [
           pkgs.rofi-emoji-wayland
           pkgs.rofi-calc
         ];
-      });
-    in
-    [
-      rofi-with-plugins
+      }))
     ];
+  };
 }
