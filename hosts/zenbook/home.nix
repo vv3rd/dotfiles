@@ -29,7 +29,8 @@
 
   home.packages = with pkgs; [
     telegram-desktop
-    transmission_3-qt
+    transmission_3-gtk
+    xfce.thunar
     vscodium
     yt-dlp
 
@@ -37,6 +38,14 @@
     ffmpeg_6-full
     slop
   ];
+
+  gtk = {
+    enable = true;
+    theme.package = pkgs.everforest-gtk-theme;
+    theme.name = "Everforest-Dark-BL-LB";
+    iconTheme.name = "Everforest-Dark";
+  };
+  
 
   programs.nix-index = {
     enable = true;

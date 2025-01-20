@@ -167,6 +167,7 @@ let
           settings = {
             eDP-1 = {
               path = "~/Pictures/Wallpapers";
+              sorting = "ascending";
             };
           };
         };
@@ -183,7 +184,6 @@ let
       # - gotmpl alacritty theme, rofi theme etc
       # - Apps: viewers for images
       # - Alacritty clipboard shortcuts
-      # - File manager icons / GTK theming
       programs.niri = {
         enable = true;
         package = inputs.niri.packages.${system}.niri;
