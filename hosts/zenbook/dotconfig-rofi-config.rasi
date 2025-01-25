@@ -3,8 +3,8 @@
 configuration {
     modi:                       "run,emoji,calc,filebrowser,drun";
     show-icons:                 true;
-    display-calc:               " calc";
-    display-emoji:              "󰞅 emoji";
+    display-calc:               " Calc";
+    display-emoji:              "󰞅 Emoji";
     display-drun:               "󰈆 App";
     display-run:                "󰞷 Run";
     display-filebrowser:        " File";

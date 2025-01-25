@@ -83,7 +83,7 @@
             args = [ "--stdio" ];
           };
           tailwind = {
-            command = "tailwindcss-language-server";
+            command = lib.getExe pkgs.tailwindcss-language-server;
             args = [ "--stdio" ];
           };
           emmet = {
@@ -92,6 +92,17 @@
           };
           nil = {
             command = "${pkgs.nil}/bin/nil";
+          };
+          astro = {
+            command = lib.getExe pkgs.astro-language-server;
+            args = [ "--stdio" ];
+            config = {
+              typescript = {
+                tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib";
+              };
+              environment = "node";
+            };
+
           };
         };
 
@@ -136,6 +147,13 @@
               "emmet"
             ];
             formatter = prettierd;
+          }
+          {
+            name = "astro";
+            language-servers = [
+              "astro"
+              "tailwind"
+            ];
           }
           {
             name = "json";

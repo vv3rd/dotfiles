@@ -157,6 +157,10 @@ let
         (import ./rofi.nix { inherit user; })
       ];
       services.displayManager.ly.enable = true;
+      # services.getty = {
+      #   autologinOnce = true;
+      #   autologinUser = user;
+      # };
       home-manager.users.${user} = {
         imports = [
           ./waybar.nix
@@ -175,10 +179,14 @@ let
 
       environment.systemPackages = [
         pkgs.xwayland-satellite
+        pkgs.brightnessctl
       ];
       # TODO:
-      # - Applets: wifi, vpn, bluetooth, clipboard (cliphist), power profiles
-      # - Rofi combi mode apps + useful commands like "wpaperd next-wallpaper"
+      # - Applets: bluetooth
+      #     - power-profiles-daemon
+      #     - cliphist
+      #     - nmcli wifi and vpn
+      # - Rofi combi mode apps + home justfile commands
       # - Brightness change
       # - Notifications popups
       # - gotmpl alacritty theme, rofi theme etc

@@ -7,6 +7,7 @@ inputs: {
         "output" = [ "eDP-1" ];
         "position" = "right";
         "layer" = "top";
+        "mode" = "overlay";
         "margin" = "10 10 10 0";
         "modules-right" = [
           "tray"
@@ -20,15 +21,15 @@ inputs: {
         };
         "tray" = {
           "icon-size" = 22;
+          "spacing" = 10;
         };
         "battery" = {
-          "format" = "{icon}\n{capacity}";
+          "format" = " {icon} \n{capacity:3}";
           "format-icons" = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            "󰂎"
+            "󱊡"
+            "󱊢"
+            "󱊣"
           ];
           "states" = {
             "critical" = 15;
@@ -48,25 +49,18 @@ inputs: {
             };
           };
         };
-        "cpu" = {
-          "format" = "\n{usage:2}";
-          "interval" = 5;
-        };
-        "memory" = {
-          "format" = "\n{}";
-          "interval" = 5;
-        };
         "pulseaudio" = {
-          "format" = "{icon}\n{volume:2}";
-          "format-bluetooth" = "{icon}\n{volume}%";
+          "format" = " {icon} \n{volume:3}";
+          "format-bluetooth" = "{icon} \n{volume:3}";
           "format-icons" = {
             "default" = [
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
-            "headphones" = "";
+            "headphones" = "󰋋";
           };
-          "format-muted" = "MUTE";
+          "format-muted" = "󰝟";
           "scroll-step" = 5;
         };
       };
