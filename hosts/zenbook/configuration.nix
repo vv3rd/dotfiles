@@ -156,11 +156,11 @@ let
       imports = [
         (import ./rofi.nix { inherit user; })
       ];
-      services.displayManager.ly.enable = true;
-      # services.getty = {
-      #   autologinOnce = true;
-      #   autologinUser = user;
-      # };
+      # services.displayManager.ly.enable = true;
+      services.getty = {
+        autologinOnce = true;
+        autologinUser = user;
+      };
       home-manager.users.${user} = {
         imports = [
           ./waybar.nix
@@ -180,6 +180,7 @@ let
       environment.systemPackages = [
         pkgs.xwayland-satellite
         pkgs.brightnessctl
+        pkgs.networkmanagerapplet
       ];
       # TODO:
       # - Applets: bluetooth
@@ -187,10 +188,11 @@ let
       #     - cliphist
       #     - nmcli wifi and vpn
       # - Rofi combi mode apps + home justfile commands
-      # - Brightness change
+      # - Brightness status
       # - Notifications popups
       # - gotmpl alacritty theme, rofi theme etc
       # - Apps: viewers for images
+      # - Screenshots and screencasts
       # - Alacritty clipboard shortcuts
       programs.niri = {
         enable = true;

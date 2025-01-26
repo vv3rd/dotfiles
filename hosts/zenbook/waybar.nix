@@ -8,8 +8,8 @@ inputs: {
         "position" = "right";
         "layer" = "top";
         "mode" = "overlay";
-        "margin" = "10 10 10 0";
-        "modules-right" = [
+        "margin" = "0";
+        "modules-center" = [
           "tray"
           "pulseaudio"
           "battery"
