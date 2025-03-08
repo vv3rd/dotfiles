@@ -5,10 +5,11 @@ inputs: {
       mainBar = {
         "reload_style_on_change" = true;
         "output" = [ "eDP-1" ];
-        "position" = "right";
-        "layer" = "top";
-        "mode" = "overlay";
-        "margin" = "0";
+        "position" = "bottom";
+        "layer" = "bottom";
+        # "mode" = "overlay";
+        "exclusive" = false;
+        # "margin" = "0 2 0 0";
         "modules-center" = [
           "tray"
           "pulseaudio"
@@ -24,7 +25,7 @@ inputs: {
           "spacing" = 10;
         };
         "battery" = {
-          "format" = " {icon} \n{capacity:3}";
+          "format" = " {icon} {capacity:3}";
           "format-icons" = [
             "󰂎"
             "󱊡"
@@ -38,7 +39,7 @@ inputs: {
           };
         };
         "clock" = {
-          "format" = "{:%H\n%M}";
+          "format" = "{:%H:%M}";
           "tooltip-format" = "<tt><small>{calendar}</small></tt>";
           "calendar" = {
             "mode" = "month";
@@ -50,8 +51,8 @@ inputs: {
           };
         };
         "pulseaudio" = {
-          "format" = " {icon} \n{volume:3}";
-          "format-bluetooth" = "{icon} \n{volume:3}";
+          "format" = " {icon} {volume:3}";
+          "format-bluetooth" = " 󰂰 {volume:3}";
           "format-icons" = {
             "default" = [
               "󰕿"
@@ -60,7 +61,7 @@ inputs: {
             ];
             "headphones" = "󰋋";
           };
-          "format-muted" = "󰝟";
+          "format-muted" = " 󰝟 {volume:3}";
           "scroll-step" = 5;
         };
       };

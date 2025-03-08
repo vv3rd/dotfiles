@@ -41,7 +41,7 @@
           modules = [
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
-            xremap.nixosModules.default
+            # xremap.nixosModules.default
             { nixpkgs.overlays = [ overlay ]; }
           ];
         };

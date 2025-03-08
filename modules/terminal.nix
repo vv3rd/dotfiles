@@ -28,6 +28,8 @@ let
       "gdi" = "git diff";
       "gbr" = "git br";
       "gbl" = "git bl";
+      "gbrf" = "git br | fzf";
+      "gblf" = "git bl | fzf";
       "gswr" = "git br | fzf | xargs git switch";
       "gswl" = "git bl | fzf | xargs git switch";
       "l" = "exa -a1 --group-directories-first --icons";
@@ -112,7 +114,6 @@ in
 
   programs.carapace = {
     enable = true;
-    enableNushellIntegration = true;
   };
 
   programs.starship = {
@@ -168,20 +169,7 @@ in
         bindkey "^E" edit-command-line
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
-        # [[ ! -f "$ZDOTDIR/.p10k.zsh" ]] || source "$ZDOTDIR/.p10k.zsh"
       '';
-    # plugins = [
-    #   {
-    #     name = "powerlevel10k";
-    #     file = "powerlevel10k.zsh-theme";
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "romkatv";
-    #       repo = "powerlevel10k";
-    #       rev = "master";
-    #       sha256 = "sha256-H7DYDLNANFnws3pCANnMJAQIMDXCf9S+ggUOGUy1oO0=";
-    #     };
-    #   }
-    # ];
     history = {
       path = "$ZDOTDIR/.zsh_history";
       ignorePatterns = [

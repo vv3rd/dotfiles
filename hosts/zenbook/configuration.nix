@@ -76,6 +76,7 @@ let
       networking.hostName = "zenbook"; # Define your hostname.
       networking.networkmanager.enable = true; # Enable networking
       programs.openvpn3.enable = true;
+      services.tailscale.enable = true;
       services.printing.enable = true; # Enable CUPS to print documents.
       hardware.bluetooth.enable = true; # enables support for Bluetooth
 
@@ -86,21 +87,26 @@ let
       documentation.dev.enable = true;
     };
 
-  module-keyboard = inputs: {
-    services.xremap.watch = true;
-    services.xremap.config.modmap = [
-      {
-        name = "Global";
-        remap = {
-          "CapsLock" = {
-            held = "Ctrl_R";
-            alone = "Esc";
-            alone_timeout = 200;
-          };
-        };
-      }
-    ];
-  };
+  module-keyboard =
+    { inputs, system, ... }:
+    {
+      environment.systemPackages = [
+        inputs.xremap.packages.${system}.xremap
+      ];
+      # services.xremap.watch = true;
+      # services.xremap.config.modmap = [
+      #   {
+      #     name = "Global";
+      #     remap = {
+      #       "CapsLock" = {
+      #         held = "Ctrl_R";
+      #         alone = "Esc";
+      #         alone_timeout = 200;
+      #       };
+      #     };
+      #   }
+      # ];
+    };
 
   module-user =
     { pkgs, ... }:
@@ -165,22 +171,13 @@ let
         imports = [
           ./waybar.nix
         ];
-
-        programs.wpaperd = {
-          enable = true;
-          settings = {
-            eDP-1 = {
-              path = "~/Pictures/Wallpapers";
-              sorting = "ascending";
-            };
-          };
-        };
       };
 
       environment.systemPackages = [
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
+        pkgs.wpaperd
       ];
       # TODO:
       # - Applets: bluetooth

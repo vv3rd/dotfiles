@@ -18,6 +18,7 @@
         completion-timeout = 90;
         true-color = true;
         color-modes = true;
+        continue-comments = false;
       };
       editor.cursor-shape = {
         insert = "bar";
