@@ -85,6 +85,12 @@ let
         "flakes"
       ];
       documentation.dev.enable = true;
+
+      programs.command-not-found.enable = false;
+      programs.nix-index = {
+        enable = true;
+        enableZshIntegration = true;
+      };
     };
 
   module-keyboard =
@@ -178,6 +184,7 @@ let
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
         pkgs.wpaperd
+        pkgs.cliphist
       ];
       # TODO:
       # - Applets: bluetooth

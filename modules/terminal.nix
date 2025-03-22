@@ -114,6 +114,7 @@ in
 
   programs.carapace = {
     enable = true;
+    enableZshIntegration = true;
   };
 
   programs.starship = {

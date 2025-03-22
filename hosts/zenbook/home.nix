@@ -30,7 +30,7 @@
   home.packages = with pkgs; [
     telegram-desktop
     transmission_3-gtk
-    nautilus
+    xfce.thunar
     vscodium
     yt-dlp
 
@@ -47,11 +47,6 @@
     cursorTheme.package = pkgs.vimix-cursor-theme;
     cursorTheme.name = "Vimix-Cursors";
     cursorTheme.size = 32;
-  };
-  
-
-  programs.nix-index = {
-    enable = true;
   };
 
   programs.mpv = {
