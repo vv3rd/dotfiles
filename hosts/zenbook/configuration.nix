@@ -21,7 +21,6 @@ let
         module-audio
         # module_desktop-Plasma
         module-desktop-Niri
-        module-keyboard
         module-browser-Firefox
         module-locale
         module-containers
@@ -93,27 +92,6 @@ let
       };
     };
 
-  module-keyboard =
-    { inputs, system, ... }:
-    {
-      environment.systemPackages = [
-        inputs.xremap.packages.${system}.xremap
-      ];
-      # services.xremap.watch = true;
-      # services.xremap.config.modmap = [
-      #   {
-      #     name = "Global";
-      #     remap = {
-      #       "CapsLock" = {
-      #         held = "Ctrl_R";
-      #         alone = "Esc";
-      #         alone_timeout = 200;
-      #       };
-      #     };
-      #   }
-      # ];
-    };
-
   module-user =
     { pkgs, ... }:
     {
@@ -178,6 +156,8 @@ let
           ./waybar.nix
         ];
       };
+
+      services.power-profiles-daemon.enable = true;
 
       environment.systemPackages = [
         pkgs.xwayland-satellite

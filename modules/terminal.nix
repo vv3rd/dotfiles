@@ -20,10 +20,8 @@ let
       "gsl" = "git stash list";
       "gsp" = "git stash pop";
       "gsa" = "git stash --include-untracked";
-      "glg" =
-        "git log" # //
-        + " --branches --remotes --graph --abbrev-commit --decorate"
-        + " --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'";
+      "glgb" = "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
+      "glg" = "glgb --all";
       "gin" = "git status";
       "gdi" = "git diff";
       "gbr" = "git br";

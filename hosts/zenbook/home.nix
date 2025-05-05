@@ -6,12 +6,9 @@
 }:
 {
   imports = [
-    inputs.colors.homeManagerModules.default
     ../../modules/terminal.nix
     ../../modules/helix.nix
   ];
-
-  colorScheme = inputs.colors.colorSchemes.gruvbox-dark-medium;
 
   # remove once helix build on mac
   programs.helix.settings.editor.inline-diagnostics = {
