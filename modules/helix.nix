@@ -61,7 +61,7 @@
           command = lib.getExe pkgs.prettierd;
           args = [
             "--stdin-filepath"
-            "{}"
+            "%{buffer_name}"
           ];
         };
       in
