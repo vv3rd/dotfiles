@@ -41,7 +41,7 @@
     theme.package = pkgs.everforest-gtk-theme;
     theme.name = "Everforest-Dark-BL-LB";
     iconTheme.name = "Everforest-Dark";
-    cursorTheme.package = pkgs.vimix-cursor-theme;
+    cursorTheme.package = pkgs.vimix-cursors;
     cursorTheme.name = "Vimix-Cursors";
     cursorTheme.size = 32;
   };

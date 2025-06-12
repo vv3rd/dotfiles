@@ -34,14 +34,10 @@ let
       ];
 
       fonts.packages = [
-        (pkgs.nerdfonts.override {
-          fonts = [
-            "Noto"
-            "GeistMono"
-            "JetBrainsMono"
-            "Hack"
-          ];
-        })
+        pkgs.nerd-fonts.noto
+        pkgs.nerd-fonts.geist-mono
+        pkgs.nerd-fonts.jetbrains-mono
+        pkgs.nerd-fonts.hack
       ];
 
       home-manager.extraSpecialArgs = { inherit system inputs; };

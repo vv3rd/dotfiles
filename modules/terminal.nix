@@ -70,7 +70,6 @@ in
     jq
     just
     fd
-    diskonaut
 
     kubectl
     kubectx
