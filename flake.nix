@@ -18,39 +18,37 @@
       ...
     }@inputs:
     let
-      overlay = (
-        final: prev: {
+      overlayModule.nixpkgs.overlays = [
+        (final: prev: {
           helix = helix.packages.${final.system}.helix;
           rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
-        }
-      );
+        })
+      ];
     in
     {
       nixosConfigurations.zenbook =
         let
           system = "x86_64-linux";
-          lib = nixpkgs.lib;
         in
-        lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit system inputs;
           };
           modules = [
             ./hosts/zenbook/configuration.nix
             home-manager.nixosModules.default
-            { nixpkgs.overlays = [ overlay ]; }
+            overlayModule
           ];
         };
 
       homeConfigurations."alexey" =
         let
           system = "aarch64-darwin";
-          pkgs = import nixpkgs { inherit system; };
         in
         home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = import nixpkgs { inherit system; };
           extraSpecialArgs = {
-            inherit system helix;
+            inherit system inputs;
           };
           modules = [ ./hosts/macbook/home.nix ];
         };
