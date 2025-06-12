@@ -21,6 +21,7 @@
       overlay = (
         final: prev: {
           helix = helix.packages.${final.system}.helix;
+          rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
         }
       );
     in

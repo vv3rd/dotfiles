@@ -38,7 +38,7 @@
   };
 
   home.sessionVariables = {
-    FLAKE = "${config.home.homeDirectory}/Machine";
+    NH_FLAKE = "${config.home.homeDirectory}/Machine";
     # EDITOR = "hx";
     # MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     # MANPAGER = "sh -c 'col -bx | bat -l man -p'";

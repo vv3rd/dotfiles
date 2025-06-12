@@ -158,7 +158,7 @@ in
     shellAliases = shellAliases // zshShellAliases;
     autosuggestion.enable = true;
     dotDir = ".config/zsh";
-    initExtra =
+    initContent =
       # sh
       ''
         source ~/.zuser

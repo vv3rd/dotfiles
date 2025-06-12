@@ -1,7 +1,5 @@
 {
-  lib,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -13,15 +11,6 @@
   # remove once helix build on mac
   programs.helix.settings.editor.inline-diagnostics = {
     cursor-line = "warning";
-  };
-
-  nixpkgs = {
-    config.allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "discord"
-        "vscode"
-      ];
   };
 
   home.packages = with pkgs; [

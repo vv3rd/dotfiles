@@ -92,7 +92,7 @@ let
     { pkgs, ... }:
     {
       environment.sessionVariables = {
-        FLAKE = "/home/${user}/Machine";
+        NH_FLAKE = "/home/${user}/Machine";
         # home dir cleanup
         XCOMPOSECACHE = "$HOME/.cache/compose-cache";
         XDG_DATA_HOME = "$HOME/.local/share";
@@ -214,7 +214,7 @@ let
   module-audio =
     { ... }:
     {
-      hardware.pulseaudio.enable = false;
+      services.pulseaudio.enable = false;
 
       # Enable the RealtimeKit system service, which hands out realtime scheduling priority to user processes on demand.
       # The PulseAudio server uses this to acquire realtime priority.
