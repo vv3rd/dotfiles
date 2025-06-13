@@ -8,7 +8,7 @@
     ../../modules/helix.nix
   ];
 
-  # remove once helix build on mac
+  # TODO: remove once helix build on mac
   programs.helix.settings.editor.inline-diagnostics = {
     cursor-line = "warning";
   };

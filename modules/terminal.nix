@@ -54,6 +54,7 @@ let
 
   envVars = {
     EDITOR = "hx";
+    TERMINAL = "alacritty";
     MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     WORDCHARS = "*?_.[]~=&;!#$%^(){}<>";
@@ -207,13 +208,5 @@ in
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  programs.zellij = {
-    enable = true;
-    settings = {
-      pane_frames = false;
-      default_layout = "compact";
-    };
   };
 }

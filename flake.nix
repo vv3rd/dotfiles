@@ -11,46 +11,36 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
-      helix,
       ...
     }@inputs:
     let
       overlayModule.nixpkgs.overlays = [
         (final: prev: {
-          helix = helix.packages.${final.system}.helix;
+          helix = inputs.helix.packages.${final.system}.helix;
           rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
         })
       ];
     in
     {
-      nixosConfigurations.zenbook =
-        let
-          system = "x86_64-linux";
-        in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit system inputs;
-          };
-          modules = [
-            ./hosts/zenbook/configuration.nix
-            home-manager.nixosModules.default
-            overlayModule
-          ];
+      nixosConfigurations."zenbook" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
         };
+        modules = [
+          ./hosts/zenbook/configuration.nix
+          home-manager.nixosModules.default
+          overlayModule
+        ];
+      };
 
-      homeConfigurations."alexey" =
-        let
-          system = "aarch64-darwin";
-        in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { inherit system; };
-          extraSpecialArgs = {
-            inherit system inputs;
-          };
-          modules = [ ./hosts/macbook/home.nix ];
+      homeConfigurations."alexey" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "aarch64-darwin"; };
+        extraSpecialArgs = {
+          inherit inputs;
         };
+        modules = [ ./hosts/macbook/home.nix ];
+      };
     };
 }

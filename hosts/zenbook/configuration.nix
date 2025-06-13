@@ -41,7 +41,7 @@ let
         pkgs.nerd-fonts.hack
       ];
 
-      home-manager.extraSpecialArgs = { inherit system inputs; };
+      home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.useGlobalPkgs = true;
       home-manager.users.${user} =
         { pkgs, ... }:
