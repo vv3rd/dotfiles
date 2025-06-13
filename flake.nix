@@ -6,7 +6,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix.url = "github:vv3rd/helix/vv3rd-mods";
-    niri.url = "github:YaLTeR/niri";
+    # niri.url = "github:YaLTeR/niri";
   };
 
   outputs =

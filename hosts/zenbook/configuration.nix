@@ -176,7 +176,7 @@ let
       # - Alacritty clipboard shortcuts
       programs.niri = {
         enable = true;
-        package = inputs.niri.packages.${system}.niri;
+        # package = inputs.niri.packages.${system}.niri;
       };
     };
 
