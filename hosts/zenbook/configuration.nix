@@ -162,6 +162,8 @@ let
         pkgs.networkmanagerapplet
         pkgs.wpaperd
         pkgs.cliphist
+        pkgs.wl-clipboard
+        pkgs.wl-clip-persist
       ];
       # TODO:
       # - Applets: bluetooth

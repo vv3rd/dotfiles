@@ -1,9 +1,5 @@
 { pkgs, lib, ... }:
 {
-  home.packages = [
-    pkgs.wl-clipboard # need this for cliiboard to work on wayland
-    # pkgs.xclip # will need this if xserver is used
-  ];
   programs.helix = {
     enable = true;
 
