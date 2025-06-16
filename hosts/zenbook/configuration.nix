@@ -22,6 +22,7 @@ let
         module-portals
         # module_desktop-Plasma
         module-desktop-Niri
+        module-Thunar
         module-browser-Firefox
         module-locale
         module-containers
@@ -184,6 +185,18 @@ let
       };
     };
 
+  module-Thunar =
+    { pkgs, ... }:
+    {
+      programs.thunar.enable = true;
+      programs.xfconf.enable = true;
+      programs.thunar.plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+      services.tumbler.enable = true; # Thumbnail support for images
+    };
+
   module-portals =
     { pkgs, ... }:
     {
@@ -203,13 +216,14 @@ let
             "org.freedesktop.impl.portal.Access" = "gtk";
             "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
             "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+            "org.freedesktop.impl.portal.Screenshot" = "wlr";
             "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
           };
         };
+        wlr.enable = true;
         extraPortals = with pkgs; [
           xdg-desktop-portal-gtk
           xdg-desktop-portal-termfilechooser
-          xdg-desktop-portal-wlr
         ];
       };
     };

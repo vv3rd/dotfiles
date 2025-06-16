@@ -16,7 +16,6 @@
   home.packages = with pkgs; [
     telegram-desktop
     transmission_3-gtk
-    xfce.thunar
     vscodium
     yt-dlp
 
