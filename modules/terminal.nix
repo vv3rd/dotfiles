@@ -54,7 +54,6 @@ let
 
   envVars = {
     EDITOR = "hx";
-    TERMINAL = "alacritty";
     MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     WORDCHARS = "*?_.[]~=&;!#$%^(){}<>";

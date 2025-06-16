@@ -1,0 +1,16 @@
+
+#navigator-toolbox {
+  flex-direction: column-reverse;
+}
+
+.titlebar-buttonbox-container {
+  display: none;
+}
+
+#toolbar-menubar[autohide="true"] {
+  min-height: auto !important;
+}
+
+#toolbar-menubar[autohide="true"][inactive] + #TabsToolbar {
+  display: none;
+}

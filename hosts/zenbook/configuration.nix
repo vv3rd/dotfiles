@@ -94,6 +94,7 @@ let
     {
       environment.sessionVariables = {
         NH_FLAKE = "/home/${user}/Machine";
+        TERMINAL = "${pkgs.alacritty}/bin/alacritty";
         # home dir cleanup
         XCOMPOSECACHE = "$HOME/.cache/compose-cache";
         XDG_DATA_HOME = "$HOME/.local/share";
