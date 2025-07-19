@@ -6,11 +6,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1746866037,
-        "narHash": "sha256-epOmv53TziVFQREEYiTk4cN+TCnB0fQHpOa2y1twnZk=",
+        "lastModified": 1752652262,
+        "narHash": "sha256-YUmgvIdH1RHFyrNOzbJEAmXKym+Rr1rSo1Gu2tjYeGw=",
         "owner": "vv3rd",
         "repo": "helix",
-        "rev": "d3e7b71a57466aa804fef17d9f6bab43ec807146",
+        "rev": "9b5eb3432faadc4bebf60f6a7a5508c9eed0eb86",
         "type": "github"
       },
       "original": {
@@ -73,11 +73,32 @@
         "type": "github"
       }
     },
+    "quickshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1752921684,
+        "narHash": "sha256-GjN9BXxWMlmIAAcKYrsrEPVT/cJkWieG3YOJG7sJuGk=",
+        "ref": "refs/heads/master",
+        "rev": "759bd721dfd38e2ce02048f378ee025bcb175f93",
+        "revCount": 651,
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
+      }
+    },
     "root": {
       "inputs": {
         "helix": "helix",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "quickshell": "quickshell"
       }
     },
     "rust-overlay": {

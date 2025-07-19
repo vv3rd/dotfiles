@@ -70,6 +70,14 @@ let
         efi.canTouchEfiVariables = true;
       };
 
+      services.tlp = {
+        enable = true;
+        settings = {
+          START_CHARGE_THRESH_BAT0 = 40; # 40 and below it starts to charge
+          STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+        };
+      };
+
       networking.hostName = "zenbook"; # Define your hostname.
       networking.networkmanager.enable = true; # Enable networking
       programs.openvpn3.enable = true;
@@ -103,6 +111,11 @@ let
         XDG_CONFIG_HOME = "$HOME/.config";
         XDG_CACHE_HOME = "$HOME/.cache";
         GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
+        KUBECONFIG = "$XDG_CONFIG_HOME/kube";
+        KUBECACHEDIR = "$XDG_CACHE_HOME/kube";
+        NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+        DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+        CARGO_HOME = "$XDG_DATA_HOME/cargo";
       };
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -156,13 +169,12 @@ let
         ];
       };
 
-      services.power-profiles-daemon.enable = true;
-
       environment.systemPackages = [
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
         pkgs.wpaperd
+        pkgs.quickshell
         pkgs.cliphist
         pkgs.wl-clipboard
         pkgs.wl-clip-persist

@@ -7,12 +7,18 @@
     };
     helix.url = "github:vv3rd/helix/vv3rd-mods";
     # niri.url = "github:YaLTeR/niri";
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
       home-manager,
+      quickshell,
       ...
     }@inputs:
     let
@@ -20,6 +26,7 @@
         (final: prev: {
           helix = inputs.helix.packages.${final.system}.helix;
           rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
+          quickshell = quickshell.packages.${final.system}.default;
         })
       ];
     in

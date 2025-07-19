@@ -100,6 +100,10 @@
               environment = "node";
             };
           };
+          qmlls = {
+            command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
+            args = [ "-E" ];
+          };
         };
 
         language = [

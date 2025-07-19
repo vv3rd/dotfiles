@@ -15,8 +15,6 @@
 
   home.packages = with pkgs; [
     telegram-desktop
-    transmission_3-gtk
-    vscodium
     yt-dlp
 
     # required to create video screen capture
