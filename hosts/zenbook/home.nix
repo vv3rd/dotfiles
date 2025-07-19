@@ -8,11 +8,6 @@
     ../../modules/helix.nix
   ];
 
-  # TODO: remove once helix build on mac
-  programs.helix.settings.editor.inline-diagnostics = {
-    cursor-line = "warning";
-  };
-
   home.packages = with pkgs; [
     telegram-desktop
     yt-dlp
@@ -22,6 +17,10 @@
     slop
   ];
 
+  xdg = {
+    enable = true;
+  };
+
   gtk = {
     enable = true;
     theme.package = pkgs.everforest-gtk-theme;
@@ -30,6 +29,10 @@
     cursorTheme.package = pkgs.bibata-cursors;
     cursorTheme.name = "Bibata-Original-Classic";
     cursorTheme.size = 32;
+  };
+
+  programs.imv = {
+    enable = true;
   };
 
   programs.mpv = {

@@ -10,10 +10,6 @@
     ../../modules/terminal.nix
   ];
 
-  xdg = {
-    enable = true;
-  };
-
   home.packages = [
     pkgs.ffmpeg-full
     pkgs.nodejs

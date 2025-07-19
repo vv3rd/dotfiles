@@ -8,10 +8,6 @@ let
     "fj" = "$EDITOR";
     "fji" = "$EDITOR $(git diff --staged --diff-filter=MR --name-only --relative)";
   };
-  nuShellAliases = {
-    "gac" = "git add . and git commit";
-    "fj" = "hx";
-  };
   shellAliases =
     {
       "ghi" = "git -c diff.external=difft log -p --ext-diff";
@@ -20,7 +16,8 @@ let
       "gsl" = "git stash list";
       "gsp" = "git stash pop";
       "gsa" = "git stash --include-untracked";
-      "glgb" = "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
+      "glgb" =
+        "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
       "glg" = "glgb --all";
       "gin" = "git status";
       "gdi" = "git diff";
@@ -96,17 +93,10 @@ in
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
-    enableNushellIntegration = true;
     nix-direnv.enable = true;
     config = {
       load_dotenv = true;
     };
-  };
-
-  programs.nushell = {
-    enable = true;
-    shellAliases = shellAliases // nuShellAliases;
-    environmentVariables = envVars;
   };
 
   programs.carapace = {
@@ -116,7 +106,6 @@ in
 
   programs.starship = {
     enable = true;
-    enableNushellIntegration = true;
     enableZshIntegration = true;
     settings = {
       add_newline = true;
@@ -200,7 +189,6 @@ in
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
-    enableNushellIntegration = true;
     options = [ "--cmd cd" ];
   };
 

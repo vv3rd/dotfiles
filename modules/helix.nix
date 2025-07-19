@@ -1,7 +1,8 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 {
   programs.helix = {
     enable = true;
+    package = inputs.helix.packages.${pkgs.system}.default;
 
     settings = {
       theme = "everforest_dark";
@@ -63,6 +64,10 @@
       in
       {
         language-server = {
+          quickshell-ls = {
+            command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
+            args = [ "-E" ];
+          };
           ts = with pkgs.nodePackages; {
             command = "${typescript-language-server}/bin/typescript-language-server";
             args = [ "--stdio" ];
@@ -99,10 +104,6 @@
               };
               environment = "node";
             };
-          };
-          qmlls = {
-            command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
-            args = [ "-E" ];
           };
         };
 
@@ -170,6 +171,10 @@
             language-servers = [ "css" ];
             auto-format = true;
             formatter = prettierd;
+          }
+          {
+            name = "qml";
+            language-servers = [ "quickshell-ls" ];
           }
         ];
       };

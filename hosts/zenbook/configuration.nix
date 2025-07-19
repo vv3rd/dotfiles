@@ -49,7 +49,11 @@ let
         {
           home.stateVersion = "23.05";
           programs.home-manager.enable = true;
-          imports = [ ./home.nix ];
+          imports = [
+            ./home.nix
+            ./rofi.nix
+            ./waybar.nix
+          ];
         };
 
       # This value determines the NixOS release from which the default
@@ -106,16 +110,12 @@ let
         TERMINAL = "${pkgs.alacritty}/bin/alacritty";
         # home dir cleanup
         XCOMPOSECACHE = "$HOME/.cache/compose-cache";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_CACHE_HOME = "$HOME/.cache";
         GTK2_RC_FILES = "$HOME/.config/gtk-2.0/gtkrc-2.0";
-        KUBECONFIG = "$XDG_CONFIG_HOME/kube";
-        KUBECACHEDIR = "$XDG_CACHE_HOME/kube";
-        NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
-        DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
-        CARGO_HOME = "$XDG_DATA_HOME/cargo";
+        # KUBECONFIG = "$XDG_CONFIG_HOME/kube";
+        # KUBECACHEDIR = "$XDG_CACHE_HOME/kube";
+        # NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc";
+        # DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
+        # CARGO_HOME = "$XDG_DATA_HOME/cargo";
       };
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -155,18 +155,10 @@ let
       ...
     }:
     {
-      imports = [
-        (import ./rofi.nix { inherit user; })
-      ];
-      # services.displayManager.ly.enable = true;
+
       services.getty = {
         autologinOnce = true;
         autologinUser = user;
-      };
-      home-manager.users.${user} = {
-        imports = [
-          ./waybar.nix
-        ];
       };
 
       environment.systemPackages = [
