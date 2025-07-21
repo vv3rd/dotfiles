@@ -28,6 +28,10 @@ let
         module-containers
       ];
 
+
+      nix.registry.system.flake = inputs.self;
+      environment.etc."current-flake".source = inputs.self;
+
       environment.systemPackages = with pkgs; [
         #
         nh
@@ -45,18 +49,18 @@ let
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
-      
+
       home-manager.users.${user} =
-         { pkgs, ... }:
-         {
-           home.stateVersion = "25.05";
-           programs.home-manager.enable = true;
-           imports = [
-             ./home.nix
-             ./rofi.nix
-             ./waybar.nix
-           ];
-         };
+        { pkgs, ... }:
+        {
+          home.stateVersion = "25.05";
+          programs.home-manager.enable = true;
+          imports = [
+            ./home.nix
+            ./rofi.nix
+            ./waybar.nix
+          ];
+        };
 
       # This value determines the NixOS release from which the default
       # settings for stateful data, like file locations and database versions
@@ -173,6 +177,7 @@ let
         pkgs.wl-clipboard
         pkgs.wl-clip-persist
       ];
+
       # TODO:
       # - Applets: bluetooth
       #     - power-profiles-daemon

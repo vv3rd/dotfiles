@@ -65,7 +65,7 @@
       {
         language-server = {
           quickshell-ls = {
-            command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
+            command = "qmlls";
             args = [ "-E" ];
           };
           ts = with pkgs.nodePackages; {

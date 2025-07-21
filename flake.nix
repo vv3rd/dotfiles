@@ -19,6 +19,7 @@
       nixpkgs,
       home-manager,
       quickshell,
+      self,
       ...
     }@inputs:
     let
@@ -33,7 +34,7 @@
     {
       nixosConfigurations."zenbook" = nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs;
+          inherit inputs self;
         };
         modules = [
           ./hosts/zenbook/configuration.nix
@@ -45,7 +46,7 @@
       homeConfigurations."alexey" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs self;
         };
         modules = [ ./hosts/macbook/home.nix ];
       };
