@@ -26,10 +26,12 @@ let
         module-browser-Firefox
         module-locale
         module-containers
+        module-unfree
       ];
 
-
-      nix.registry.system.flake = inputs.self;
+      nix.registry = {
+        system.flake = inputs.self;
+      };
       environment.etc."current-flake".source = inputs.self;
 
       environment.systemPackages = with pkgs; [
@@ -37,6 +39,9 @@ let
         nh
         dig.dnsutils
         wget
+        zip
+        unzip
+        transmission_3-gtk
       ];
 
       fonts.packages = [
@@ -173,9 +178,10 @@ let
         pkgs.networkmanagerapplet
         pkgs.wpaperd
         pkgs.quickshell
-        pkgs.cliphist
+        # pkgs.cliphist
+        # pkgs.wl-clip-persist
+        pkgs.clipse
         pkgs.wl-clipboard
-        pkgs.wl-clip-persist
       ];
 
       # TODO:
@@ -292,6 +298,19 @@ let
         lazydocker
         docker-compose
       ];
+    };
+
+  module-unfree =
+    { lib, pkgs, ... }:
+    let
+      unfreePackages = with pkgs; [
+        google-chrome
+      ];
+      unfreePackagesNames = map lib.getName unfreePackages;
+    in
+    {
+      environment.systemPackages = unfreePackages;
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) unfreePackagesNames;
     };
 in
 configuration

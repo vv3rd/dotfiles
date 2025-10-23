@@ -53,7 +53,7 @@ let
     EDITOR = "hx";
     MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-    WORDCHARS = "*?_.[]~=&;!#$%^(){}<>";
+    WORDCHARS = "*?[]~=&;!#$%^(){}<>";
     DIRENV_LOG_FORMAT = ""; # silences direnv logs
   };
 in

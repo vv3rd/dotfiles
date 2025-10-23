@@ -1,5 +1,14 @@
-{ pkgs, lib, inputs, ... }:
 {
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
+  home.packages = [
+    pkgs.markdown-oxide # LSP for markdown, pre-configured in helix
+  ];
+
   programs.helix = {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.default;
@@ -105,6 +114,22 @@
               environment = "node";
             };
           };
+          # useless because only checks comments
+          # harper = {
+          #   command = "${pkgs.harper}/bin/harper-ls";
+          #   args = [ "--stdio" ];
+          # };
+
+          # useless because will not check variable definitions
+          # codebook = {
+          #   command = lib.getExe pkgs.codebook;
+          #   args = [ "serve" ];
+          # };
+
+          typos = {
+            command = "${pkgs.typos-lsp}/bin/typos-lsp";
+            config.diagnosticSeverity = "Hint";
+          };
         };
 
         language = [
@@ -116,19 +141,28 @@
           }
           {
             name = "javascript";
-            language-servers = [ "ts" ];
+            language-servers = [
+              "ts"
+              "typos"
+            ];
             auto-format = true;
             formatter = prettierd;
           }
           {
             name = "jsx";
-            language-servers = [ "ts" ];
+            language-servers = [
+              "ts"
+              "typos"
+            ];
             auto-format = true;
             formatter = prettierd;
           }
           {
             name = "typescript";
-            language-servers = [ "ts" ];
+            language-servers = [
+              "ts"
+              "typos"
+            ];
             auto-format = true;
             formatter = prettierd;
           }
@@ -137,6 +171,7 @@
             language-servers = [
               "ts"
               "tailwind"
+              "typos"
             ];
             auto-format = true;
             formatter = prettierd;

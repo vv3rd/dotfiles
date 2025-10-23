@@ -1,7 +1,0 @@
-modmap:
-  - name: No Caps
-    remap:
-      CapsLock:
-        held: Ctrl_R
-        alone: Esc
-        alone_timeout: 200
