@@ -17,6 +17,7 @@ let
         ./hardware-configuration.nix
 
         module-essentials
+        module-network
         module-user
         module-audio
         module-portals
@@ -93,12 +94,9 @@ let
         };
       };
 
-      networking.hostName = "zenbook"; # Define your hostname.
-      networking.networkmanager.enable = true; # Enable networking
-      programs.openvpn3.enable = true;
-      services.tailscale.enable = true;
       services.printing.enable = true; # Enable CUPS to print documents.
       hardware.bluetooth.enable = true; # enables support for Bluetooth
+      services.blueman.enable = true;
 
       nix.settings.experimental-features = [
         "nix-command"
@@ -111,6 +109,35 @@ let
         enable = true;
         enableZshIntegration = true;
       };
+    };
+
+  module-network =
+    { ... }:
+    {
+      # essentials
+      networking.hostName = "zenbook"; # Define your hostname.
+      networking.networkmanager.enable = true; # Enable networking
+
+      # vpn
+      programs.openvpn3.enable = true;
+      services.tailscale.enable = true;
+
+      # mDNS
+      services.avahi = {
+        enable = true;
+        nssmdns = true;
+        hostName = "rsndev";
+        publish = {
+          enable = true;
+          addresses = true;
+          workstation = true;
+          userServices = true;
+        };
+      };
+      networking.firewall.allowedUDPPorts = [ 5353 ];
+
+      # for development purposes
+      networking.firewall.allowedTCPPorts = [ 8080 ];
     };
 
   module-user =
@@ -182,6 +209,7 @@ let
         # pkgs.wl-clip-persist
         pkgs.clipse
         pkgs.wl-clipboard
+        pkgs.kanata
       ];
 
       # TODO:
@@ -200,6 +228,10 @@ let
         enable = true;
         # package = inputs.niri.packages.${system}.niri;
       };
+
+
+      services.kanata.enable = false;
+      services.kanata.keyboards."lofree".configFile = ./dotconfig/kanata/lofree.kbd;
     };
 
   module-Thunar =

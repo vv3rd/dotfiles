@@ -25,6 +25,10 @@
         true-color = true;
         color-modes = true;
         continue-comments = false;
+        jump-label-alphabet = "fjghdkslaurieowpqvncmxz";
+      };
+      editor.inline-diagnostics = {
+        cursor-line = "warning";
       };
       editor.cursor-shape = {
         insert = "bar";
@@ -53,6 +57,9 @@
         ];
         "}" = "goto_next_paragraph";
         "{" = "goto_prev_paragraph";
+        "S-g" = {
+          "b" = ":sh git blame --date=human -L %{cursor_line},-4 -L %{cursor_line},+4 %{buffer_name}";
+        };
       };
       keys.select = {
         "}" = "goto_next_paragraph";
@@ -114,6 +121,19 @@
               environment = "node";
             };
           };
+          angular = {
+            command = lib.getExe pkgs.angular-language-server;
+            file-types = [
+              "ts"
+              "typescript"
+              "html"
+            ];
+          };
+          typos = {
+            command = "${pkgs.typos-lsp}/bin/typos-lsp";
+            config.diagnosticSeverity = "Hint";
+          };
+
           # useless because only checks comments
           # harper = {
           #   command = "${pkgs.harper}/bin/harper-ls";
@@ -126,10 +146,6 @@
           #   args = [ "serve" ];
           # };
 
-          typos = {
-            command = "${pkgs.typos-lsp}/bin/typos-lsp";
-            config.diagnosticSeverity = "Hint";
-          };
         };
 
         language = [
