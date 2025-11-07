@@ -15,13 +15,11 @@ configuration entries.
 |#
 
 (defcfg
-  linux-dev /dev/input/event14
-  #|
+  ;; linux-dev /dev/input/event14
   linux-dev-names-include (
     "Flow2-68@Lofree Keyboard"
   ) 
   linux-device-detect-mode keyboard-only
-  |#
   #|
   This configuration will process all keys pressed inside of kanata, even if
   they are not mapped in defsrc. This is so that certain actions can activate
@@ -34,18 +32,18 @@ configuration entries.
 )
 
 (defsrc
-  esc
-  caps      h    j    k   l     grv
+  esc                                home
+  caps      h    j    k   l     grv  end
 )
 
 (deflayer default
-  @esk
-  @cap      _    _    _   _     esc
+  @esk                               _
+  @cap      _    _    _   _     esc  _
 )
 
 (deflayer arrows
-  _
-  _        left  down up  rght  _
+  _                                  pgup
+  _        left  down up  rght  _    pgdn
 )
 
 (defalias
