@@ -32,21 +32,21 @@ configuration entries.
 )
 
 (defsrc
-  esc                                home
-  caps      h    j    k   l     grv  end
+  esc       y    u    i    o        
+  caps      h    j    k    l     grv
 )
 
 (deflayer default
-  @esk                               _
-  @cap      _    _    _   _     esc  _
+  @esk      _    _    _    _        
+  @cap      _    _    _    _     esc
 )
 
 (deflayer arrows
-  _                                  pgup
-  _        left  down up  rght  _    pgdn
+  _        home  pgdn pgup end    
+  _        left  down up   rght  _
 )
 
 (defalias
-  cap (tap-hold-press 200 200 esc lctl)
+  cap (tap-hold-press 200 200 esc lmet)
   esk (tap-hold-press 200 200 grv (layer-toggle arrows))
 )
