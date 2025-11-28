@@ -96,7 +96,6 @@ let
 
       services.printing.enable = true; # Enable CUPS to print documents.
       hardware.bluetooth.enable = true; # enables support for Bluetooth
-      services.blueman.enable = true;
 
       nix.settings.experimental-features = [
         "nix-command"
@@ -125,7 +124,7 @@ let
       # mDNS
       services.avahi = {
         enable = true;
-        nssmdns = true;
+        nssmdns4 = true;
         hostName = "rsndev";
         publish = {
           enable = true;
@@ -210,6 +209,7 @@ let
         pkgs.clipse
         pkgs.wl-clipboard
         pkgs.kanata
+        pkgs.bluetuith
       ];
 
       # TODO:
@@ -237,13 +237,14 @@ let
   module-Thunar =
     { pkgs, ... }:
     {
+      services.gvfs.enable = true; # Mount, trash and remote locations browsing
+      services.tumbler.enable = true; # Thumbnail support for images
       programs.thunar.enable = true;
       programs.xfconf.enable = true;
       programs.thunar.plugins = with pkgs.xfce; [
         thunar-archive-plugin
         thunar-volman
       ];
-      services.tumbler.enable = true; # Thumbnail support for images
     };
 
   module-portals =
