@@ -1,8 +1,11 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  session = "wayland";
-  # session = "xorg";
+  session = if pkgs.system == "aarch64-darwin" then "mac" else "wayland";
   zshShellAliases = {
     "gac" = "git add . && git commit";
     "fj" = "$EDITOR";
