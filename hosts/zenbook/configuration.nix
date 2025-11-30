@@ -68,7 +68,6 @@ let
           programs.home-manager.enable = true;
           imports = [
             ./home.nix
-            ./rofi.nix
             ./waybar.nix
           ];
         };
@@ -229,10 +228,9 @@ let
       #     - power-profiles-daemon
       #     - cliphist
       #     - nmcli wifi and vpn
-      # - Rofi combi mode apps + home justfile commands
       # - Brightness status
       # - Notifications popups
-      # - gotmpl alacritty theme, rofi theme etc
+      # - gotmpl alacritty theme
       # - Apps: viewers for images
       # - Screenshots and screencasts
       # - Alacritty clipboard shortcuts

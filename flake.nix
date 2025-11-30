@@ -29,7 +29,6 @@
       overlayModule.nixpkgs.overlays = [
         (final: prev: {
           helix = inputs.helix.packages.${final.system}.helix;
-          rofi-calc = prev.rofi-calc.override { rofi-unwrapped = prev.rofi-wayland-unwrapped; };
           quickshell = quickshell.packages.${final.system}.default;
         })
       ];
