@@ -1,12 +1,19 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
   imports = [
     ../../modules/terminal.nix
     ../../modules/helix.nix
+    inputs.vicinae.homeManagerModules.default
   ];
+
+  services.vicinae = {
+    enable = true; # default: false
+    autoStart = true; # default: true
+  };
 
   home.packages = with pkgs; [
     telegram-desktop
