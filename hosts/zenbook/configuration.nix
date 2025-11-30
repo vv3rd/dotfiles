@@ -160,6 +160,13 @@ let
         # CARGO_HOME = "$XDG_DATA_HOME/cargo";
       };
 
+      xdg.terminal-exec = {
+        enable = true;
+        settings = {
+          default = [ "Alacritty.desktop" ];
+        };
+      };
+
       # Define a user account. Don't forget to set a password with ‘passwd’.
       users.users.odmin = {
         isNormalUser = true;
