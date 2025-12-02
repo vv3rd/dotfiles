@@ -44,6 +44,7 @@ let
         zip
         unzip
         transmission_3-gtk
+        simple-scan
       ];
 
       fonts.packages = [
