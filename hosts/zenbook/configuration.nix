@@ -200,6 +200,9 @@ let
       ...
     }:
     {
+      environment.sessionVariables = {
+        DISPLAY = ":0";
+      };
 
       services.getty = {
         autologinOnce = true;
