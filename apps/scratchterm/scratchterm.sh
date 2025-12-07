@@ -21,6 +21,10 @@ openedOnCurrentWorkspace=$(echo $alreadyOpened\
   | jq "select(.workspace_id == $currentWorkspaceIdx)")
 
 if [[ $openedOnCurrentWorkspace ]]; then
+  isFocused=$(echo $openedOnCurrentWorkspace | jq --slurp | jq 'any(.is_focused)')
+  if [[ $isFocused == 'true' ]]; then
+    niri msg action switch-focus-between-floating-and-tiling;
+  fi
   ids=$(echo $openedOnCurrentWorkspace | jq ".id")
   for id in $ids; do
     echo "Moved $id to $lastWorkspaceIdx"
@@ -38,5 +42,7 @@ if [[ $openedOnOtherWorkspaces ]]; then
     echo "Moved $id to $lastWorkspaceIdx"
     niri msg action move-window-to-workspace --window-id $id $currentWorkspaceIdx
   done
+  firstId=$(echo $ids | jq --slurp | jq '.[0]')
+  niri msg action focus-window --id $firstId
   exit 0;
 fi

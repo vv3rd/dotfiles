@@ -216,6 +216,7 @@ let
 
       environment.systemPackages = [
         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+        (pkgs.callPackage ../../apps/scratchterm/scratchterm.nix {})
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
