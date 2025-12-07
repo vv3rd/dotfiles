@@ -1,4 +1,6 @@
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.callPackage ./scratchterm.nix { }
+{
+  writeScriptBin,
+}:
+writeScriptBin "odmin-scratchterm" ''
+  ${builtins.readFile ./scratchterm.sh}
+''
