@@ -1,17 +1,18 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix.url = "github:vv3rd/helix/vv3rd-mods";
     # niri.url = "github:YaLTeR/niri";
 
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     vicinae = {
       url = "github:vicinaehq/vicinae";
     };
@@ -21,7 +22,7 @@
     {
       nixpkgs,
       home-manager,
-      quickshell,
+      noctalia,
       self,
       ...
     }@inputs:
@@ -29,7 +30,7 @@
       overlayModule.nixpkgs.overlays = [
         (final: prev: {
           helix = inputs.helix.packages.${final.system}.helix;
-          quickshell = quickshell.packages.${final.system}.default;
+          # quickshell = quickshell.packages.${final.system}.default;
         })
       ];
     in
@@ -57,9 +58,11 @@
   nixConfig = {
     extra-substituters = [
       "https://vicinae.cachix.org"
+      "https://helix.cachix.org"
     ];
     extra-trusted-public-keys = [
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
     ];
   };
 

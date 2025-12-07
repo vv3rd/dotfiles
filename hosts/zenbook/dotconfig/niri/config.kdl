@@ -4,14 +4,13 @@
 // Find the full list of options on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 
-spawn-at-startup "xwayland-satellite"
 environment {
     DISPLAY ":0"
 }
-
-
-spawn-at-startup "waybar"
-spawn-at-startup "wpaperd"
+spawn-at-startup "xwayland-satellite"
+// spawn-at-startup "waybar"
+// spawn-at-startup "wpaperd"
+spawn-at-startup "noctalia-shell"
 // spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // spawn-at-startup "wl-clip-persist" "-c" "regular"
 // spawn-at-startup "clipse" "-listen" // replaced with vicinae
@@ -172,7 +171,7 @@ layout {
         right 16 // to be able to click it to focus
         // right 30
         // top 8
-        bottom 24
+        // bottom 24
     }
 }
 
@@ -226,7 +225,7 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
 window-rule {
-    match app-id="clipse|temptty"
+    match app-id="Alacritty" title="^Quick"
     opacity 0.8
     open-floating true
 }
@@ -276,8 +275,9 @@ binds {
 
     Alt+Space repeat=false { spawn "vicinae" "toggle"; }
     Mod+Grave { spawn "alacritty"; }
-    Mod+D hotkey-overlay-title="Quick terminal" { spawn "alacritty" "--class" "temptty"; }
-    Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "alacritty" "--class" "temptty" "-e" "bluetuith"; }
+    Mod+D hotkey-overlay-title="Quick terminal" { spawn "alacritty" "--title" "Quick"; }
+    // Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "alacritty" "--class" "temptty" "-e" "bluetuith"; }
+    Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
     // Mod+P hotkey-overlay-title="Spawn rofi cliphist" { spawn "sh" "-c" "alacritty --class clipse -e clipse"; }
     Mod+P hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }

@@ -1,56 +1,57 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 
 let
-  session = if pkgs.system == "aarch64-darwin" then "mac" else "wayland";
+  session = if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" then "mac" else "wayland";
   zshShellAliases = {
     "gac" = "git add . && git commit";
     "fj" = "$EDITOR";
     "fji" = "$EDITOR $(git diff --staged --diff-filter=MR --name-only --relative)";
   };
-  shellAliases =
-    {
-      "ghi" = "git -c diff.external=difft log -p --ext-diff";
-      "gdf" = "git diff";
-      "gsw" = "git switch";
-      "gsl" = "git stash list";
-      "gsp" = "git stash pop";
-      "gsa" = "git stash --include-untracked";
-      "glgb" =
-        "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
-      "glg" = "glgb --all";
-      "gin" = "git status";
-      "gdi" = "git diff";
-      "gbr" = "git br";
-      "gbl" = "git bl";
-      "gbrf" = "git br | fzf";
-      "gblf" = "git bl | fzf";
-      "gswr" = "git br | fzf | xargs git switch";
-      "gswl" = "git bl | fzf | xargs git switch";
-      "l" = "exa -a1 --group-directories-first --icons";
-      "lt2" = "l --git-ignore -T -L=2";
-      "lt3" = "l --git-ignore -T -L=3";
-      "lt4" = "l --git-ignore -T -L=4";
-      "o" = "bat --plain";
-      "j" = "just";
-    }
-    // ({
-      mac = {
-        "clip" = "pbcopy";
-        "clip-out" = "pbpaste";
-      };
-      xorg = {
-        "clip" = "${pkgs.xclip} -i -selection c";
-        "clip-out" = "${pkgs.xclip} -o -selection c";
-      };
-      wayland = {
-        "clip" = "${pkgs.wl-clipboard}/bin/wl-copy";
-        "clip-out" = "${pkgs.wl-clipboard}/bin/wl-paste";
-      };
-    }).${session};
+  shellAliases = {
+    "ghi" = "git -c diff.external=difft log -p --ext-diff";
+    "gd" = "git diff";
+    "gsw" = "git switch";
+    "gsl" = "git stash list";
+    "gsp" = "git stash pop";
+    "gsa" = "git stash --include-untracked";
+    "glgb" =
+      "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
+    "glg" = "glgb --all";
+    "gin" = "git status";
+    "gdi" = "git diff";
+    "gbr" = "git br";
+    "gbl" = "git bl";
+    "gbrf" = "git br | fzf";
+    "gblf" = "git bl | fzf";
+    "gswr" = "git br | fzf | xargs git switch";
+    "gswl" = "git bl | fzf | xargs git switch";
+    "gcb" = "git branch --show-current";
+    "l" = "exa -a1 --group-directories-first --icons";
+    "lt2" = "l --git-ignore -T -L=2";
+    "lt3" = "l --git-ignore -T -L=3";
+    "lt4" = "l --git-ignore -T -L=4";
+    "o" = "bat --plain";
+    "j" = "just";
+  }
+  // ({
+    mac = {
+      "clip" = "pbcopy";
+      "clip-out" = "pbpaste";
+    };
+    xorg = {
+      "clip" = "${pkgs.xclip} -i -selection c";
+      "clip-out" = "${pkgs.xclip} -o -selection c";
+    };
+    wayland = {
+      "clip" = "${pkgs.wl-clipboard}/bin/wl-copy";
+      "clip-out" = "${pkgs.wl-clipboard}/bin/wl-paste";
+    };
+  }).${session};
 
   envVars = {
     EDITOR = "hx";
@@ -149,7 +150,7 @@ in
     enable = true;
     shellAliases = shellAliases // zshShellAliases;
     autosuggestion.enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     initContent =
       # sh
       ''
@@ -172,21 +173,23 @@ in
 
   programs.git = {
     enable = true;
-    aliases = {
-      unstage = "restore --staged";
-      search = "log --patch --grep";
-      hidden = "! git ls-files -v | grep '^h' | cut -c3-";
-      skipped = "! git ls-files -v | grep '^S' | cut -c3-";
-      bl = "branch --format='%(refname:short)'";
-      br = "branch -r --format='%(refname:lstrip=3)'";
-    };
     includes = [ { path = "~/.gituser.inc"; } ];
-    extraConfig = {
+    settings = {
       init.defaultBranch = "main";
+      alias = {
+        unstage = "restore --staged";
+        search = "log --patch --grep";
+        hidden = "! git ls-files -v | grep '^h' | cut -c3-";
+        skipped = "! git ls-files -v | grep '^S' | cut -c3-";
+        bl = "branch --format='%(refname:short)'";
+        br = "branch -r --format='%(refname:lstrip=3)'";
+      };
     };
-    difftastic = {
-      enable = true;
-    };
+  };
+
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
   };
 
   programs.zoxide = {

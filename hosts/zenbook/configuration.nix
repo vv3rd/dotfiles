@@ -43,7 +43,7 @@ let
         wget
         zip
         unzip
-        transmission_3-gtk
+        transmission_4-gtk
         simple-scan
       ];
 
@@ -87,6 +87,7 @@ let
         efi.canTouchEfiVariables = true;
       };
 
+      services.upower.enable = true;
       services.tlp = {
         enable = true;
         settings = {
@@ -135,6 +136,11 @@ let
         };
       };
       networking.firewall.allowedUDPPorts = [ 5353 ];
+
+      programs.localsend = {
+        enable = true;
+        openFirewall = true;
+      };
 
       # for development purposes
       networking.firewall.allowedTCPPorts = [ 8080 ];
@@ -210,13 +216,11 @@ let
       };
 
       environment.systemPackages = [
+        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
         pkgs.wpaperd
-        pkgs.quickshell
-        # pkgs.cliphist
-        # pkgs.wl-clip-persist
         pkgs.clipse
         pkgs.wl-clipboard
         pkgs.kanata
@@ -224,23 +228,20 @@ let
       ];
 
       # TODO:
-      # - Applets: bluetooth
-      #     - power-profiles-daemon
-      #     - cliphist
-      #     - nmcli wifi and vpn
       # - Brightness status
       # - Notifications popups
       # - gotmpl alacritty theme
-      # - Apps: viewers for images
-      # - Screenshots and screencasts
+      # - Quick screen recording
       # - Alacritty clipboard shortcuts
       programs.niri = {
         enable = true;
         # package = inputs.niri.packages.${system}.niri;
       };
 
-      services.kanata.enable = false;
-      services.kanata.keyboards."lofree".configFile = ./dotconfig/kanata/lofree.kbd;
+      services.kanata.enable = true;
+      services.kanata.keyboards = {
+        "lofree".configFile = ./dotconfig/kanata/lofree.kbd;
+      };
     };
 
   module-Thunar =
