@@ -65,7 +65,6 @@ let
           programs.home-manager.enable = true;
           imports = [
             ./home.nix
-            ./waybar.nix
           ];
         };
 
@@ -220,7 +219,6 @@ let
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
-        pkgs.wpaperd
         pkgs.clipse
         pkgs.wl-clipboard
         pkgs.kanata
