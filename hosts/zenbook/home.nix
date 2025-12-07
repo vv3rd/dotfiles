@@ -60,7 +60,7 @@
       font.size = 12;
       font.normal.family = "GeistMono Nerd Font";
       general.import = [
-        "~/.config/alacritty/themes/everforest-dark.toml"
+        "~/.config/alacritty/themes/noctalia.toml"
       ];
     };
     settings.keyboard.bindings = [
