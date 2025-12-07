@@ -8,12 +8,13 @@ environment {
     DISPLAY ":0"
 }
 spawn-at-startup "xwayland-satellite"
-// spawn-at-startup "waybar"
-// spawn-at-startup "wpaperd"
 spawn-at-startup "noctalia-shell"
-// spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
-// spawn-at-startup "wl-clip-persist" "-c" "regular"
-// spawn-at-startup "clipse" "-listen" // replaced with vicinae
+
+spawn-at-startup "firefox"
+spawn-at-startup "thunderbird"
+spawn-at-startup "Telegram"
+spawn-at-startup "alacritty"
+
 
 input {
     keyboard {
@@ -77,7 +78,7 @@ input {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 12
     // gaps 0
 
     // background-color "transparent"
@@ -156,8 +157,10 @@ layout {
         width 4
         // active-color "#A7C080"
         // inactive-color "#3a515d"
-        active-color "#3a515d"
+        active-color "#2a2a37"
+        active-gradient from="#2a2a37" to="#6a9589" angle=180
         urgent-color "#D699B6"
+        urgent-gradient from="#2a2a37" to="#D699B6" angle=180
         inactive-color "transparent"
     }
 
@@ -167,8 +170,8 @@ layout {
     // Top and bottom struts will simply add outer gaps in addition to the area occupied by
     // layer-shell panels and regular gaps.
     struts {
-        left 16 // i could leave small portion of a window peeking out
-        right 16 // to be able to click it to focus
+        left 24 // i could leave small portion of a window peeking out
+        right 24 // to be able to click it to focus
         // right 30
         // top 8
         // bottom 24
@@ -273,14 +276,19 @@ binds {
     // shows a list of important hotkeys.
     F1 { show-hotkey-overlay; }
 
-    Alt+Space repeat=false { spawn "vicinae" "toggle"; }
+    Mod+Space repeat=false { spawn "vicinae" "toggle"; }
     Mod+Grave { spawn "alacritty"; }
-    Mod+D hotkey-overlay-title="Quick terminal" { spawn "alacritty" "--title" "Quick"; }
+    Mod+D hotkey-overlay-title="Quick terminal" { spawn "odmin-scratchterm"; }
     // Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "alacritty" "--class" "temptty" "-e" "bluetuith"; }
     Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
     // Mod+P hotkey-overlay-title="Spawn rofi cliphist" { spawn "sh" "-c" "alacritty --class clipse -e clipse"; }
     Mod+P hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+
+    Alt+N { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
+    Alt+C { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Alt+M { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    Ctrl+Alt+Q { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
     Mod+W { toggle-column-tabbed-display; }
     Mod+Ctrl+Shift+F { toggle-windowed-fullscreen; }
@@ -291,8 +299,8 @@ binds {
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "0.99" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "0.99" "@DEFAULT_AUDIO_SINK@" "0.06+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.04-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
