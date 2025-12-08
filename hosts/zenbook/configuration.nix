@@ -235,6 +235,7 @@ let
       programs.niri = {
         enable = true;
         # package = inputs.niri.packages.${system}.niri;
+        useNautilus = false;
       };
 
       services.kanata.enable = true;
