@@ -73,6 +73,11 @@ input {
 //     place-within-backdrop true
 // }
 
+layer-rule {
+  match namespace="^noctalia-overview*"
+  place-within-backdrop true
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
@@ -158,9 +163,9 @@ layout {
         // active-color "#A7C080"
         // inactive-color "#3a515d"
         active-color "#2a2a37"
-        active-gradient from="#2a2a37" to="#6a9589" angle=180
+        active-gradient from="#1f1f28" to="#6a9589" angle=180
         urgent-color "#D699B6"
-        urgent-gradient from="#2a2a37" to="#D699B6" angle=180
+        urgent-gradient from="#1f1f28" to="#D699B6" angle=180
         inactive-color "transparent"
     }
 
@@ -285,9 +290,12 @@ binds {
     // Mod+P hotkey-overlay-title="Spawn rofi cliphist" { spawn "sh" "-c" "alacritty --class clipse -e clipse"; }
     Mod+P hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
 
-    Alt+N { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
-    Alt+C { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Alt+M { spawn "noctalia-shell" "ipc" "call" "media" "playPause"; }
+    Ctrl+Alt+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Ctrl+Alt+2 { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
+    Ctrl+Alt+N { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
+    
+    
+    Ctrl+Alt+B { spawn "noctalia-shell" "ipc" "call" "bar" "toggle"; }
     Ctrl+Alt+Q { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
     Mod+W { toggle-column-tabbed-display; }
@@ -502,3 +510,4 @@ binds {
     // moving the mouse or pressing any other key.
     Ctrl+Shift+Delete { power-off-monitors; }
 }
+
