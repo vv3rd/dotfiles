@@ -202,4 +202,9 @@ in
     enable = true;
     enableZshIntegration = true;
   };
+
+  programs.broot = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }

@@ -53,6 +53,16 @@
     };
   };
 
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = {
+      main = {
+        font = "Hack Nerd Font Mono:size=12";
+      };
+    };
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {

@@ -16,14 +16,6 @@
     pkgs.nodejs.pkgs.pnpm
   ];
 
-  programs.foot = {
-    enable = true;
-    server.enable = true;
-    settings = {
-      font = "Hack Nerd Font Mono:size=12";
-    };
-  };
-
   programs.alacritty = {
     enable = true;
     settings = {
