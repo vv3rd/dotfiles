@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+TERM_CMD=$TERMINAL
+TERM_TITLE="Scratchpad"
+
 focusedWindowId=$(niri msg --json focused-window | jq '.id')
 
 lastWorkspaceIdx=$(niri msg --json workspaces | jq 'max_by(.idx) | .idx')
@@ -8,12 +11,12 @@ currentWorkspaceIdx=$(niri msg --json workspaces\
   | jq '.[] | select(.is_focused) | .idx')
 
 alreadyOpened=$(niri msg --json windows\
-  | jq '.[]
-  | select(.app_id == "Alacritty" and .title == "Quick")');
+  | jq ".[]
+  | select(.title == \"$TERM_TITLE\")");
 
 if [[ ! $alreadyOpened ]]; then
     echo "Opening new instance"
-    alacritty --title "Quick" & disown;
+    $TERM_CMD --title "$TERM_TITLE" & disown;
     exit 0;
 fi
 

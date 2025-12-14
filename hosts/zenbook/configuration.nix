@@ -230,7 +230,6 @@ let
       # - Brightness status
       # - Notifications popups
       # - gotmpl alacritty theme
-      # - Quick screen recording
       # - Alacritty clipboard shortcuts
       programs.niri = {
         enable = true;

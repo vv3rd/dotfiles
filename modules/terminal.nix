@@ -157,9 +157,6 @@ in
         source ~/.zuser
         autoload -U edit-command-line
         zle -N edit-command-line
-        function run-broot { br; zle redisplay; }
-        zle -N run-broot
-        bindkey "^F" run-broot
         bindkey "^E" edit-command-line
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word

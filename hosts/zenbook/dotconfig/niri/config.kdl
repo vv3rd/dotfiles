@@ -131,12 +131,10 @@ layout {
     border {
         // off
         width 4
-        // active-color "#A7C080"
-        // inactive-color "#3a515d"
-        active-color "#2a2a37"
-        active-gradient from="#1f1f28" to="#6a9589" angle=180
+        active-gradient from="#1f1f28" to="#6a9589" angle=180 // kanagawa
+        // active-gradient from="#2d353b" to="#a7c080" angle=180 // everforest
         urgent-color "#D699B6"
-        urgent-gradient from="#1f1f28" to="#D699B6" angle=180
+        urgent-gradient from="#2d353b" to="#D699B6" angle=180
         inactive-color "transparent"
     }
 
@@ -198,7 +196,8 @@ cursor {
 spawn-at-startup "firefox"
 spawn-at-startup "thunderbird"
 spawn-at-startup "Telegram"
-spawn-at-startup "alacritty" "-T" "btop" "-e" "btop"
+spawn-at-startup "alacritty" "--title" "btop" "-e" "btop"
+spawn-at-startup "alacritty" "--title" "wtfutil" "-e" "wtfutil"
 
 workspace "dashboard"
 workspace "primary"
@@ -209,13 +208,13 @@ window-rule {
 }
 
 window-rule {
-    match at-startup=true title="btop"
+    match at-startup=true title="btop|wtfutil"
     open-on-workspace "dashboard"
     open-fullscreen true
 }
 
 window-rule {
-    match app-id="Alacritty" title="^Quick"
+    match title="^Quick$"
     opacity 0.85
     open-floating true
 }
@@ -261,10 +260,8 @@ binds {
     Mod+Space repeat=false { spawn "vicinae" "toggle"; }
     Mod+Grave { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Quick terminal" { spawn "odmin-scratchterm"; }
-    // Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "alacritty" "--class" "temptty" "-e" "bluetuith"; }
     Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
-    // Mod+P hotkey-overlay-title="Spawn rofi cliphist" { spawn "sh" "-c" "alacritty --class clipse -e clipse"; }
     Mod+P hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
 
     Ctrl+Alt+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
@@ -279,7 +276,6 @@ binds {
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -446,6 +442,7 @@ binds {
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { maximize-window-to-edges; }
+    Mod+Ctrl+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
 
     Mod+O { toggle-overview; }
