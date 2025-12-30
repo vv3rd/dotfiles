@@ -112,14 +112,23 @@ let
     };
 
   module-network =
-    { ... }:
+    { pkgs, ... }:
     {
       # essentials
       networking.hostName = "zenbook"; # Define your hostname.
-      networking.networkmanager.enable = true; # Enable networking
+
+      # Enable networking
+      networking.networkmanager = {
+        enable = true;
+        plugins = with pkgs; [
+          networkmanager-openvpn
+        ];
+      };
 
       # vpn
-      programs.openvpn3.enable = true;
+      programs.openvpn3 = {
+        enable = true;
+      };
       services.tailscale.enable = true;
 
       # mDNS
@@ -216,7 +225,7 @@ let
 
       environment.systemPackages = [
         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-        (pkgs.callPackage ../../apps/scratchterm {})
+        (pkgs.callPackage ../../apps/scratchterm { })
         pkgs.xwayland-satellite
         pkgs.brightnessctl
         pkgs.networkmanagerapplet
