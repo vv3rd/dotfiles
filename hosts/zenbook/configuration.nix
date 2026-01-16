@@ -54,6 +54,13 @@ let
         pkgs.nerd-fonts.hack
       ];
 
+      services.silverbullet = {
+        enable = true;
+        spaceDir = "/home/${user}/Documents/notes";
+        user = user;
+        listenPort = 4300;
+      };
+
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -124,6 +131,14 @@ let
           networkmanager-openvpn
         ];
       };
+
+      # https://wiki.nixos.org/wiki/WireGuard
+      # services.kresd.enable = true;
+      # services.resolved.enable = false;
+      # environment.etc."resolv.conf" = {
+      #   mode = "0644";
+      #   text = "nameserver ::1";
+      # };
 
       # vpn
       programs.openvpn3 = {
