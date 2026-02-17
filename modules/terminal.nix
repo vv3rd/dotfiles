@@ -173,7 +173,7 @@ in
 
   programs.git = {
     enable = true;
-    includes = [ { path = "~/.gituser.inc"; } ];
+    includes = [ { path = "./config-user"; } ];
     settings = {
       init.defaultBranch = "main";
       alias = {

@@ -45,6 +45,7 @@ let
         unzip
         transmission_4-gtk
         simple-scan
+        inetutils
       ];
 
       fonts.packages = [
@@ -261,10 +262,10 @@ let
         useNautilus = false;
       };
 
-      services.kanata.enable = true;
-      services.kanata.keyboards = {
-        "lofree".configFile = ./dotconfig/kanata/lofree.kbd;
-      };
+      # services.kanata.enable = true;
+      # services.kanata.keyboards = {
+      #   "lofree".configFile = ./dotconfig/kanata/lofree.kbd;
+      # };
     };
 
   module-Thunar =
@@ -315,7 +316,10 @@ let
     { ... }:
     {
       # Set your time zone.
-      time.timeZone = "Asia/Almaty";
+      # time.timeZone = "Asia/Almaty";
+      services.automatic-timezoned = {
+        enable = true;
+      };
 
       # Select internationalisation properties.
       i18n.defaultLocale = "en_US.UTF-8";
@@ -352,12 +356,18 @@ let
   module-containers =
     { pkgs, ... }:
     {
-
-      virtualisation.containers.enable = true;
-      virtualisation.podman = {
+      virtualisation.docker = {
         enable = true;
-        dockerCompat = true;
-        defaultNetwork.settings.dns_enabled = true;
+
+        daemon.settings = {
+          bip = "10.221.0.1/24";
+          default-address-pools = [
+            {
+              base = "10.222.0.0/16";
+              size = 24;
+            }
+          ];
+        };
       };
 
       environment.systemPackages = with pkgs; [
