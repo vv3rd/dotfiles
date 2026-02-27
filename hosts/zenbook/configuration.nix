@@ -381,12 +381,18 @@ let
     let
       unfreePackages = with pkgs; [
         google-chrome
+        android-studio
+        android-tools
       ];
-      unfreePackagesNames = map lib.getName unfreePackages;
+      unfreePackagesNames = (map lib.getName (unfreePackages)) ++ [
+        "androidsdk"
+      ];
     in
     {
       environment.systemPackages = unfreePackages;
       nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) unfreePackagesNames;
+      # nixpkgs.config.allowUnfree = true;
+      nixpkgs.config.android_sdk.accept_license = true;
     };
 in
 configuration
