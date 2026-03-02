@@ -20,7 +20,7 @@ let
         module-network
         module-user
         module-audio
-        module-portals
+
         # module_desktop-Plasma
         module-desktop-Niri
         module-Thunar
@@ -147,6 +147,10 @@ let
       };
       services.tailscale.enable = true;
 
+      environment.systemPackages = [
+        pkgs.wireguard-tools
+      ];
+
       # mDNS
       services.avahi = {
         enable = true;
@@ -249,7 +253,25 @@ let
         pkgs.wl-clipboard
         pkgs.kanata
         pkgs.bluetuith
+
+        # portals
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-wlr
       ];
+
+      xdg.portal = {
+        enable = true;
+        config = {
+          niri = {
+            default = [ "gtk" ];
+            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+          };
+        };
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-wlr
+        ];
+      };
 
       # TODO:
       # - Brightness status
@@ -279,28 +301,6 @@ let
         thunar-archive-plugin
         thunar-volman
       ];
-    };
-
-  module-portals =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
-      ];
-      xdg.portal = {
-        enable = true;
-        config = {
-          niri = {
-            default = [ "gtk" ];
-            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-          };
-        };
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-wlr
-        ];
-      };
     };
 
   module-browser-Firefox =
