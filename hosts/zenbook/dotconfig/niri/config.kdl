@@ -193,7 +193,7 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
 
-spawn-at-startup "firefox"
+spawn-at-startup "firefoz"
 spawn-at-startup "thunderbird"
 spawn-at-startup "Telegram"
 spawn-at-startup "alacritty" "--title" "btop" "-e" "btop"
@@ -206,6 +206,10 @@ window-rule {
     match at-startup=true app-id="firefox|thunderbird|org.telegram.desktop"
     open-on-workspace "primary"
 }
+window-rule {
+    match app-id="thunderbird|org.telegram.desktop"
+    default-column-width { proportion 0.65; }
+}
 
 window-rule {
     match at-startup=true title="btop|wtfutil"
@@ -214,7 +218,8 @@ window-rule {
 }
 
 window-rule {
-    match title="^Quick$"
+    match title="^Scratchpad$"
+    match title="Reminder$" app-id="thunderbird"
     opacity 0.85
     open-floating true
 }
@@ -224,12 +229,14 @@ window-rule {
     exclude title="^$"
     default-column-width { proportion 0.5; }
 }
-window-rule {
-    match app-id="firefox" title="^$"
-    open-floating true
-    open-focused false
-    default-floating-position x=10 y=10 relative-to="bottom-right"
-}
+
+// Used to be needed for firefox own notification windows
+// window-rule {
+//     match app-id="firefox" title="^$"
+//     open-floating true
+//     open-focused false
+//     default-floating-position x=10 y=10 relative-to="bottom-right"
+// }
 
 window-rule {
     match app-id="Thunar" title="^Rename"
@@ -258,19 +265,20 @@ binds {
     F1 { show-hotkey-overlay; }
 
     Mod+Space repeat=false { spawn "vicinae" "toggle"; }
+    Mod+Return repeat=false hotkey-overlay-title="Alt launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+Grave { spawn "alacritty"; }
     Mod+D hotkey-overlay-title="Quick terminal" { spawn "odmin-scratchterm"; }
     Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
-    Mod+P hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+    Mod+V hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
 
-    Ctrl+Alt+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Ctrl+Alt+2 { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
-    Ctrl+Alt+N { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
+    Ctrl+Mod+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+    Ctrl+Mod+2 { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
+    Ctrl+Mod+3 { spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory"; }
     
     
-    Ctrl+Alt+B { spawn "noctalia-shell" "ipc" "call" "bar" "toggle"; }
-    Ctrl+Alt+Q { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    Ctrl+Mod+B { spawn "noctalia-shell" "ipc" "call" "bar" "toggle"; }
+    Ctrl+Mod+Q { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
 
     Mod+W { toggle-column-tabbed-display; }
 
@@ -409,15 +417,6 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
@@ -430,7 +429,7 @@ binds {
     // Expel one window from the focused column to the right.
     Mod+Period { expel-window-from-column; }
 
-    Mod+V       { toggle-window-floating; }
+    Mod+Alt+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // There are also commands that consume or expel a single window to the side.
@@ -483,4 +482,3 @@ binds {
     // moving the mouse or pressing any other key.
     Ctrl+Shift+Delete { power-off-monitors; }
 }
-

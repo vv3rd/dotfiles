@@ -11,7 +11,7 @@
   ];
 
   services.vicinae = {
-    enable = true; # default: false
+    enable = true;
     systemd.enable = true;
   };
 
