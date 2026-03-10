@@ -245,6 +245,7 @@ let
 
       environment.systemPackages = [
         inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+        inputs.niri-scratchpad.packages.${pkgs.system}.niri-scratchpad
         (pkgs.callPackage ../../apps/scratchterm { })
         pkgs.xwayland-satellite
         pkgs.brightnessctl

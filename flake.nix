@@ -7,6 +7,10 @@
     };
     helix.url = "github:vv3rd/helix/vv3rd-mods";
     # niri.url = "github:YaLTeR/niri";
+    niri-scratchpad = {
+      url = "github:gvolpe/niri-scratchpad";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
