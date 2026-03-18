@@ -41,6 +41,12 @@ input {
     // focus-follows-mouse max-scroll-amount="0%"
 }
 
+gestures {
+    hot-corners {
+        bottom-right
+    }
+}
+
 // layer-rule {
 //     match namespace="^wpaperd"
 //     place-within-backdrop true
@@ -193,12 +199,13 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
 
-spawn-at-startup "firefoz"
+spawn-at-startup "firefox"
 spawn-at-startup "thunderbird"
 spawn-at-startup "Telegram"
 spawn-at-startup "alacritty" "--title" "btop" "-e" "btop"
 spawn-at-startup "alacritty" "--title" "wtfutil" "-e" "wtfutil"
 
+workspace "scratch"
 workspace "dashboard"
 workspace "primary"
 
@@ -218,7 +225,8 @@ window-rule {
 }
 
 window-rule {
-    match title="^Scratchpad$"
+    match title="^scratchterm$"
+    match app-id="scratchterm"
     match title="Reminder$" app-id="thunderbird"
     opacity 0.85
     open-floating true
@@ -267,10 +275,11 @@ binds {
     Mod+Space repeat=false { spawn "vicinae" "toggle"; }
     Mod+Return repeat=false hotkey-overlay-title="Alt launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+Grave { spawn "alacritty"; }
-    Mod+D hotkey-overlay-title="Quick terminal" { spawn "odmin-scratchterm"; }
+    Mod+D hotkey-overlay-title="Quick terminal" { spawn-sh "nscratch -s scratchterm --title scratchterm"; }
     Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
     Mod+V hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
+    Mod+N { spawn "noctalia-shell" "ipc" "call" "plugin" "togglePanel" "notes-scratchpad"; }
 
     Ctrl+Mod+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
     Ctrl+Mod+2 { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
