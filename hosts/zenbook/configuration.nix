@@ -258,6 +258,7 @@ let
 
         # portals
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
         pkgs.xdg-desktop-portal-wlr
       ];
 
@@ -266,10 +267,11 @@ let
         config = {
           niri = {
             default = [ "gtk" ];
-            "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+            "org.freedesktop.impl.portal.ScreenCast" = "gnome";
           };
         };
         extraPortals = with pkgs; [
+          xdg-desktop-portal-gnome
           xdg-desktop-portal-gtk
           xdg-desktop-portal-wlr
         ];

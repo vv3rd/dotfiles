@@ -18,6 +18,11 @@
   home.packages = with pkgs; [
     telegram-desktop
     yt-dlp
+    youtube-tui
+
+    krita
+    obs-studio
+    thunderbird
 
     # required to create video screen capture
     ffmpeg_6-full

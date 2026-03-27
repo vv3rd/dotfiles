@@ -18,7 +18,7 @@ input {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
             layout "us,ru"
-            options "grp:ctrl_space_toggle,caps:escape"
+            options "grp:ctrl_space_toggle"
         }
     }
 
@@ -203,7 +203,6 @@ spawn-at-startup "firefox"
 spawn-at-startup "thunderbird"
 spawn-at-startup "Telegram"
 spawn-at-startup "alacritty" "--title" "btop" "-e" "btop"
-spawn-at-startup "alacritty" "--title" "wtfutil" "-e" "wtfutil"
 
 workspace "scratch"
 workspace "dashboard"
@@ -222,6 +221,13 @@ window-rule {
     match at-startup=true title="btop|wtfutil"
     open-on-workspace "dashboard"
     open-fullscreen true
+}
+
+window-rule {
+    match app-id="qutebrowser"
+    open-focused false
+    default-column-display "tabbed"
+    default-column-width { proportion 0.75; }
 }
 
 window-rule {
@@ -274,12 +280,15 @@ binds {
 
     Mod+Space repeat=false { spawn "vicinae" "toggle"; }
     Mod+Return repeat=false hotkey-overlay-title="Alt launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
-    Mod+Grave { spawn "alacritty"; }
+    Mod+Grave { spawn "footclient"; }
     Mod+D hotkey-overlay-title="Quick terminal" { spawn-sh "nscratch -s scratchterm --title scratchterm"; }
     Mod+B hotkey-overlay-title="Bluetooth menu" { spawn "vicinae" "vicinae://extensions/Gelei/bluetooth/devices"; }
     Mod+E hotkey-overlay-title="File manager" { spawn "thunar"; }
     Mod+V hotkey-overlay-title="Clipboard" { spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"; }
     Mod+N { spawn "noctalia-shell" "ipc" "call" "plugin" "togglePanel" "notes-scratchpad"; }
+    Ctrl+Alt+Mod+E hotkey-overlay-title="Cast focused window" {
+         spawn-sh "niri msg action set-dynamic-cast-window --id $(niri msg --json focused-window | jq .id)";
+     }
 
     Ctrl+Mod+1 { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
     Ctrl+Mod+2 { spawn "noctalia-shell" "ipc" "call" "calendar" "toggle"; }
@@ -308,8 +317,7 @@ binds {
     XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "-d" "intel_backlight" "s" "+1000"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-d" "intel_backlight" "s" "1000-"; }
 
-
-    Mod+Q { close-window; }
+    Mod+Q repeat=false { close-window; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
