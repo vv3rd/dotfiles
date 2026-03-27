@@ -53,6 +53,23 @@
     };
   };
 
+  programs.qutebrowser = {
+    enable = true;
+    settings = {
+      tabs.show = "never";
+      tabs.tabs_are_windows = true;
+      colors.webpage.preferred_color_scheme = "dark";
+    };
+  };
+  xdg.mimeApps.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "org.qutebrowser.qutebrowser.desktop";
+    "x-scheme-handler/http" = "org.qutebrowser.qutebrowser.desktop";
+    "x-scheme-handler/https" = "org.qutebrowser.qutebrowser.desktop";
+    "x-scheme-handler/about" = "org.qutebrowser.qutebrowser.desktop";
+    "x-scheme-handler/unknown" = "org.qutebrowser.qutebrowser.desktop";
+  };
+
   programs.foot = {
     enable = true;
     server.enable = true;
