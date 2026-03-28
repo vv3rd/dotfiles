@@ -1,5 +1,8 @@
 {
   inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -27,37 +30,42 @@
       nixpkgs,
       home-manager,
       noctalia,
+      flake-parts,
+      import-tree,
       self,
       ...
     }@inputs:
-    let
-      overlayModule.nixpkgs.overlays = [
-        (final: prev: {
-          helix = inputs.helix.packages.${final.system}.helix;
-          # quickshell = quickshell.packages.${final.system}.default;
-        })
-      ];
-    in
-    {
-      nixosConfigurations."zenbook" = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs self;
+    flake-parts.lib.mkFlake { inherit inputs; } (top: {
+      flake = {
+        nixosConfigurations."zenbook" = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs self;
+          };
+          modules =
+            let
+              overlay.nixpkgs.overlays = [
+                (final: prev: {
+                  helix = inputs.helix.packages.${final.system}.helix;
+                  # quickshell = quickshell.packages.${final.system}.default;
+                })
+              ];
+            in
+            [
+              ./hosts/zenbook/configuration.nix
+              home-manager.nixosModules.default
+              overlay
+            ];
         };
-        modules = [
-          ./hosts/zenbook/configuration.nix
-          home-manager.nixosModules.default
-          overlayModule
-        ];
-      };
 
-      homeConfigurations."alexey" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
-        extraSpecialArgs = {
-          inherit inputs self;
+        homeConfigurations."alexey" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { system = "aarch64-darwin"; };
+          extraSpecialArgs = {
+            inherit inputs self;
+          };
+          modules = [ ./hosts/macbook/home.nix ];
         };
-        modules = [ ./hosts/macbook/home.nix ];
       };
-    };
+    });
 
   nixConfig = {
     extra-substituters = [
