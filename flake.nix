@@ -26,46 +26,15 @@
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      noctalia,
-      flake-parts,
-      import-tree,
-      self,
-      ...
-    }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } (top: {
-      flake = {
-        nixosConfigurations."zenbook" = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs self;
-          };
-          modules =
-            let
-              overlay.nixpkgs.overlays = [
-                (final: prev: {
-                  helix = inputs.helix.packages.${final.system}.helix;
-                  # quickshell = quickshell.packages.${final.system}.default;
-                })
-              ];
-            in
-            [
-              ./hosts/zenbook/configuration.nix
-              home-manager.nixosModules.default
-              overlay
-            ];
-        };
-
-        homeConfigurations."alexey" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs { system = "aarch64-darwin"; };
-          extraSpecialArgs = {
-            inherit inputs self;
-          };
-          modules = [ ./hosts/macbook/home.nix ];
-        };
-      };
-    });
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      {
+        systems = [
+          "x86-64_linux"
+        ];
+      }
+      // (inputs.import-tree ./parts)
+    );
 
   nixConfig = {
     extra-substituters = [
