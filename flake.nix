@@ -6,7 +6,7 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    
+
     import-tree.url = "github:vic/import-tree";
 
     home-manager = {
@@ -37,8 +37,9 @@
       {
         systems = [
           "x86-64_linux"
+          "aarch64-linux"
         ];
-        flake.modules = {};
+        flake.modules = { };
       }
       // (inputs.import-tree ./parts)
     );
