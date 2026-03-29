@@ -1,8 +1,6 @@
 # Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 let
-  user = "odmin";
-
   configuration =
     {
       config,
@@ -10,6 +8,7 @@ let
       lib,
       system,
       inputs,
+      user,
       ...
     }:
     {
@@ -35,7 +34,6 @@ let
         unzip
         transmission_4-gtk
       ];
-
 
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.useGlobalPkgs = true;
@@ -141,7 +139,7 @@ let
     };
 
   module-user =
-    { pkgs, ... }:
+    { pkgs, user, ... }:
     {
       environment.sessionVariables = {
         TERMINAL = "${pkgs.alacritty}/bin/alacritty";
@@ -163,17 +161,17 @@ let
       };
 
       # Define a user account. Don't forget to set a password with ‘passwd’.
-      users.users.odmin = {
+      users.users.${user} = {
         isNormalUser = true;
         extraGroups = [
           "networkmanager"
           "wheel"
           "docker"
         ];
+        shell = pkgs.zsh;
       };
 
       # settings ZSH as default
-      users.users.odmin.shell = pkgs.zsh;
       environment.shells = [ pkgs.zsh ];
       # Many programs look at /etc/shells to determine if a user is a "normal" user and not a "system" user.
       programs.zsh.enable = true;
@@ -196,6 +194,7 @@ let
       inputs,
       pkgs,
       system,
+      user,
       ...
     }:
     {
