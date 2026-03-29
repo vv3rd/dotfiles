@@ -1,4 +1,8 @@
-{ inputs, self, ... }:
+{
+  inputs,
+  self,
+  ...
+}:
 {
   imports = [
     inputs.home-manager.flakeModules.home-manager
@@ -10,22 +14,14 @@
       user = inputs.personal.myName;
       host = inputs.personal.myHost;
     };
-    modules =
-      (with self.nixosModules; [
-        essentials
-        helix-overlay
-        nerd-fonts
-        firefox
-        thunar
-        containers
-        audio
-        printers
-        silverbullet
-      ])
-      ++ [
+
+    modules = builtins.concatLists [
+      (builtins.attrValues self.nixosModules)
+      [
         ../hosts/zenbook/configuration.nix
         inputs.home-manager.nixosModules.default
-      ];
+      ]
+    ];
   };
 
   flake.nixosModules.essentials =
