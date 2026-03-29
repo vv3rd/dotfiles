@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  include.nixos.${inputs.personal.myHost}.module =
+  include.nixos.${inputs.personal.host}.module =
     { pkgs, ... }:
     {
       services.gvfs.enable = true; # Mount, trash and remote locations browsing

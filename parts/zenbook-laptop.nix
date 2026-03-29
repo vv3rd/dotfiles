@@ -7,7 +7,7 @@
     inputs.home-manager.flakeModules.home-manager
   ];
 
-  include.nixos.${inputs.personal.myHost}.module =
+  include.nixos.${inputs.personal.host}.module =
     { config, user, ... }:
     {
       imports = [

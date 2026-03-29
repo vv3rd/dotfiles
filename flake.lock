@@ -213,8 +213,8 @@
     },
     "personal": {
       "locked": {
-        "lastModified": 1774778189,
-        "narHash": "sha256-53caMtG/8DibON2hzi+KCWHNKHjLCoohBWroyvv7VZI=",
+        "lastModified": 1774815558,
+        "narHash": "sha256-gIKM5yuqq/Ucws4q7FpcCrmC/tbjSaMWTcR7Z9CjoqQ=",
         "path": "/etc/nixos/personal",
         "type": "path"
       },

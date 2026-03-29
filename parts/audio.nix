@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  include.nixos.${inputs.personal.myHost}.module = {
+  include.nixos.${inputs.personal.host}.module = {
     services.pulseaudio.enable = false;
 
     # Enable the RealtimeKit system service, which hands out realtime scheduling priority to user processes on demand.

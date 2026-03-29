@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  include.nixos.${inputs.personal.myHost}.module = args: {
+  include.nixos.${inputs.personal.host}.module = args: {
     services.silverbullet = {
       enable = true;
       spaceDir = "/home/${args.user}/Documents/notes";

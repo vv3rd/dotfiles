@@ -22,8 +22,8 @@
       lib.nixosSystem {
         specialArgs = {
           inherit inputs;
-          user = inputs.personal.myName;
-          host = inputs.personal.myHost;
+          user = inputs.personal.name;
+          host = inputs.personal.host;
         };
         modules = [ module ];
       }

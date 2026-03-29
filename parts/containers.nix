@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
 
-  include.nixos.${inputs.personal.myHost}.module =
+  include.nixos.${inputs.personal.host}.module =
     { pkgs, ... }:
     {
       virtualisation.docker = {

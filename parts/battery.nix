@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  include.nixos.${inputs.personal.myHost}.module = {
+  include.nixos.${inputs.personal.host}.module = {
     services.upower.enable = true;
     services.tlp = {
       enable = true;
