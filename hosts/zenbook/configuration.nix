@@ -34,21 +34,6 @@ let
         unzip
         transmission_4-gtk
       ];
-
-      home-manager.extraSpecialArgs = { inherit inputs; };
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-
-      home-manager.users.${user} =
-        { pkgs, ... }:
-        {
-          home.stateVersion = "25.05";
-          programs.home-manager.enable = true;
-          imports = [
-            ./home.nix
-          ];
-        };
-
     };
 
   module-essentials =
