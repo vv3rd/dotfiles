@@ -1,0 +1,14 @@
+{
+  flake.nixosModules.thunar =
+    { pkgs, ... }:
+    {
+      services.gvfs.enable = true; # Mount, trash and remote locations browsing
+      services.tumbler.enable = true; # Thumbnail support for images
+      programs.thunar.enable = true;
+      programs.xfconf.enable = true;
+      programs.thunar.plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
+}

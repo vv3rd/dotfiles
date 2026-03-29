@@ -1,15 +1,17 @@
 {
   inputs = {
+    personal.url = "path:/etc/nixos/personal";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     helix.url = "github:vv3rd/helix/vv3rd-mods";
-    # niri.url = "github:YaLTeR/niri";
+
     niri-scratchpad = {
       url = "github:gvolpe/niri-scratchpad";
       inputs.nixpkgs.follows = "nixpkgs";

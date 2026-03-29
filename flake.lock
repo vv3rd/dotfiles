@@ -224,6 +224,18 @@
         "type": "github"
       }
     },
+    "personal": {
+      "locked": {
+        "lastModified": 1774778189,
+        "narHash": "sha256-53caMtG/8DibON2hzi+KCWHNKHjLCoohBWroyvv7VZI=",
+        "path": "/etc/nixos/personal",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos/personal",
+        "type": "path"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -233,6 +245,7 @@
         "niri-scratchpad": "niri-scratchpad",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
+        "personal": "personal",
         "vicinae": "vicinae"
       }
     },

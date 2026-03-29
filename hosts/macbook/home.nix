@@ -1,8 +1,8 @@
 #===============================================================
-# MAC                                                          
+# MAC
 #===============================================================
 
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   home.username = "alexey";
   home.homeDirectory = "/Users/alexey";
@@ -38,7 +38,6 @@
   };
 
   home.sessionVariables = {
-    NH_FLAKE = "${config.home.homeDirectory}/Machine";
     # EDITOR = "hx";
     # MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     # MANPAGER = "sh -c 'col -bx | bat -l man -p'";
@@ -51,5 +50,5 @@
 }
 
 #===============================================================
-# MAC                                                          
+# MAC
 #===============================================================
