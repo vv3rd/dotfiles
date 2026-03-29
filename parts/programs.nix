@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.programs =
+  include.nixos.${inputs.personal.myHost}.module =
     { lib, pkgs, ... }:
     let
       freePackages = with pkgs; [

@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.network =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, host, ... }:
     {
       # essentials

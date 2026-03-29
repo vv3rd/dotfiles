@@ -6,7 +6,6 @@ let
       config,
       pkgs,
       lib,
-      system,
       inputs,
       user,
       ...
@@ -62,7 +61,7 @@ let
       xdg.terminal-exec = {
         enable = true;
         settings = {
-          default = [ "Alacritty.desktop" ];
+          default = [ "Foot.desktop" ];
         };
       };
 
@@ -95,7 +94,6 @@ let
   #     services.desktopManager.plasma6.enable = true;
   #   };
 
-
   module-locale =
     { ... }:
     {
@@ -121,6 +119,5 @@ let
       };
     };
 
-  
 in
 configuration

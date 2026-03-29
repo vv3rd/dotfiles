@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.silverbullet = args: {
+  include.nixos.${inputs.personal.myHost}.module = args: {
     services.silverbullet = {
       enable = true;
       spaceDir = "/home/${args.user}/Documents/notes";

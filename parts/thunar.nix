@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.thunar =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
       services.gvfs.enable = true; # Mount, trash and remote locations browsing

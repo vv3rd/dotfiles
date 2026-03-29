@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.battery = {
+  include.nixos.${inputs.personal.myHost}.module = {
     services.upower.enable = true;
     services.tlp = {
       enable = true;

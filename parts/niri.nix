@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.niri =
+  include.nixos.${inputs.personal.myHost}.module =
     {
       inputs,
       pkgs,

@@ -1,6 +1,7 @@
+{ inputs, ... }:
 {
 
-  flake.nixosModules.containers =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
       virtualisation.docker = {

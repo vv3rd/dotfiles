@@ -1,6 +1,5 @@
 {
   inputs,
-  self,
   ...
 }:
 {
@@ -8,25 +7,14 @@
     inputs.home-manager.flakeModules.home-manager
   ];
 
-  flake.nixosConfigurations.${inputs.personal.myHost} = inputs.nixpkgs.lib.nixosSystem {
-    specialArgs = {
-      inherit inputs;
-      user = inputs.personal.myName;
-      host = inputs.personal.myHost;
-    };
-
-    modules = builtins.concatLists [
-      (builtins.attrValues self.nixosModules)
-      [
-        ../hosts/zenbook/configuration.nix
-        inputs.home-manager.nixosModules.default
-      ]
-    ];
-  };
-
-  flake.nixosModules.essentials =
+  include.nixos.${inputs.personal.myHost}.module =
     { config, user, ... }:
     {
+      imports = [
+        ../hosts/zenbook/configuration.nix
+        inputs.home-manager.nixosModules.default
+      ];
+
       # create a "system" alias for everything in current system
       # e.g. nix run system\#<package>
       nix.registry = {
@@ -66,12 +54,4 @@
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
       system.stateVersion = "23.05"; # Did you read the comment?
     };
-
-  flake.nixosModules.helix-overlay = {
-    nixpkgs.overlays = [
-      (final: prev: {
-        helix = inputs.helix.packages.${final.system}.helix;
-      })
-    ];
-  };
 }

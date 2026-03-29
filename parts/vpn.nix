@@ -1,8 +1,8 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.vpn =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
-
       programs.openvpn3 = {
         enable = true;
       };

@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.printers =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
       environment.systemPackages = [

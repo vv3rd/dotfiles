@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.bluetooth =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
       programs.localsend = {

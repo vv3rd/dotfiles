@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.nerd-fonts =
+  include.nixos.${inputs.personal.myHost}.module =
     { pkgs, ... }:
     {
       fonts.packages = [

@@ -1,5 +1,6 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.keyboard = {
+  include.nixos.${inputs.personal.myHost}.module = {
     services.keyd =
       let
         main = {
