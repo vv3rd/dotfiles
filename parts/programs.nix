@@ -16,6 +16,7 @@
         google-chrome
         android-studio
         android-tools
+        slack
       ];
 
     in
