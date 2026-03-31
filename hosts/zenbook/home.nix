@@ -64,6 +64,7 @@
       tabs.show = "never";
       tabs.tabs_are_windows = true;
       colors.webpage.preferred_color_scheme = "dark";
+      colors.webpage.darkmode.enabled = true;
     };
     keyBindings = {
       normal = {
