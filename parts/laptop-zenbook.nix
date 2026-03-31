@@ -11,9 +11,25 @@
     { config, user, ... }:
     {
       imports = [
-        ../hosts/zenbook/configuration.nix
+        ../hardware/zenbook.nix
         inputs.home-manager.nixosModules.default
       ];
+
+      hardware.nvidia.modesetting.enable = true;
+      hardware.nvidia.prime = {
+        sync.enable = true;
+
+        intelBusId = "PCI:0@0:2:0";
+        nvidiaBusId = "PCI:2@0:0:0";
+      };
+
+      # TODO: sort this somewhere, its not essential
+      documentation.dev.enable = true;
+      programs.command-not-found.enable = false;
+      programs.nix-index = {
+        enable = true;
+        enableZshIntegration = true;
+      };
 
       # create a "system" alias for everything in current system
       # e.g. nix run system\#<package>

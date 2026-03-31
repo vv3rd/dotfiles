@@ -65,6 +65,12 @@
       tabs.tabs_are_windows = true;
       colors.webpage.preferred_color_scheme = "dark";
     };
+    keyBindings = {
+      normal = {
+        "d" = "nop";
+        "<Ctrl-h>" = "nop";
+      };
+    };
   };
 
   programs.foot = {
