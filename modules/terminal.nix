@@ -160,6 +160,8 @@ in
         bindkey "^E" edit-command-line
         bindkey "^[[1;5C" forward-word
         bindkey "^[[1;5D" backward-word
+
+        ${builtins.readFile ../dotconfig/foot/zsh-integration}
       '';
     history = {
       path = "$ZDOTDIR/.zsh_history";

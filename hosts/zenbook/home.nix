@@ -104,6 +104,10 @@
         bright6 = "83c092"; # bright cyan
         bright7 = "d3c6aa"; # bright white
       };
+      key-bindings = {
+        pipe-visible = ''[sh -c "f=$(mktemp) && cat - > $f && footclient hx $f; rm $f"] Alt+L'';
+        pipe-command-output = ''[sh -c "f=$(mktemp) && cat - > $f && footclient hx $f; rm $f"] Alt+l'';
+      };
     };
   };
 
