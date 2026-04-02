@@ -8,12 +8,19 @@
   ];
 
   include.nixos.${inputs.personal.host}.module =
-    { config, user, ... }:
+    {
+      config,
+      pkgs,
+      user,
+      ...
+    }:
     {
       imports = [
         ../hardware/zenbook.nix
         inputs.home-manager.nixosModules.default
       ];
+
+      boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # TODO: sort this somewhere, its not essential
       documentation.dev.enable = true;

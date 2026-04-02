@@ -1,6 +1,5 @@
-{ inputs, ... }:
 {
-  include.nixos.${inputs.personal.host}.module =
+  flake.nixosModules.nvidia =
     { config, ... }:
     {
 
