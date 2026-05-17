@@ -31,6 +31,8 @@ let
     "gswr" = "git br | fzf | xargs git switch";
     "gswl" = "git bl | fzf | xargs git switch";
     "gcb" = "git branch --show-current";
+    "mv" = "mv -i";
+    "rm" = "rm -i";
     "l" = "exa -a1 --group-directories-first --icons";
     "lt2" = "l --git-ignore -T -L=2";
     "lt3" = "l --git-ignore -T -L=3";
@@ -54,7 +56,7 @@ let
   }).${session};
 
   envVars = {
-    EDITOR = "hx";
+    EDITOR = "kak";
     MANROFFOPT = "-c"; # without this man with bat pager outputs escape codes
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     WORDCHARS = "*?[]~=&;!#$%^(){}<>";
@@ -66,6 +68,7 @@ in
     ripgrep
     repgrep
     btop
+    htop
     eza
     fzf
     jq

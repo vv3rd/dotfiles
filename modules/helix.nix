@@ -4,8 +4,12 @@
   inputs,
   ...
 }:
+let
+  git-lines = pkgs.callPackage ../apps/git-lines { };
+in
 {
   home.packages = [
+    git-lines
     pkgs.markdown-oxide # LSP for markdown, pre-configured in helix
   ];
 
@@ -26,6 +30,7 @@
         color-modes = true;
         continue-comments = false;
         jump-label-alphabet = "fjghdkslaurieowpqvncmxz";
+        end-of-line-diagnostics = "error";
       };
       editor.inline-diagnostics = {
         cursor-line = "warning";
@@ -46,25 +51,41 @@
       editor.whitespace.render.newline = "all";
       editor.whitespace.characters.newline = "⌄";
 
-      keys.normal = {
-        "esc" = [
-          "collapse_selection"
-          "keep_primary_selection"
-        ];
-        "ret" = [
-          "open_below"
-          "normal_mode"
-        ];
-        "}" = "goto_next_paragraph";
-        "{" = "goto_prev_paragraph";
-        "S-g" = {
-          "b" = ":sh git blame --date=human -L %{cursor_line},-4 -L %{cursor_line},+4 %{buffer_name}";
+      keys =
+        let
+          shared = {
+            "}" = "goto_next_paragraph";
+            "{" = "goto_prev_paragraph";
+            "d" = "delete_selection_noyank";
+            "A-d" = "no_op"; # free to use;
+            "c" = "change_selection_noyank";
+            "A-c" = "no_op"; # free to use;
+            "y" = "delete_selection";
+            "p" = "paste_before";
+            "P" = "paste_after";
+          };
+        in
+        {
+          normal = shared // {
+            "esc" = [
+              "collapse_selection"
+              "keep_primary_selection"
+            ];
+            "ret" = [
+              "open_below"
+              "normal_mode"
+            ];
+            "G" = {
+              "b" = ":sh git blame --date=human -L %{cursor_line},-4 -L %{cursor_line},+4 %{buffer_name}";
+              "s" =
+                ":sh ${git-lines}/bin/git-lines-stage %{buffer_name} %{selection_line_start} %{selection_line_end}";
+              "r" =
+                ":sh ${git-lines}/bin/git-lines-restore %{buffer_name} %{selection_line_start} %{selection_line_end}";
+            };
+          };
+          select = shared;
         };
-      };
-      keys.select = {
-        "}" = "goto_next_paragraph";
-        "{" = "goto_prev_paragraph";
-      };
+
     };
 
     languages =
@@ -99,6 +120,13 @@
           tailwind = {
             command = lib.getExe pkgs.tailwindcss-language-server;
             args = [ "--stdio" ];
+            config = {
+              tailwindCSS.classFunctions = [
+                "cva"
+                "cn"
+                "styles"
+              ];
+            };
           };
           emmet = {
             command = "${pkgs.emmet-ls}/bin/emmet-ls";

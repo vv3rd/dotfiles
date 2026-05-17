@@ -16,7 +16,7 @@
       {
         enable = true;
         keyboards.default = {
-          ids = [ "k:0001:0001" ];
+          ids = [ "k:0001:0001" "k:05ac:024f" ];
           settings.main = main;
           settings.${capLayerName} = capLayer;
         };

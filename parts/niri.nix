@@ -44,8 +44,9 @@
         enable = true;
         config = {
           niri = {
-            default = [ "gtk" ];
-            "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+            default = [ "gnome" ];
+            "org.freedesktop.impl.portal.ScreenCast" = "gnome;gtk;wlr";
+            "org.freedesktop.impl.portal.Screenshot" = "gnome;gtk;wlr";
           };
         };
         extraPortals = with pkgs; [
