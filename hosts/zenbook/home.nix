@@ -24,12 +24,6 @@
     obs-studio
     thunderbird
 
-    kakoune
-    kakoune-lsp
-    kakoune-cr
-    vscode-langservers-extracted
-    typescript-language-server
-
     # required to create video screen capture
     ffmpeg_6-full
     slop
