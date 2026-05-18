@@ -4,7 +4,6 @@
     {
       inputs,
       pkgs,
-      system,
       user,
       ...
     }:
@@ -23,22 +22,27 @@
         autologinUser = user;
       };
 
-      environment.systemPackages = [
-        inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-        inputs.niri-scratchpad.packages.${pkgs.system}.niri-scratchpad
-        (pkgs.callPackage ../apps/scratchterm { })
-        pkgs.xwayland-satellite
-        pkgs.brightnessctl
-        pkgs.networkmanagerapplet
-        pkgs.clipse
-        pkgs.wl-clipboard
-        pkgs.keyd
+      environment.systemPackages =
+        let
+          system = pkgs.stdenv.hostPlatform.system;
+          scratchterm = (pkgs.callPackage ../apps/scratchterm { });
+        in
+        [
+          inputs.noctalia.packages.${system}.default
+          inputs.niri-scratchpad.packages.${system}.niri-scratchpad
+          scratchterm
+          pkgs.xwayland-satellite
+          pkgs.brightnessctl
+          pkgs.networkmanagerapplet
+          pkgs.clipse
+          pkgs.wl-clipboard
+          pkgs.keyd
 
-        # portals
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-gnome
-        pkgs.xdg-desktop-portal-wlr
-      ];
+          # portals
+          pkgs.xdg-desktop-portal-gtk
+          pkgs.xdg-desktop-portal-gnome
+          pkgs.xdg-desktop-portal-wlr
+        ];
 
       xdg.portal = {
         enable = true;

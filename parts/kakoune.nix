@@ -6,15 +6,16 @@
       {
         home.packages =
           let
-            kakpipe = (pkgs.callPackage ../apps/kakpipe { });
+            system = pkgs.stdenv.hostPlatform.system;
           in
           [
-            kakpipe
             pkgs.kakoune
             pkgs.kakoune-lsp
             pkgs.kakoune-cr
             pkgs.vscode-langservers-extracted
             pkgs.typescript-language-server
+            inputs.ttywrap.packages.${system}.default
+            inputs.kakansi.packages.${system}.default
           ];
       };
   };

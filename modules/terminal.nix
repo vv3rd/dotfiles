@@ -19,9 +19,8 @@ let
     "gsl" = "git stash list";
     "gsp" = "git stash pop";
     "gsa" = "git stash --include-untracked";
-    "glgb" =
-      "git log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
-    "glg" = "glgb --all";
+    "glgb" = "git graph";
+    "glg" = "git graph --all";
     "gin" = "git status";
     "gdi" = "git diff";
     "gbr" = "git br";
@@ -182,6 +181,7 @@ in
     settings = {
       init.defaultBranch = "main";
       alias = {
+        graph = "log --graph --pretty=format:'%C(bold blue)%h%C(reset)%C(auto)%d%C(reset)%C(dim white) - %ae [%ah]%C(reset) %n%C(white)%s %C(reset)%n'";
         unstage = "restore --staged";
         search = "log --patch --grep";
         hidden = "! git ls-files -v | grep '^h' | cut -c3-";

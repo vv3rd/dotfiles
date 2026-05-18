@@ -29,6 +29,9 @@
     vicinae = {
       url = "github:vicinaehq/vicinae";
     };
+
+    ttywrap.url = "github:vv3rd/ttywrap";
+    kakansi.url = "github:eraserhd/kak-ansi";
   };
 
   outputs =
