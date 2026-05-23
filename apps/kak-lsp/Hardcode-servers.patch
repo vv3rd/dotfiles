@@ -1,0 +1,50 @@
+--- a/rc/lsp.kak
++++ b/rc/lsp.kak
+@@ -2423,6 +2423,7 @@ hook -group lsp-filetype-css global BufSetOption filetype=(?:css|less|scss) %{
+         # https://github.com/sublimelsp/LSP-css/blob/master/LSP-css.sublime-settings
+         [vscode-css-language-server]
+         root_globs = ["package.json", ".git", ".hg"]
++        command = "@vscode-langservers-extracted@/bin/vscode-css-language-server"
+         args = ["--stdio"]
+         settings_section = "_"
+         [vscode-css-language-server.settings._]
+@@ -2553,6 +2554,7 @@ hook -group lsp-filetype-html global BufSetOption filetype=html %{
+         # https://github.com/sublimelsp/LSP-html/blob/master/LSP-html.sublime-settings
+         [vscode-html-language-server]
+         root_globs = ["package.json", ".git", ".hg"]
++        command = "@vscode-langservers-extracted@/bin/vscode-html-language-server"
+         args = ["--stdio"]
+         settings_section = "_"
+         [vscode-html-language-server.settings._]
+@@ -2582,6 +2584,7 @@ hook -group lsp-filetype-vue global BufSetOption filetype=(?:vue) %{
+     set-option buffer lsp_servers %{
+         [typescript-language-server]
+         root_globs = ["package.json", "tsconfig.json", "jsconfig.json", ".git", ".hg"]
++        command = "@typescript-language-server@/bin/typescript-language-server"
+         args = ["--stdio"]
+         settings_section = "_"
+         [typescript-language-server.settings._]
+@@ -2600,6 +2603,7 @@ hook -group lsp-filetype-javascript global BufSetOption filetype=(?:javascript|t
+     set-option buffer lsp_servers %{
+         [typescript-language-server]
+         root_globs = ["package.json", "tsconfig.json", "jsconfig.json", ".git", ".hg"]
++        command = "@typescript-language-server@/bin/typescript-language-server"
+         args = ["--stdio"]
+         settings_section = "_"
+         [typescript-language-server.settings._]
+@@ -2658,6 +2662,7 @@ hook -group lsp-filetype-json global BufSetOption filetype=json %{
+     set-option buffer lsp_servers %{
+         [vscode-json-language-server]
+         root_globs = ["package.json", ".git", ".hg"]
++        command = "@vscode-langservers-extracted@/bin/vscode-json-language-server"
+         args = ["--stdio"]
+         settings_section = "_"
+         [vscode-json-language-server.settings._]
+@@ -2796,6 +2801,7 @@ hook -group lsp-filetype-nim global BufSetOption filetype=nim %{
+ hook -group lsp-filetype-nix global BufSetOption filetype=nix %{
+     set-option buffer lsp_servers %{
+         [nil]
++        command = "@nil@"
+         root_globs = ["flake.nix", "shell.nix", ".git", ".hg"]
+     }
+ }
