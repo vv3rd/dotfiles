@@ -56,13 +56,13 @@ in
           shared = {
             "}" = "goto_next_paragraph";
             "{" = "goto_prev_paragraph";
-            "d" = "delete_selection_noyank";
-            "A-d" = "no_op"; # free to use;
-            "c" = "change_selection_noyank";
-            "A-c" = "no_op"; # free to use;
-            "y" = "delete_selection";
-            "p" = "paste_before";
-            "P" = "paste_after";
+            # "d" = "delete_selection_noyank";
+            # "A-d" = "no_op"; # free to use;
+            # "c" = "change_selection_noyank";
+            # "A-c" = "no_op"; # free to use;
+            # "y" = "delete_selection";
+            # "p" = "paste_before";
+            # "P" = "paste_after";
           };
         in
         {

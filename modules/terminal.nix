@@ -78,6 +78,7 @@ in
     kubectx
     kubelogin
     kubelogin-oidc
+    awscli2
   ];
 
   home.sessionVariables = envVars;

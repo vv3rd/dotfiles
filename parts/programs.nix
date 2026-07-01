@@ -9,6 +9,7 @@
         wget
         zip
         unzip
+        mitmproxy
         transmission_4-gtk
       ];
 

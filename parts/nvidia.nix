@@ -1,8 +1,8 @@
+{ inputs, ... }:
 {
-  flake.nixosModules.nvidia =
+  include.nixos.${inputs.personal.host}.module =
     { config, ... }:
     {
-
       hardware.graphics = {
         enable = true;
       };
@@ -14,7 +14,8 @@
         open = false;
 
         prime = {
-          sync.enable = true;
+          offload.enable = true;
+          offload.enableOffloadCmd = true;
 
           intelBusId = "PCI:0@0:2:0";
           nvidiaBusId = "PCI:2@0:0:0";

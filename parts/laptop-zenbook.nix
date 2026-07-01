@@ -20,7 +20,7 @@
         inputs.home-manager.nixosModules.default
       ];
 
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      # boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # TODO: sort this somewhere, its not essential
       documentation.dev.enable = true;
@@ -34,6 +34,7 @@
       # e.g. nix run system\#<package>
       nix.registry = {
         system.flake = inputs.self;
+        pkgs.flake = inputs.nixpkgs;
       };
       # Creates read-only source of this repo that produced
       # the currently running system

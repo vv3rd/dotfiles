@@ -9,10 +9,12 @@
             system = pkgs.stdenv.hostPlatform.system;
           in
           [
+            pkgs.prettier
             pkgs.prettierd
             pkgs.kakoune
             pkgs.kakoune-lsp
             pkgs.kakoune-cr
+            pkgs.kak-tree-sitter
             pkgs.vscode-langservers-extracted
             pkgs.typescript-language-server
             pkgs.nil

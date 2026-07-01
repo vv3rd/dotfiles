@@ -23,10 +23,13 @@
     krita
     obs-studio
     thunderbird
+    jira-cli-go
 
     # required to create video screen capture
     ffmpeg_6-full
     slop
+
+    (prismlauncher.override { jdks = [jdk25]; })
   ];
 
   xdg = {

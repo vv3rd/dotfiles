@@ -321,6 +321,7 @@
         "noctalia": "noctalia",
         "personal": "personal",
         "ttywrap": "ttywrap",
+        "unstable": "unstable",
         "vicinae": "vicinae"
       }
     },
@@ -458,6 +459,22 @@
       "original": {
         "owner": "vv3rd",
         "repo": "ttywrap",
+        "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1779357205,
+        "narHash": "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "f83fc3c307e74bc5fd5adb7eb6b8b13ffd2a36e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
