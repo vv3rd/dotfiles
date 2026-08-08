@@ -31,12 +31,9 @@ let
     "gswl" = "git bl | fzf | xargs git switch";
     "gcb" = "git branch --show-current";
     "mv" = "mv -i";
-    "rm" = "rm -i";
-    "l" = "exa -a1 --group-directories-first --icons";
-    "lt2" = "l --git-ignore -T -L=2";
-    "lt3" = "l --git-ignore -T -L=3";
-    "lt4" = "l --git-ignore -T -L=4";
-    "o" = "bat --plain";
+    "rm" = "rip";
+    "l" = "exa -a -l -h -1 --group-directories-first --icons";
+    "p" = "bat --plain";
     "j" = "just";
   }
   // ({
@@ -65,6 +62,7 @@ in
 {
   home.packages = with pkgs; [
     ripgrep
+    rip2
     repgrep
     btop
     htop
@@ -73,6 +71,7 @@ in
     jq
     just
     fd
+    findup
 
     kubectl
     kubectx

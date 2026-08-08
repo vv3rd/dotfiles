@@ -18,6 +18,7 @@
             pkgs.vscode-langservers-extracted
             pkgs.typescript-language-server
             pkgs.nil
+            pkgs.typescript-go
             inputs.ttywrap.packages.${system}.default
             inputs.kakansi.packages.${system}.default
           ];

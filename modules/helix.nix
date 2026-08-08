@@ -56,6 +56,10 @@ in
           shared = {
             "}" = "goto_next_paragraph";
             "{" = "goto_prev_paragraph";
+            "q" = "move_prev_word_start";
+            "Q" = "move_prev_long_word_start";
+            "b" = "buffer_picker";
+            "B" = "last_picker";
             # "d" = "delete_selection_noyank";
             # "A-d" = "no_op"; # free to use;
             # "c" = "change_selection_noyank";

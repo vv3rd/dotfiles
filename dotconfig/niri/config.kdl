@@ -49,24 +49,19 @@ layer-rule {
 }
 
 window-rule {
-    geometry-corner-radius 4
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 12
+    gaps 8
     // gaps 0
 
-    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
-    // You can think of them as a kind of outer gaps. They are set in logical pixels.
-    // Left and right struts will cause the next window to the side to always be visible.
-    // Top and bottom struts will simply add outer gaps in addition to the area occupied by
-    // layer-shell panels and regular gaps.
     struts {
-        left 24 // i could leave small portion of a window peeking out
-        right 24 // to be able to click it to focus
+        // left 16 // i could leave small portion of a window peeking out
+        // right 16 // to be able to click it to focus
     }
 
     // background-color "transparent"
@@ -77,19 +72,12 @@ layout {
     // - "always", the focused column will always be centered.
     // - "on-overflow", focusing a column will center it if it doesn't fit
     //   together with the previously focused column.
-    center-focused-column "never"
+    center-focused-column "on-overflow"
 
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
-        // Proportion sets the width as a fraction of the output width, taking gaps into account.
-        // For example, you can perfectly fit four windows sized "proportion 0.25" on an output.
-        // The default preset widths are 1/3, 1/2 and 2/3 of the output.
-        proportion 0.65
+        proportion 0.78
         proportion 0.5
-        proportion 0.35
-
-        // Fixed sets the width in logical pixels exactly.
-        // fixed 1920
+        proportion 0.22
     }
 
     // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
@@ -99,20 +87,9 @@ layout {
     }
 
     // You can change the default width of the new windows.
-    default-column-width { proportion 0.5; }
+    // default-column-width { proportion 0.5; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
-
-    // By default focus ring and border are rendered as a solid background rectangle
-    // behind windows. That is, they will show up through semitransparent windows.
-    // This is because windows using client-side decorations can have an arbitrary shape.
-    //
-    // If you don't like that, you should uncomment `prefer-no-csd` below.
-    // Niri will draw focus ring and border *around* windows that agree to omit their
-    // client-side decorations.
-    //
-    // Alternatively, you can override it with a window rule called
-    // `draw-border-with-background`.
 
     tab-indicator {
         active-color "#7fbbb3"
@@ -124,7 +101,12 @@ layout {
     }
 
     focus-ring {
-        off
+        // off
+        width 3
+        active-gradient from="#1f1f28" to="#6a9589" angle=180 // kanagawa
+        urgent-color "#D699B6"
+        urgent-gradient from="#2d353b" to="#D699B6" angle=180
+        // inactive-color "transparent" // for border only
     }
     
     shadow {
@@ -140,13 +122,7 @@ layout {
 
     // You can also add a border. It's similar to the focus ring, but always visible.
     border {
-        // off
-        width 3
-        active-gradient from="#1f1f28" to="#6a9589" angle=180 // kanagawa
-        // active-gradient from="#2d353b" to="#a7c080" angle=180 // everforest
-        urgent-color "#D699B6"
-        urgent-gradient from="#2d353b" to="#D699B6" angle=180
-        inactive-color "transparent"
+        off
     }
 
 }
@@ -190,10 +166,11 @@ animations {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
 
 
-spawn-at-startup "qutebrowser"
-spawn-at-startup "thunderbird"
+spawn-at-startup "firefox"
+// spawn-at-startup "thunderbird" // don't need it with vivaldi
 spawn-at-startup "Telegram"
-spawn-at-startup "alacritty" "--title" "btop" "-e" "btop"
+spawn-at-startup "foot" "--title" "btop" "-e" "btop"
+// spawn-at-startup "foot" "--title" "htop" "-e" "htop"
 
 workspace "scratch"
 workspace "dashboard"
@@ -201,28 +178,41 @@ workspace "primary"
 workspace "social"
 
 window-rule {
-    match at-startup=true app-id="firefox|qutebrowser"
+    match at-startup=true app-id="firefox|vivaldi|qutebrowser"
     open-on-workspace "primary"
+    open-focused false
+    default-column-width { proportion 0.78; }
+}
+window-rule {
+    match app-id="firefox|vivaldi|qutebrowser"
+    default-column-width { proportion 0.78; }
 }
 window-rule {
     match at-startup=true app-id="thunderbird|org.telegram.desktop"
     open-on-workspace "social"
+    open-focused false
 }
 window-rule {
     match app-id="thunderbird|org.telegram.desktop"
-    default-column-width { proportion 0.65; }
+    default-column-width { proportion 0.78; }
 }
 window-rule {
-    match at-startup=true title="btop"
+    match at-startup=true title="btop|htop|nvtop"
     open-on-workspace "dashboard"
-    open-fullscreen true
+    open-maximized-to-edges true
+    open-focused false
 }
 
 window-rule {
     match app-id="qutebrowser"
     open-focused false
     default-column-display "tabbed"
-    default-column-width { proportion 0.75; }
+    default-column-width { proportion 0.78; }
+}
+
+window-rule {
+    match title="^idetree"
+    default-column-width { proportion 0.22; }
 }
 
 window-rule {
@@ -232,6 +222,7 @@ window-rule {
     opacity 0.85
     open-floating true
 }
+
 
 window-rule {
     match app-id="thunar" title="^Rename"

@@ -6,6 +6,7 @@
     {
       virtualisation.docker = {
         enable = true;
+        enableOnBoot = false;
 
         daemon.settings = {
           bip = "10.221.0.1/24";

@@ -3,6 +3,7 @@ input {
     keyboard {
         repeat-delay 600
         repeat-rate 25
+        track-layout "window"
         xkb {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
@@ -29,7 +30,7 @@ binds {
 
     Mod+W repeat=false { toggle-column-tabbed-display; }
 
-    Mod+Q repeat=false { close-window; }
+    Mod+Alt+Q repeat=false { close-window; }
 
     Mod+Alt+O { toggle-window-rule-opacity; }
 
@@ -62,7 +63,7 @@ binds {
          spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history";
     }
 
-    Mod+Ctrl+W hotkey-overlay-title="Switch windows" {
+    Mod+M hotkey-overlay-title="Switch windows" {
          spawn "vicinae" "vicinae://launch/wm/switch-windows";
     }
 
@@ -129,7 +130,7 @@ binds {
     Mod+Shift+R      { switch-preset-window-height; }
     Mod+Ctrl+R       { reset-window-height; }
     Mod+F            { maximize-column; }
-    Mod+Shift+F      { maximize-window-to-edges; }
+    Mod+Ctrl+F       { maximize-window-to-edges; }
     Mod+Ctrl+Shift+F { fullscreen-window; }
 
     // Finer width adjustments.
@@ -254,8 +255,8 @@ binds {
     // ================================================================================
 
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "0.99" "@DEFAULT_AUDIO_SINK@" "0.06+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.04-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "-l" "0.99" "@DEFAULT_AUDIO_SINK@" "0.04+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.06-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 

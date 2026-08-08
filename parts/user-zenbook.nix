@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   include.nixos.${inputs.personal.host}.module =
-    { pkgs, user, ... }:
+    { pkgs, lib, user, ... }:
     {
       environment.sessionVariables = {
         # home dir cleanup

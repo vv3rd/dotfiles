@@ -7,7 +7,7 @@
     in
     {
       services.ollama = {
-        enable = true;
+        enable = false;
         package = inputs.unstable.legacyPackages.${system}.ollama;
       };
     };
