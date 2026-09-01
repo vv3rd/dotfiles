@@ -7,21 +7,30 @@
         home.packages =
           let
             system = pkgs.stdenv.hostPlatform.system;
+
+            tools = mkTools pkgs;
+            mkTools =
+              pkgs: with pkgs; [
+                vscode-langservers-extracted
+                typescript-language-server
+                nil
+                typescript-go
+                prettier
+                prettierd
+              ];
+
+            zed = pkgs.zed-editor.fhsWithPackages mkTools;
           in
           [
-            pkgs.prettier
-            pkgs.prettierd
+            zed
             pkgs.kakoune
             pkgs.kakoune-lsp
             pkgs.kakoune-cr
             pkgs.kak-tree-sitter
-            pkgs.vscode-langservers-extracted
-            pkgs.typescript-language-server
-            pkgs.nil
-            pkgs.typescript-go
             inputs.ttywrap.packages.${system}.default
             inputs.kakansi.packages.${system}.default
-          ];
+          ]
+          ++ tools;
       };
   };
 }

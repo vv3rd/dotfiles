@@ -14,12 +14,12 @@ let
   };
   shellAliases = {
     "ghi" = "git -c diff.external=difft log -p --ext-diff";
-    "gd" = "git diff";
+    "gd" = "git -c diff.external=difft diff";
     "gsw" = "git switch";
     "gsl" = "git stash list";
     "gsp" = "git stash pop";
     "gsa" = "git stash --include-untracked";
-    "glgb" = "git graph";
+    "glgb" = "git -c diff.external=difft graph";
     "glg" = "git graph --all";
     "gin" = "git status";
     "gdi" = "git diff";
@@ -194,7 +194,6 @@ in
 
   programs.difftastic = {
     enable = true;
-    git.enable = true;
   };
 
   programs.zoxide = {

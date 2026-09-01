@@ -29,11 +29,11 @@
         in
         [
           inputs.noctalia.packages.${system}.default
+          inputs.noctalia-shell.packages.${system}.default
           inputs.niri-scratchpad.packages.${system}.niri-scratchpad
           scratchterm
           pkgs.xwayland-satellite
           pkgs.brightnessctl
-          pkgs.networkmanagerapplet
           pkgs.clipse
           pkgs.wl-clipboard
           pkgs.keyd

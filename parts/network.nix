@@ -16,6 +16,5 @@
 
       # for development purposes
       networking.firewall.allowedTCPPorts = [ 8080 ];
-
     };
 }
