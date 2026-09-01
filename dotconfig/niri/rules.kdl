@@ -1,0 +1,73 @@
+layer-rule {
+  match namespace="^noctalia-backdrop"
+  place-within-backdrop true
+}
+
+window-rule {
+    geometry-corner-radius 4
+    clip-to-geometry true
+}
+
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+
+window-rule {
+    match at-startup=true app-id="firefox|vivaldi|qutebrowser"
+    open-on-workspace "primary"
+    open-focused false
+    default-column-width { proportion 0.78; }
+}
+
+window-rule {
+    match app-id="firefox|vivaldi|qutebrowser"
+    default-column-width { proportion 0.78; }
+}
+
+window-rule {
+    match at-startup=true app-id="thunderbird|org.telegram.desktop"
+    open-on-workspace "social"
+    open-focused false
+}
+
+window-rule {
+    match app-id="thunderbird|org.telegram.desktop"
+    default-column-width { proportion 0.78; }
+}
+
+window-rule {
+    match at-startup=true title="btop|htop|nvtop"
+    open-on-workspace "dashboard"
+    open-maximized-to-edges true
+    open-focused false
+}
+
+window-rule {
+    match app-id="qutebrowser"
+    open-focused false
+    default-column-display "tabbed"
+    default-column-width { proportion 0.78; }
+}
+
+window-rule {
+    match title="^idetree"
+    default-column-width { proportion 0.22; }
+}
+
+window-rule {
+    match title="^scratchterm$"
+    match app-id="scratchterm"
+    match title="Reminder$" app-id="thunderbird"
+    opacity 0.85
+    open-floating true
+}
+
+window-rule {
+    match app-id="thunar" title="^Rename"
+    open-floating true
+    open-focused true
+}
+

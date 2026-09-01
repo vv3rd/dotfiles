@@ -1,16 +1,38 @@
-// This config is in the KDL format: https://kdl.dev
-// "/-" comments out the following node. Check the wiki for a full description of the configuration: https://github.com/YaLTeR/niri/wiki/Configuration:-Overview
-// Input device configuration.
-// Find the full list of options on the wiki:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 
 include "keys.kdl"
+include "rules.kdl"
 
 environment {
     DISPLAY ":0"
 }
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "noctalia"
+
+spawn-at-startup "firefox"
+spawn-at-startup "Telegram"
+spawn-at-startup "foot" "--title" "btop" "-e" "btop"
+
+workspace "scratch"
+workspace "dashboard"
+workspace "primary"
+workspace "social"
+
+gestures { hot-corners { bottom-right; }; }
+
+switch-events { lid-close { spawn "noctalia" "msg" "session" "lock"; }; }
+
+clipboard { disable-primary; }
+
+hotkey-overlay { skip-at-startup; }
+
+prefer-no-csd
+
+screenshot-path "~/Pictures/Screenshots/%b_%Y/Screenshot-%a_%d-%H:%M.png"
+
+cursor {
+    xcursor-theme "Bibata-Original-Classic"
+    xcursor-size 32
+}
 
 input {
     // Next sections include libinput settings.
@@ -29,49 +51,12 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    // focus-follows-mouse max-scroll-amount="50%"
 }
 
-cursor {
-    xcursor-theme "Bibata-Original-Classic"
-    xcursor-size 32
-}
-
-gestures {
-    hot-corners {
-        bottom-right
-    }
-}
-
-layer-rule {
-  match namespace="^noctalia-overview*"
-  place-within-backdrop true
-}
-
-window-rule {
-    geometry-corner-radius 0
-    clip-to-geometry true
-}
-
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
-    // Set gaps around windows in logical pixels.
     gaps 8
-    // gaps 0
 
-    struts {
-        // left 16 // i could leave small portion of a window peeking out
-        // right 16 // to be able to click it to focus
-    }
-
-    // background-color "transparent"
-
-    // When to center a column when changing focus, options are:
-    // - "never", default behavior, focusing an off-screen column will keep at the left
-    //   or right edge of the screen.
-    // - "always", the focused column will always be centered.
-    // - "on-overflow", focusing a column will center it if it doesn't fit
-    //   together with the previously focused column.
     center-focused-column "on-overflow"
 
     preset-column-widths {
@@ -106,7 +91,7 @@ layout {
         active-gradient from="#1f1f28" to="#6a9589" angle=180 // kanagawa
         urgent-color "#D699B6"
         urgent-gradient from="#2d353b" to="#D699B6" angle=180
-        // inactive-color "transparent" // for border only
+        inactive-color "transparent"
     }
     
     shadow {
@@ -127,106 +112,11 @@ layout {
 
 }
 
-clipboard {
-    disable-primary
-}
-
-hotkey-overlay {
-    skip-at-startup
-}
-
-// Uncomment this line to ask the clients to omit their client-side decorations if possible.
-// If the client will specifically ask for CSD, the request will be honored.
-// Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
-// This option will also fix border/focus ring drawing behind some semitransparent windows.
-// After enabling or disabling this, you need to restart the apps for this to take effect.
-prefer-no-csd
-
-// You can change the path where screenshots are saved.
-// A ~ at the front will be expanded to the home directory.
-// The path is formatted with strftime(3) to give you the screenshot date and time.
-screenshot-path "~/Pictures/Screenshots/%b_%Y/Screenshot-%a_%d-%H:%M.png"
-
-// You can also set this to null to disable saving screenshots to disk.
-// screenshot-path null
-
-// Animation settings.
-// The wiki explains how to configure individual animations:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
     // off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
-}
-
-// Window rules let you adjust behavior for individual windows.
-// Find more information on the wiki:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-
-
-spawn-at-startup "firefox"
-// spawn-at-startup "thunderbird" // don't need it with vivaldi
-spawn-at-startup "Telegram"
-spawn-at-startup "foot" "--title" "btop" "-e" "btop"
-// spawn-at-startup "foot" "--title" "htop" "-e" "htop"
-
-workspace "scratch"
-workspace "dashboard"
-workspace "primary"
-workspace "social"
-
-window-rule {
-    match at-startup=true app-id="firefox|vivaldi|qutebrowser"
-    open-on-workspace "primary"
-    open-focused false
-    default-column-width { proportion 0.78; }
-}
-window-rule {
-    match app-id="firefox|vivaldi|qutebrowser"
-    default-column-width { proportion 0.78; }
-}
-window-rule {
-    match at-startup=true app-id="thunderbird|org.telegram.desktop"
-    open-on-workspace "social"
-    open-focused false
-}
-window-rule {
-    match app-id="thunderbird|org.telegram.desktop"
-    default-column-width { proportion 0.78; }
-}
-window-rule {
-    match at-startup=true title="btop|htop|nvtop"
-    open-on-workspace "dashboard"
-    open-maximized-to-edges true
-    open-focused false
-}
-
-window-rule {
-    match app-id="qutebrowser"
-    open-focused false
-    default-column-display "tabbed"
-    default-column-width { proportion 0.78; }
-}
-
-window-rule {
-    match title="^idetree"
-    default-column-width { proportion 0.22; }
-}
-
-window-rule {
-    match title="^scratchterm$"
-    match app-id="scratchterm"
-    match title="Reminder$" app-id="thunderbird"
-    opacity 0.85
-    open-floating true
-}
-
-
-window-rule {
-    match app-id="thunar" title="^Rename"
-    open-floating true
-    open-focused true
+    // slowdown 0.3
 }
 

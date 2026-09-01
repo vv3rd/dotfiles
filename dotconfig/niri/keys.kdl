@@ -52,7 +52,7 @@ binds {
     // ================================================================================
 
     Mod+Space hotkey-overlay-title="Open launcher" repeat=false {
-         spawn "vicinae" "toggle";
+         spawn "noctalia" "msg" "panel-toggle" "launcher";
     }
 
     Mod+B hotkey-overlay-title="Bluetooth menu" {
