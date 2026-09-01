@@ -64,28 +64,18 @@ binds {
     }
 
     Mod+M hotkey-overlay-title="Switch windows" {
-         spawn "vicinae" "vicinae://launch/wm/switch-windows";
+         spawn "noctalia" "msg" "panel-toggle" "launcher" "/win ";
     }
 
     // ================================================================================
     // Noctalia
     // ================================================================================
-
-    Ctrl+Mod+1 hotkey-overlay-title="Show/hide control center" {
-        spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
-    }
-    Ctrl+Mod+2 hotkey-overlay-title="Show/hide calendar" {
-        spawn "noctalia-shell" "ipc" "call" "calendar" "toggle";
-    }
-    Ctrl+Mod+3 hotkey-overlay-title="Show/hide notifications history" {
-        spawn "noctalia-shell" "ipc" "call" "notifications" "toggleHistory";
-    }
-    
+ 
     Ctrl+Mod+B hotkey-overlay-title="Show/hide topbar" {
-        spawn "noctalia-shell" "ipc" "call" "bar" "toggle";
+        spawn "noctalia" "msg" "bar-toggle";
     }
     Ctrl+Mod+Q hotkey-overlay-title="Lock screen" {
-        spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock";
+        spawn "noctalia" "msg" "session" "lock";
     }
 
     // ================================================================================
