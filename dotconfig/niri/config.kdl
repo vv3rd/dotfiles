@@ -10,7 +10,7 @@ spawn-at-startup "noctalia"
 
 spawn-at-startup "firefox"
 spawn-at-startup "Telegram"
-spawn-at-startup "foot" "--title" "btop" "-e" "btop"
+spawn-at-startup "htop"
 
 workspace "scratch"
 workspace "dashboard"
@@ -86,12 +86,14 @@ layout {
     }
 
     focus-ring {
-        // off
-        width 3
-        active-gradient from="#1f1f28" to="#6a9589" angle=180 // kanagawa
+		off
+    }
+    border {
+        width 1
+        active-gradient from="#1f1f28" to="#6a9589" angle=180
         urgent-color "#D699B6"
         urgent-gradient from="#2d353b" to="#D699B6" angle=180
-        inactive-color "transparent"
+        inactive-color "#1f1f28"
     }
     
     shadow {
@@ -102,14 +104,8 @@ layout {
         offset x=0 y=5
         draw-behind-window true
         color "#00000070"
-        // inactive-color "#00000054"
+        inactive-color "#00000070"
     }
-
-    // You can also add a border. It's similar to the focus ring, but always visible.
-    border {
-        off
-    }
-
 }
 
 animations {
