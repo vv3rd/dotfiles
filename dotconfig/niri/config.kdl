@@ -10,7 +10,7 @@ spawn-at-startup "noctalia"
 
 spawn-at-startup "firefox"
 spawn-at-startup "Telegram"
-spawn-at-startup "htop"
+spawn-at-startup "footclient --title 'htop' htop"
 
 workspace "scratch"
 workspace "dashboard"
@@ -54,8 +54,15 @@ input {
     // focus-follows-mouse max-scroll-amount="50%"
 }
 
+window-rule {
+    geometry-corner-radius 4
+    // geometry-corner-radius 0
+    clip-to-geometry true
+}
+
 layout {
     gaps 8
+    // gaps 0
 
     center-focused-column "on-overflow"
 
@@ -99,8 +106,8 @@ layout {
     shadow {
         on
         // off
-        softness 30
-        spread 5
+        softness 15
+        spread 2.5
         offset x=0 y=5
         draw-behind-window true
         color "#00000070"

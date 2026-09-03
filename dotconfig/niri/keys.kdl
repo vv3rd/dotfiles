@@ -250,8 +250,8 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "-d" "intel_backlight" "s" "+1000"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-d" "intel_backlight" "s" "1000-"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "noctalia" "msg" "brightness-up" "eDP-1" "0.09"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down" "eDP-1" "0.07"; }
 
     // Actions to switch layouts.
     // Note: if you uncomment these, make sure you do NOT have

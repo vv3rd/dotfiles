@@ -10,10 +10,10 @@
     inputs.vicinae.homeManagerModules.default
   ];
 
-  services.vicinae = {
-    enable = true;
-    systemd.enable = true;
-  };
+  # services.vicinae = {
+  #   enable = true;
+  #   systemd.enable = true;
+  # };
 
   home.packages = with pkgs; [
     telegram-desktop

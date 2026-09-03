@@ -4,11 +4,6 @@ layer-rule {
 }
 
 window-rule {
-    geometry-corner-radius 4
-    clip-to-geometry true
-}
-
-window-rule {
   match app-id="dev.noctalia.Noctalia"
   open-floating true
   default-column-width { fixed 1080; }
@@ -63,6 +58,14 @@ window-rule {
     match title="Reminder$" app-id="thunderbird"
     opacity 0.85
     open-floating true
+}
+
+window-rule {
+    // google chrome open this anoying popup when sharing screen
+    match title="is sharing your screen."
+	open-focused false
+	open-floating false
+	open-on-workspace "scratch"
 }
 
 window-rule {

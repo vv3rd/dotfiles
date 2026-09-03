@@ -3,6 +3,13 @@
   include.nixos.${inputs.personal.host}.module =
     { lib, pkgs, ... }:
     let
+      system = pkgs.stdenv.hostPlatform.system;
+      unstable = import inputs.unstable {
+         inherit system;
+         config.android_sdk.accept_license = true;
+         config.allowUnfree = true;
+      };
+
       freePackages = with pkgs; [
         dig.dnsutils
         inetutils
@@ -15,8 +22,8 @@
 
       unfreePackages = with pkgs; [
         google-chrome
-        android-studio
-        android-tools
+        unstable.android-studio
+        unstable.android-tools
         slack
       ];
 
