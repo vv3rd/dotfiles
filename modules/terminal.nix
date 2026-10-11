@@ -10,7 +10,7 @@ let
   zshShellAliases = {
     "gac" = "git add . && git commit";
     "fj" = "$EDITOR";
-    "fji" = "$EDITOR $(git diff --staged --diff-filter=MR --name-only --relative)";
+    "fji" = "$EDITOR $(git diff HEAD --diff-filter=MR --name-only --relative)";
   };
   shellAliases = {
     "ghi" = "git -c diff.external=difft log -p --ext-diff";
@@ -32,9 +32,9 @@ let
     "gcb" = "git branch --show-current";
     "mv" = "mv -i";
     "rm" = "rip";
-    "l" = "exa -a -l -h -1 --group-directories-first --icons";
-    "p" = "bat --plain";
+    "l" = "eza -a -l -h -1 --group-directories-first --icons";
     "j" = "just";
+    "more" = "bat --plain -l help";
   }
   // ({
     mac = {
@@ -57,6 +57,9 @@ let
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     WORDCHARS = "*?[]~=&;!#$%^(){}<>";
     DIRENV_LOG_FORMAT = ""; # silences direnv logs
+
+    # configure zoxide zi/cdi fzf
+    _ZO_FZF_OPTS="--exact --no-sort --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --height=45% --info=inline --layout=reverse --tabstop=1 --exit-0 --preview='eza --group-directories-first {2..} --color=always' --preview-window=down,30%,sharp";
   };
 in
 {
@@ -106,7 +109,7 @@ in
   };
 
   programs.carapace = {
-    enable = true;
+    enable = false;
     enableZshIntegration = true;
   };
 

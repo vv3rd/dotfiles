@@ -39,6 +39,7 @@
           inputs.noctalia.packages.${system}.default
           inputs.niri-scratchpad.packages.${system}.niri-scratchpad
           scratchterm
+          pkgs.satty
           pkgs.xwayland-satellite
           pkgs.wl-clipboard
           pkgs.keyd
@@ -64,26 +65,5 @@
           xdg-desktop-portal-wlr
         ];
       };
-
-      home-manager.users.${inputs.personal.name} = {pkgs, lib, ...}: {
-        home.packages = let
-        	niri-screenshot-tools = (pkgs.callPackage ../apps/niri-screenshot-tools {});
-        in [
-            niri-screenshot-tools
-        ];
-
-        home.file.".config/niri-screenshot-tools.toml".text = #toml
-          ''
-          [annotator]
-          command = '${lib.getExe pkgs.satty} --filename "%path%"'
-          enabled = true
-          auto = true
-          [uploader]
-          url = ""
-          enabled = false
-          auto = false
-          copy = false
-          '';
-        };
     };
 }
