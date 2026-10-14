@@ -13,6 +13,7 @@
               pkgs: with pkgs; [
                 vscode-langservers-extracted
                 typescript-language-server
+                vtsls
                 nil
                 typescript-go
                 prettier
@@ -27,6 +28,7 @@
             pkgs.kakoune-lsp
             pkgs.kakoune-cr
             pkgs.kak-tree-sitter
+            pkgs.vtsls
             inputs.ttywrap.packages.${system}.default
             inputs.kakansi.packages.${system}.default
           ]

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+pushd ~/Machine
+$EDITOR
+git diff -U1 '*.nix'
+git add .
+sudo nixos-rebuild switch --flake ~/Machine/#zenbook --accept-flake-config
+GEN=$(nixos-rebuild list-generations --json | \
+    jq -r '.[] | select(.current) | ["Generation #", .generation, "; Built ", .date] | join("")')
+git commit -am "$GEN"
+popd
