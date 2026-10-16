@@ -6,7 +6,7 @@
       programs.openvpn3 = {
         enable = true;
       };
-      services.tailscale.enable = false;
+      services.tailscale.enable = true;
 
       environment.systemPackages = [
         pkgs.wireguard-tools
