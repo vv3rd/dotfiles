@@ -10,6 +10,7 @@
 
       environment.systemPackages = [
         pkgs.wireguard-tools
+        pkgs.tailscale-systray
       ];
     };
 }
