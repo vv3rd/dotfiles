@@ -33,6 +33,7 @@ let
     "mv" = "mv -i";
     "rm" = "rip";
     "l" = "eza -l1 --group-directories-first --icons";
+    "la" = "eza -l1 --group-directories-first --icons -a";
 	"ll" = "eza -lh --group-directories-first --icons";
     "js" = "eza --color=auto";
     "more" = "bat --plain -l help";
