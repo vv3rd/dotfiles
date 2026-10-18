@@ -32,8 +32,9 @@ let
     "gcb" = "git branch --show-current";
     "mv" = "mv -i";
     "rm" = "rip";
-    "l" = "eza -a -l -h -1 --group-directories-first --icons";
-    "j" = "just";
+    "l" = "eza -l1 --group-directories-first --icons";
+	"ll" = "eza -lh --group-directories-first --icons";
+    "js" = "eza --color=auto";
     "more" = "bat --plain -l help";
   }
   // ({
