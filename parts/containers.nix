@@ -8,6 +8,8 @@
         enable = true;
         enableOnBoot = false;
 
+        package = pkgs.docker_29;
+
         daemon.settings = {
           bip = "10.221.0.1/24";
           default-address-pools = [
