@@ -2,7 +2,7 @@
 
 set -e
 pushd ~/Machine
-$EDITOR
+$EDITOR || true
 git diff -U1 '*.nix'
 git add .
 sudo nixos-rebuild switch --flake ~/Machine/#zenbook --accept-flake-config
