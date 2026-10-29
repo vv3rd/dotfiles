@@ -80,7 +80,7 @@
       scrollback = {
         lines = 20000;
       };
-      colors = {
+      colors-dark = {
         background = "2d353b";
         foreground = "d3c6aa";
         regular0 = "475258"; # black
