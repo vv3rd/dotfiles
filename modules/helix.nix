@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  inputs,
+  # inputs,
   ...
 }:
 let
@@ -15,7 +15,7 @@ in
 
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     settings = {
       theme = "everforest_dark";
@@ -105,7 +105,7 @@ in
       in
       {
         language-server = {
-          ts = with pkgs.nodePackages; {
+          ts = with pkgs; {
             command = "${typescript-language-server}/bin/typescript-language-server";
             args = [ "--stdio" ];
           };

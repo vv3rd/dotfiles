@@ -11,7 +11,7 @@
         unzip
         mitmproxy
         transmission_4-gtk
-        copyparty
+        # copyparty
       ];
 
       unfreePackages = with pkgs; [
