@@ -102,7 +102,7 @@ in
       update_check = false;
       style = "compact";
     };
-    flags = [ "--disable-up-arrow" ];
+    flags = [ "--disable-up-arrow" "--disable-ai" ];
   };
 
   programs.direnv = {
