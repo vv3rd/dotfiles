@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 {
@@ -33,6 +34,7 @@
     enable = true;
     theme.package = pkgs.everforest-gtk-theme;
     theme.name = "Everforest-Dark-BL-LB";
+    gtk4.theme = config.gtk.theme;
     iconTheme.name = "Everforest-Dark";
     cursorTheme.package = pkgs.bibata-cursors;
     cursorTheme.name = "Bibata-Original-Classic";

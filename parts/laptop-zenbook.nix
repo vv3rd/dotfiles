@@ -49,6 +49,7 @@
         "nix-command"
         "flakes"
       ];
+      nix.settings.trusted-users = [user];
 
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.useGlobalPkgs = true;
