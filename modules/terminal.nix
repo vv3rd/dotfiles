@@ -2,11 +2,13 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 
 let
-  session = if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" then "mac" else "wayland";
+  system = pkgs.stdenv.hostPlatform.system;
+  session = if system == "aarch64-darwin" then "mac" else "wayland";
   zshShellAliases = {
     "gac" = "git add . && git commit";
     "fj" = "$EDITOR";
@@ -94,6 +96,7 @@ in
 
   programs.atuin = {
     enable = true;
+    package = inputs.unstable.legacyPackages.${system}.atuin;
     enableZshIntegration = true;
     settings = {
       update_check = false;
