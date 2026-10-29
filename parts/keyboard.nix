@@ -22,8 +22,8 @@
         };
         keyboards.lofree = {
           ids = [
-            "k:388d:0001"
-            "k:0000:0000:6b654b54"
+            "k:388d:0001" # FIXME: the id might be wrong
+            "k:0000:0000:db7f7cbc"
           ];
           settings.main = main // {
             "esc" = "grave";
