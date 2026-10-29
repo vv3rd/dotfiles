@@ -93,8 +93,8 @@ in
   };
 
   programs.atuin = {
-    enable = false;
-    enableZshIntegration = false;
+    enable = true;
+    enableZshIntegration = true;
     settings = {
       update_check = false;
       style = "compact";
