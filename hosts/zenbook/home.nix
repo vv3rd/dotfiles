@@ -32,13 +32,20 @@
 
   gtk = {
     enable = true;
-    theme.package = pkgs.everforest-gtk-theme;
-    theme.name = "Everforest-Dark-BL-LB";
+    theme = {
+      package = pkgs.everforest-gtk-theme;
+      name = "Everforest-Dark-BL-LB";
+    };
+    gtk2.theme = config.gtk.theme;
+    gtk3.theme = config.gtk.theme;
     gtk4.theme = config.gtk.theme;
     iconTheme.name = "Everforest-Dark";
-    cursorTheme.package = pkgs.bibata-cursors;
-    cursorTheme.name = "Bibata-Original-Classic";
-    cursorTheme.size = 32;
+    colorScheme = "dark";
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Original-Classic";
+      size = 32;
+    };
   };
 
   programs.imv = {
