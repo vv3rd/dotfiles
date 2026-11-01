@@ -1,11 +1,15 @@
 { inputs, ... }:
 {
   include.nixos.${inputs.personal.host}.module =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
       hardware.graphics = {
         enable = true;
       };
+
+	  environment.systemPackages = [
+    	  pkgs.nvtopPackages.intel
+	  ];
 
       services.xserver.videoDrivers = [ "nvidia" ];
 
