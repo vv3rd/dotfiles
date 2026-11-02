@@ -34,7 +34,7 @@
     enable = true;
     theme = {
       package = pkgs.everforest-gtk-theme;
-      name = "Everforest-Dark-BL-LB";
+      name = "Everforest-Dark";
     };
     gtk2.theme = config.gtk.theme;
     gtk3.theme = config.gtk.theme;
